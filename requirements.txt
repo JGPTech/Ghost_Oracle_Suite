@@ -1,0 +1,24 @@
+# =============================================================================
+# Ghost Oracle Suite — Python dependencies
+# =============================================================================
+# Required for everything: probe analysis, classical kernels, base loading.
+numpy>=1.24,<3.0
+
+# Required for GPU paths: projection_benchmark.py, gpu.py, every probe that
+# uses the CUDA kernels, both example scripts. Skip if you only need to run
+# the analytical probes (Probe 9.1 stages 2-5, the half-angle math in
+# docs/math.md). CuPy version must match your CUDA Toolkit:
+#   CUDA 11.x : cupy-cuda11x
+#   CUDA 12.x : cupy-cuda12x
+# Pick one; do not install both. See https://docs.cupy.dev/en/stable/install.html
+cupy-cuda12x>=12.0; platform_system != "Darwin"
+
+# Required only for qpu.py (job submission) and dump.py (result extraction).
+# Not needed to run any probe or benchmark against the sample bases in data/.
+# If you don't have IBM Quantum access, comment these out.
+qiskit>=1.0,<3.0
+qiskit-ibm-runtime>=0.20
+
+# Optional. Used by Probe 9 stage 4 Demo 1 for Spearman rank correlation;
+# the probe has a numpy-only fallback if scipy is absent.
+scipy>=1.10
