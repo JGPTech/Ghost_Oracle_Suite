@@ -87,35 +87,43 @@ Probe 10.1 has the architectural justification. The projection benchmark is the 
 
 ---
 
-## Repository structure
+## Repository Structure
 
-​```
+```text
 ghost-oracle-suite/
-├── ghost_oracle/              # the library
+├── ghost_oracle/               # the library
 │   ├── projection_benchmark.py # headline benchmark
-│   ├── qpu.py                 # QPU job submission
-│   ├── gpu.py                 # noiseless GPU sampler
-│   ├── dump.py                # QPU result -> npz
+│   ├── qpu.py                  # QPU job submission
+│   ├── gpu.py                  # noiseless GPU sampler
+│   ├── dump.py                 # QPU result -> npz
 │   └── kernels/
-│       └── ghost_kernel.cu    # consolidated CUDA: projection + geometry + tied streaming
-├── probes/                    # forensic trajectory (1 through 10.1)
-│   ├── README.md              # narrative arc — start here for the story
-│   └── benchmark_evolution/   # benchmark iterations before the headline
-├── data/                      # sample QPU and GPU base npz files
-│   └── README.md              # file schema, generation, reproducibility
+│       └── ghost_kernel.cu     # consolidated CUDA: projection + geometry + tied streaming
+│
+├── probes/                     # forensic trajectory (1 through 10.1)
+│   ├── README.md               # narrative arc — start here for the story
+│   └── benchmark_evolution/    # benchmark iterations before the headline
+│
+├── data/                       # sample bases (everything below ships with the repo)
+│   ├── README.md               # file schema, generation, reproducibility
+│   ├── job_d83q0ivoha1c73bn15d0.npz
+│   └── ghost_oracle_gpu_4096shots_seed1340774840227267714.npz
+│
 ├── docs/
-│   ├── math.md                # T1, T2, T3, G_M derivations
-│   ├── architecture.md        # tied-channel design and data flow
-│   └── known_issues.md        # running list of bugs and open work
+│   ├── math.md                 # T1, T2, T3, G_M derivations
+│   ├── architecture.md         # tied-channel design and data flow
+│   └── known_issues.md         # running list of bugs and open work
+│
 ├── examples/
-│   ├── README.md              # results and design notes for the two scripts below
-│   ├── parameter_ablation.py  # 1D sensitivity sweeps (d, jitter, magnitude, fraction)
+│   ├── README.md               # results and design notes for the two scripts below
+│   ├── parameter_ablation.py   # 1D sensitivity sweeps (d, jitter, magnitude, fraction)
 │   └── ghost_oracle_ai_retrieval_probe_v1.py  # semantic retrieval vs cosine, up to 1M keys
-├── PROCESS_RECORD.md          # the long-form trajectory log
-├── CONTRIBUTING.md            # break-it-fix-it rule, conventions, code norms
-├── LICENSE                    # CC0 dedication
+│
+├── PROCESS_RECORD.md           # the long-form trajectory log
+├── CONTRIBUTING.md             # break-it-fix-it rule, conventions, code norms
+├── LICENSE                     # CC0 dedication
 └── requirements.txt
-​```
+```
+
 ---
 
 ## The probes
