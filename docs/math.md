@@ -1,6 +1,6 @@
 # Math
 
-Derivations of the four operators the suite touches — $T_1$, $T_2$, $T_3$, and $G_M$ — plus the projection-channel identity that turns physical shot counts into operator estimates. The architecture document explains how this math gets compiled into a kernel; the probes record how it was discovered. This is the math standing alone.
+Derivations of the four operators the suite touches — $T_1$, $T_2$, $T_3$, and $G_M$ — plus the projection-channel identity that turns physical shot counts into operator estimates, and the substrate-comparison framing the final benchmark verifies. The architecture document explains how this math gets compiled into a kernel; the probes record how it was discovered. This is the math standing alone.
 
 GitHub renders LaTeX inside `$...$` and `$$...$$` delimiters. Everything here is checkable on paper.
 
@@ -9,6 +9,7 @@ Conventions used throughout:
 - $a, b \in [0, \pi]$ are rotation angles on single qubits, after the `data_to_angles` scaling (the suite-wide `ANGLE_SCALE = 1.05` keeps the half-angles $a/2, b/2$ inside $[0, \pi/2 \cdot 1.05]$ where the half-angle Hadamard form is smooth).
 - $\alpha = \mathtt{ALPHA\_NORM} = 0.9127$ is a suite-wide normalization so $G_M$ peaks at $1$ over the expected angle range.
 - A "tile" is one execution of the seven-qubit per-tile circuit at a fixed $(a, b)$. A base is a `.npz` of per-shot measurements for many tiles at fixed angles, sampled $N_{\text{shots}} = 4096$ times each by default.
+- A **substrate** is one of three faithful implementations of the projection circuit: mathematical (FP64 numpy reference), classical (noiseless GPU sampler in `gpu.py`), or quantum (real QPU shots from IBM Runtime).
 
 ---
 
@@ -30,7 +31,7 @@ The actual target the seven-qubit per-tile circuit implements in the noiseless l
 
 $$\boxed{\;G_M(a, b) = \frac{1}{\alpha}\sqrt{\frac{1 + \cos a \cos b}{2}}\;}$$
 
-The operator the rest of the suite is built on. It's the matrix-entry form of $T_3$ — i.e. $T_3$ is $G_M$ expressed in $P(\text{ctrl}{=}0)$-space, $G_M$ is $T_3$ expressed in the normalized matrix-entry space the projection benchmark uses. Derivation below.
+The operator the rest of the suite is built on. It's the matrix-entry form of $T_3$ — i.e. $T_3$ is $G_M$ expressed in $P(\text{ctrl}{=}0)$-space, $G_M$ is $T_3$ expressed in the normalized matrix-entry space the benchmark uses. Derivation below.
 
 Three structural properties of $G_M$ are worth pinning down up front, because they explain the design choices in the kernel.
 
@@ -93,7 +94,9 @@ The marginals on the ancillas are even simpler. Because the ghost CNOTs perfectl
 
 $$P(a = 1) = \sin^2(a/2), \qquad P(b = 1) = \sin^2(b/2)$$
 
-These are the marginals the noiseless GHZ sampler (`ghost_ghz_sample` in `ghost_kernel.cu` Section 5) draws from with three `curand_uniform` calls per shot. The full 32-bin joint distribution $P(\mathrm{ctrl}, a_1, a_2, b_1, b_2)$ collapses to 8 non-zero bins (one per choice of $\mathrm{ctrl}, a, b$ with $a_1 = a_2 = a$, $b_1 = b_2 = b$); the remaining 24 are exactly zero.
+The full 32-bin joint distribution $P(\mathrm{ctrl}, a_1, a_2, b_1, b_2)$ collapses to 8 non-zero bins (one per choice of $\mathrm{ctrl}, a, b$ with $a_1 = a_2 = a$, $b_1 = b_2 = b$); the remaining 24 are exactly zero.
+
+The classical noiseless sampler in `gpu.py` implements this distribution faithfully: $a_1 = a_2$ drawn from $\mathrm{Bernoulli}(\sin^2(a/2))$, $b_1 = b_2$ from $\mathrm{Bernoulli}(\sin^2(b/2))$, and the control bit constrained so that $a = b$ produces $\mathrm{ctrl} = 0$ deterministically and $a \neq b$ produces a fair coin flip. This is what "noiseless classical implementation of the projection circuit" means — same algorithm, no hardware noise layer.
 
 The Probe 7 parity test directly measures the GHZ correlation on physical hardware: if the ancillas were independent, $P(a_1 \neq a_2)$ would equal the independence null $2 P(a_1)(1 - P(a_2))$, around $0.30$ over the suite's angle range. Observed mean on a representative QPU job: $0.15$. Not zero (decoherence opens the GHZ block), but well below independence — direct hardware confirmation that the GHZ correlation is physically present.
 
@@ -143,7 +146,7 @@ The projection channel is how the production runtime estimates $G_M(a, b)$ at a 
 
 The shot-level random variables are the ancilla parities $f_a = (a_1 + a_2)/2 \in \{0, 0.5, 1\}$ and $f_b = (b_1 + b_2)/2 \in \{0, 0.5, 1\}$, plus the control bit $c \in \{0, 1\}$. Under noiseless GHZ correlation $a_1 = a_2$ and $b_1 = b_2$, so $f_a$ and $f_b$ are Bernoulli (in $\{0, 1\}$); the third bucket value $0.5$ appears only when decoherence opens the GHZ block, which is how the projection channel quietly accommodates the QPU residual without modeling it.
 
-Treating $f_a, f_b$ as approximately independent Bernoulli variables with success probabilities $p_a = \sin^2(a/2)$ and $p_b = \sin^2(b/2)$ (the marginal probabilities from the previous section, which factor cleanly from $\mathrm{ctrl}$ in this circuit), the log-likelihood of a single shot at angles $(\theta_a, \theta_b)$ given firing values $(f_a, f_b)$ is:
+Treating $f_a, f_b$ as approximately independent Bernoulli variables with success probabilities $p_a = \sin^2(a/2)$ and $p_b = \sin^2(b/2)$, the log-likelihood of a single shot at angles $(\theta_a, \theta_b)$ given firing values $(f_a, f_b)$ is:
 
 $$\log L(f_a, f_b \mid \theta_a, \theta_b) = f_a \log p_a + (1 - f_a) \log(1 - p_a) + f_b \log p_b + (1 - f_b) \log(1 - p_b)$$
 
@@ -161,6 +164,13 @@ $$\hat G_M(a, b) = \frac{1}{\alpha}\sqrt{\max\bigl(0,\ 2\,\hat P_0(a, b) - 1\big
 
 with the $\max(0, \cdot)$ guarding against shot-noise excursions where $\hat P_0$ briefly dips below $1/2$.
 
+This identity is substrate-agnostic. It applies equally to:
+- Bucket counts produced by FP64 numpy reference samples.
+- Bucket counts produced by the classical noiseless GPU sampler.
+- Bucket counts produced by real QPU shots.
+
+The arithmetic is the same; only the noise on the input bucket counts differs.
+
 Two implementation details that earn their keep:
 
 **Bucket compression.** Both $f_a$ and $f_b$ take only three values, and the projection channel doesn't care about shot ordering. So the entire per-tile shot list compresses losslessly into an $18$-int histogram over $(f_a, f_b, c) \in \{0, 0.5, 1\}^2 \times \{0, 1\}$. From compression onward, every consumer reads 18 ints per tile rather than $N_{\text{shots}} \times 5$ raw bits. The importance-weight sum becomes a constant-size 9-cell weighted dot product:
@@ -169,13 +179,7 @@ $$\hat P_0(a, b) = \frac{\sum_{i, j \in \{0, 0.5, 1\}} w(i, j) \cdot n_0(i, j)}{
 
 where $n_c(i, j)$ is the count of shots with $(f_a, f_b, \mathrm{ctrl}) = (i, j, c)$.
 
-**Log-space evaluation with clipping.** The per-shot log-weight decomposes as a sum of base and slope terms:
-
-$$\log w(f_a, f_b) = \bigl[\log(1 - p_a) - \log(1 - p_{a_o})\bigr] + f_a\bigl[\log p_a - \log p_a^{o} - (\log(1 - p_a) - \log(1 - p_a^{o}))\bigr] + (\ldots b\ldots)$$
-
-which lets the kernel compute base and slope once per tile and assemble the nine $\log w$ values by addition only. The $p$ values are clipped to $[\mathrm{EPS}, 1 - \mathrm{EPS}]$ with $\mathrm{EPS} = 0.05$ before any logarithm, and the assembled $\log w$ is clipped to $[-\mathrm{CLIP\_LOG\_W}, +\mathrm{CLIP\_LOG\_W}]$ with $\mathrm{CLIP\_LOG\_W} = 3.0$. These constants are calibrated for fp32 stability over the suite's angle range; they live as `#define`s at the top of `ghost_kernel.cu` Section 1.
-
-The agreement metric in the tied-channel architecture is the per-row mean of $|\hat G_M^{\text{proj}} - G_M^{\text{geom}}|$. On a noiseless GPU base, this measures shot noise on $N_{\text{shots}} = 4096$ per bucket, around $0.01$ to $0.06$ depending on angle. On a physical QPU base, it measures shot noise plus the hardware residual, around $0.10$ to $0.20$ — the same range Probes 7 and 8 characterized directly.
+**Log-space evaluation with clipping.** The per-shot log-weight decomposes as a sum of base and slope terms, which lets the kernel compute base and slope once per tile and assemble the nine $\log w$ values by addition only. The $p$ values are clipped to $[\varepsilon,\ 1 - \varepsilon]$ before any logarithm, and the assembled $\log w$ is clipped to $[-C,\ +C]$. The constants $\varepsilon$ and $C$ correspond to the `EPS` and `CLIP_LOG_W` `#define`s at the top of `ghost_kernel.cu`, and are calibrated for fp32 stability over the suite's angle range.
 
 ---
 
@@ -199,33 +203,49 @@ $$\mathrm{sim}(X_Q, X_K) = \frac{1}{d \alpha} \sum_{k=1}^{d} \sqrt{\frac{1 + \co
 
 with each term bounded in $[0, 1/\alpha]$. The bound on each term divided by the mean factor $1/d$ caps any single dimension's contribution to the aggregate at $1/(d\alpha)$ — which is what makes coherent same-dimension outlier attacks structurally impotent against this operator. A single big dimension cannot bias the score beyond $1/(d\alpha)$, whereas in dot-product attention a single big dimension can dominate via $e^{Q \cdot K / \sqrt{d}}$ with no upper bound.
 
-This is the architectural payoff: $G_M$'s saturation + per-dim averaging gives an attention-shaped similarity whose worst-case behavior under outlier injection is *bounded by construction*. Probe 10.1 measures the consequence — under same-dim coherent attack at magnitude 50 with 5% of keys attacked, dot-product attention's top-1 drops from 74% to 43%, while $G_M$ tied per-dim holds at 84% clean and 84% attacked.
+This is the architectural payoff: $G_M$'s saturation + per-dim averaging gives an attention-shaped similarity whose worst-case behavior under outlier injection is *bounded by construction*.
 
 ---
 
-## What the agreement metric actually proves
+## What the agreement metric actually measures
 
-The tied-channel agreement metric is:
+The agreement metric in the tied-channel architecture is the per-row mean of $|\hat G_M^{\text{proj}} - G_M^{\text{geom}}|$:
 
 $$A_i = \frac{1}{M}\sum_{j=1}^{M} \bigl|\hat G_M^{\text{proj}}(Q_i, K_j) - G_M^{\text{geom}}(Q_i, K_j)\bigr|$$
 
-per query $i$, averaged over all $M$ keys it was compared against. The geometry channel is the closed-form $G_M$ evaluated analytically; the projection channel is the importance-reweighted estimate from physical shot counts.
+per query $i$, averaged over all $M$ keys it was compared against. The geometry channel is the closed-form $G_M$ evaluated analytically; the projection channel is the importance-reweighted estimate from physical or simulated shot counts.
 
-What this metric proves:
+What this metric actually measures, per substrate:
 
-- $G_M^{\text{geom}}$ is the closed form. It's correct *by construction* if the implementation is correct, and `tied_materialize_perdim` against a numpy reference verifies it at $2.3 \times 10^{-5}$ MAE — fp32 numerical precision.
-- $\hat G_M^{\text{proj}}$ is the projection-channel estimate from physical shots. It's $G_M$ *if and only if* the physical samples were drawn from a distribution whose first moment matches the closed form, i.e. if and only if the QPU implements the $T_3$ derived above.
-- If $A_i$ is small uniformly over a benchmark run, then for every $(Q_i, K_j)$ scored, the projection-channel estimate from physical samples agreed with the closed form to within $A_i$.
+- **Mathematical reference (FP64 numpy on the analytical $T_3$ distribution):** $A_i$ is fp32 quantization noise, $\sim 10^{-5}$. The projection identity is correct by derivation.
+- **Classical noiseless sampler (`gpu.py`):** $A_i \approx 0.01$ to $0.03$. This is pure shot noise at $N_{\text{shots}} = 4096$ per bucket. The final benchmark measures this directly on three independent GPU bases (mean $A \approx 0.02$).
+- **Quantum hardware shots:** $A_i \approx 0.07$ to $0.13$ across the QPU bases the suite ships with. This is shot noise plus a hardware-noise floor — decoherence on the ghost CNOTs, gate-fidelity errors, and calibration drift smearing the bucket counts away from their analytical predictions.
 
-The numerical bound: on the GPU base, $A_i \approx 0.01-0.06$ (shot noise at $N_{\text{shots}} = 4096$, varying with $(a_o, b_o)$). On the QPU base, $A_i \approx 0.10-0.20$ (shot noise plus hardware residual). The latter is the **certificate** — every reported retrieval in the headline benchmark is shadowed by a quantitative bound on how far the operator-as-implemented-by-physical-hardware diverged from the operator-as-evaluated-analytically. Without this metric, the geometry channel is unfalsifiable and we'd be claiming the QPU implements $G_M$ without any data backing it.
+The ratio of QPU to GPU agreement is roughly **5×**. This is the **quantitative hardware-noise readout** the substrate-comparison architecture was built to produce. The same algorithm running on three substrates, with the projection channel agreeing with geometry by a substrate-dependent amount — and that amount being the platform-specific story.
+
+The crucial correction from the trajectory: **the agreement metric does not certify a "quantum advantage."** An earlier version of this document (corresponding to Probe 12 as originally reported) framed the projection channel as preserving signal on QPU that classical hardware destroyed. Probe 12 was subsequently re-run with a corrected classical sampler — `gpu.py` had been emitting bucket counts that didn't faithfully implement the GHZ correlations the noiseless circuit produces. With the corrected sampler, the **classical** projection gap ($+0.121$) is larger than the QPU projection gap ($+0.062$), and both substrates retrieve cleanly under the same operating conditions. The earlier "GPU below the noise floor" result was measuring the sampler bug, not a physics property.
+
+What the final benchmark actually shows is the substrate-equivalence the project set out to verify: the same projection-channel attention algorithm works on all three substrates, with measurable noise attenuation when run on real hardware. Same physics, three platforms.
 
 What this metric does *not* prove:
 
-- It doesn't prove the geometry kernel is the right operator for the application; that's an empirical question that the attention robustness result (Probe 10.1, projection_benchmark.py) answers separately.
-- It doesn't bound a per-element error in retrieval rank; it's a per-row mean over the score matrix. The argmax could still pick the wrong key even with small mean agreement (in practice it doesn't, because the agreement is much smaller than the inter-key score gap).
-- It does not characterize the QPU residual structure. Probes 7 and 8 do that. The agreement metric just confirms the residual sits in the range those probes measured.
+- It doesn't prove the geometry kernel is the right operator for the application; that's an empirical question that the attention robustness result (Probe 10.1, `final_benchmark_5way.py`) answers separately.
+- It doesn't bound a per-element error in retrieval rank; it's a per-row mean over the score matrix. The argmax could still pick the wrong key even with small mean agreement (in practice it doesn't at d=256 with calibrated squelch, because the agreement is much smaller than the inter-key score gap).
+- It does not characterize quantum-specific advantages or limitations. The QPU is one of three substrates that faithfully implement the projection circuit; its differences from the classical noiseless reference are purely hardware-noise effects.
 
-That bundle of three claims and three non-claims is exactly the architectural keystone of the tied design.
+The agreement metric is best understood as a **continuous integrity check** that says: "the projection-channel kernel, running on this substrate at this calibration, is producing $G_M$ to within $A$ of its analytical value, per query." For shipping a kernel that runs on physical hardware, that bound is exactly what you want.
+
+---
+
+## Bucket-mask calibration
+
+The projection identity above assumes all 9 buckets $(f_a, f_b) \in \{0, 0.5, 1\}^2$ contribute to the importance-weighted sum. In practice, per-base calibration sometimes finds it advantageous to **mask out** specific buckets — zero their counts before reweighting — to improve signal recovery under attack.
+
+This is not a modification to the operator $G_M$. It's a calibration of the projection-channel **estimator**: which subsets of the bucket histogram give the cleanest estimate of $\hat G_M$ on a given base. Probes 13 through 18 systematically explored which masks help on which bases, with the finding that mask selection is **calibration-dependent rather than physics-dependent** — different QPU runs of the same algorithm (and even different GPU sampler runs) sometimes prefer different masks, and the "Golden Mask" naming from the earlier trajectory (Probe 16) was specific to one tile of one calibration rather than a universal property of the projection circuit.
+
+The final production kernel (`final_benchmark_5way.py`) includes a per-base pre-flight that searches over candidate masks and Flash-Squelch thresholds on a small calibration set, picks the best (mask, threshold) for that base, and locks it for inference. At the production operating point ($d = 256$, power $= 256$), the baseline mask (no buckets dropped) wins on all observed bases — meaning the calibration-dependent mask story is real but **doesn't affect retrieval at the production operating point**, because the per-dim averaging at $d = 256$ already gives enough SNR for the unmodified projection channel to lock cleanly.
+
+Mask calibration is preserved in the pipeline as a defensive measure: at narrower $d$, lower $N_{\text{shots}}$, or harder attack profiles, the right mask might no longer be the identity. The infrastructure to detect that and pick correctly is in place.
 
 ---
 
@@ -236,5 +256,9 @@ That bundle of three claims and three non-claims is exactly the architectural ke
 - **Probe 7** — Direct physical test of GHZ parity ($a_1 = a_2$, $b_1 = b_2$) on QPU shots.
 - **Probe 9** — Identity $T_3 \leftrightarrow G_M$ verified to machine precision; classification of $G_M$ (indefinite, low rank, anti-correlated with matmul).
 - **Probe 10.1** — Per-dim aggregation and phase-lift design; same-dim coherent attack benchmark.
+- **Probe 11–11.2** — Projection-channel range and float32 noise-floor investigations.
+- **Probes 13–18** — Bucket-mask ablations across tiles and calibration runs; established that mask selection is calibration-dependent.
+- **Probe 12 (corrected)** — Substrate-equivalence verification with the fixed classical sampler.
+- **Probe 20** — Auto-calibrating production kernel with per-base mask/threshold selection.
 - **`docs/architecture.md`** — How the math compiles into a kernel and a benchmark.
-- **`docs/known_issues.md`** — Where the math meets the imperfect software (Probe 8.2 alternation optimizer, Probe 9 clipping artifact, etc.).
+- **`docs/known_issues.md`** — Where the math meets the imperfect software.
