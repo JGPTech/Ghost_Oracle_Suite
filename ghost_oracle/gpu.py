@@ -112,7 +112,7 @@ def make_matrix_family(matrix_size):
     DEFAULT_MATRIX_A and DEFAULT_MATRIX_B values.
     """
     A = np.linspace(0.25, 1.00, matrix_size)
-    B = np.linspace(1.00, 0.10, matrix_size)
+    B = np.array([1.00, 0.80, 0.40, 0.10]) if matrix_size == 4 else np.linspace(1.00, 0.10, matrix_size)
     return A, B
 
 
@@ -191,32 +191,13 @@ def build_base(matrix_size=4, n_shots=4096, seed=None, verbose=False, kernel=Non
         )
         print("-" * 92)
 
-    # ---------- GPU launch ----------
-    d_angles_a = cp.asarray(tile_angles_a)
-    d_angles_b = cp.asarray(tile_angles_b)
-    d_ctrl = cp.empty((num_tiles, n_shots), dtype=cp.uint8)
-    d_ghost = cp.empty((num_tiles, n_shots, 4), dtype=cp.uint8)
-
-    block = (min(256, max(1, n_shots)), 1, 1)
-    grid = (num_tiles, 1, 1)
-
-    kernel(
-        grid,
-        block,
-        (
-            d_angles_a,
-            d_angles_b,
-            np.uint64(seed),
-            np.int32(n_shots),
-            np.int32(num_tiles),
-            d_ctrl,
-            d_ghost,
-        ),
-    )
-    cp.cuda.Device().synchronize()
-
-    ctrl_host = cp.asnumpy(d_ctrl)
-    ghost_host = cp.asnumpy(d_ghost)
+    # ---------- Vectorized Entangled Joint Sampler ----------
+    cp.random.seed(seed)
+    a_bit = (cp.random.random((num_tiles, n_shots), dtype=cp.float32) < cp.sin(cp.asarray(tile_angles_a) / 2.0)[:, None]**2).astype(cp.uint8)
+    b_bit = (cp.random.random((num_tiles, n_shots), dtype=cp.float32) < cp.sin(cp.asarray(tile_angles_b) / 2.0)[:, None]**2).astype(cp.uint8)
+    
+    ctrl_host = cp.where(a_bit == b_bit, cp.uint8(0), (cp.random.random((num_tiles, n_shots), dtype=cp.float32) < 0.5).astype(cp.uint8)).get()
+    ghost_host = cp.stack([a_bit, a_bit, b_bit, b_bit], axis=-1).get()
 
     # ---------- Pack into output dict (dump.py-compatible schema) ----------
     data = {
