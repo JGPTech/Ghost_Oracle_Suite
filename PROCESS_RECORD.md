@@ -1,8 +1,8 @@
 # Ghost Oracle Suite — Full Process Record
 
-This document records the entire research and engineering trajectory of the Ghost Oracle Suite from initial probes through the final projector benchmark. It exists so that any future contributor — human or AI agent — can pick up the work with full context.
+This document records the entire research and engineering trajectory of the Ghost Oracle Suite from initial probes through the final five-way benchmark. It exists so that any future contributor — human or AI agent — can pick up the work with full context.
 
-It is chronological. It includes the wrong turns. It includes the bugs we caught and the bugs we missed at first. It is not a polished narrative. It is a working record.
+It is chronological. It includes the wrong turns. It includes the bugs we caught and the bugs we missed at first. It includes the framings we adopted, used for months, and then had to retract when the data didn't support them. It is not a polished narrative. It is a working record.
 
 ---
 
@@ -196,13 +196,13 @@ Fixed all three:
 
 **Result:** DP top-1 collapses from 74% to 43% under same-dim attack. G_M tied: 84% to 84%. cuBLAS attention mass on outliers: 0.42 (huge). G_M outlier/non-outlier score ratio: 0.999 (didn't notice).
 
-The headline finding. Per-dim G_M aggregation under same-dim coherent attack: structurally robust where dot-product attention catastrophically collapses.
+The headline finding at this point in the trajectory. Per-dim G_M aggregation under same-dim coherent attack: structurally robust where dot-product attention catastrophically collapses.
 
 ---
 
-## Part 6 — The benchmark trajectory
+## Part 6 — The benchmark trajectory (pre-revision)
 
-Five iterations before the headline:
+Five iterations before what was then thought to be the headline:
 
 ### `final_benchmark.py`
 
@@ -224,7 +224,7 @@ This is where you flagged that we'd "thrown away the good stuff" — the paralle
 ### `final_benchmark_tied.py`
 
 The tied-channel design. Two channels in one streaming kernel:
-- **Projection channel** — physical bucket reweighting (certifies operator)
+- **Projection channel** — physical bucket reweighting (then-described as: certifies operator)
 - **Geometry channel** — analytical closed form (provides sharp argmax)
 - Agreement = mean |proj - geom| (the ghost-channel certificate)
 
@@ -241,7 +241,7 @@ Restored per-dim aggregation (Probe 10.1 architecture) inside the tied streaming
 
 Result: 100% top-1 across all shapes. Suspiciously perfect. Diagnosis: `X_K = X_Q.copy()` made it a self-match detection task, not a real retrieval task. 100% was the right answer for a trivial problem.
 
-### `final_benchmark_tied_perdim_v2.py` — THE HEADLINE
+### `final_benchmark_tied_perdim_v2.py` — THE ORIGINAL "HEADLINE"
 
 Added:
 1. **Jitter** — query = key + 0.3·gaussian (Probe 10.1's actual task)
@@ -257,281 +257,357 @@ Result on extreme sweep (full_info mode):
 
 Geometry kernel correctness: 2.3e-5 MAE vs numpy reference. GPU agreement: 0.0136 across all shapes (constant, as expected — agreement is per-(a,b) noise). QPU agreement: 0.1037 (probe 7-8 territory).
 
-The tradeoff is honest: G_M tied is ~20× more ops-per-correct-retrieval, but it gets 100% under attack vs cuBLAS's 75-79%, uses 500× less VRAM at extreme, and scales to regimes where cuBLAS approaches OOM.
+The tradeoff was framed as honest: G_M tied was ~20× more ops-per-correct-retrieval, but it got 100% under attack vs cuBLAS's 75-79%, used 500× less VRAM at extreme, and scaled to regimes where cuBLAS approached OOM. This was the result the project sat on for some time before the probes 11–20 trajectory below.
 
 ---
 
-## Part 7 — What the benchmark actually establishes
+## Part 7 — The original four claims (subsequently revised)
 
-Four cleanly defensible claims, each backed by code and data:
+For the historical record, what the benchmark trajectory above was thought to establish before the probes 11–20 sequence:
 
-**1. G_M is a well-defined operator with three consistent implementations.**
+**1. G_M is a well-defined operator with three consistent implementations.** Verified analytically (Probe 9), implemented by the noiseless GPU sampler at shot noise (~0.01 MAE), and by the physical QPU circuit at characterized channel error (~0.10 MAE, in the range probes 7-8 measured). The tied-channel agreement metric reproduces this at scale. **This claim survived the later trajectory in modified form** — the operator is real, the three implementations are real, but the framing of QPU as a privileged substrate did not survive Probe 12's later correction.
 
-`G_M(a, b) = sqrt((1 + cos a cos b)/2)/α`, verified analytically (Probe 9), implemented by the noiseless GPU sampler at shot noise (~0.01 MAE), and by the physical QPU circuit at characterized channel error (~0.10 MAE, in the range probes 7-8 measured). The tied-channel agreement metric reproduces this at scale.
+**2. Per-dim aggregated G_M is structurally robust to coherent same-dim outlier attacks.** **Survived as stated**, with the caveat from Probe 18 across multiple bases that at certain attack profiles cuBLAS is no longer catastrophically failing — it's just indiscriminate at the attack-fraction rate.
 
-**2. Per-dim aggregated G_M is structurally robust to coherent same-dim outlier attacks.**
+**3. Streaming with fused argmax gives O(N) memory scaling.** **Survived.** Architectural, not a physics claim.
 
-100% retrieval at jitter 0.3 with 5% same-dim attack at magnitude 50, across shapes from 4096² to 65536². cuBLAS dot-product attention on the same task degrades from 79% to 74% as N grows. This holds because per-dim averaging neutralizes single-dim spikes that softmax catastrophically amplifies.
-
-**3. Streaming with fused argmax gives O(N) memory scaling.**
-
-500× less VRAM than cuBLAS at 65536². cuBLAS approaches OOM at 131072² where its score matrix would be 64 GB; the streaming kernel uses only the embedding inputs plus N output cells.
-
-**4. The compute tradeoff is real and reported honestly.**
-
-~20× more ops-per-correct-retrieval. The robustness and memory savings come at a real compute cost. Whether that's worth it depends on the application — for LLM attention where one bad head cascades, probably yes; for low-stakes ranking where 80% is fine, probably no.
+**4. The compute tradeoff is real and reported honestly.** **Survived** but the tradeoff is now better characterized: at d=256 the projection paths land at ~500× cuBLAS time (not ~20× as originally claimed), because the original number was measured without the full Flash-Squelch scoring step and at d=64.
 
 ---
 
-## Part 8 — Repository structure
+## Part 8 — Probes 11 through 11.2: the projection channel reopened
 
-Final layout for the CC0 community release:
+After the V2 benchmark seemed settled, external feedback claimed the projection channel was "broken — only of interest to classical chip designers." The implication: projection only provides the certificate, geometry does all the real retrieval, projection contributes zero argmax signal.
+
+### Probe 11 v1 — measure the projection-channel cost
+
+Built two kernels in the same `cupy.RawModule`: the production `tied_streaming_perdim` and a `geom_only_streaming_perdim` variant with projection stripped. Three sweep sizes, same data, same attack.
+
+**Result:**
+- Δacc (tied − geom) = +0.00% on every row, every size, both bases.
+- 5.3× speedup from removing projection from the hot loop.
+- Agreement metric (when present in the dual kernel) reproduced Probes 7-8 numbers exactly: 0.104 QPU, 0.057 GPU.
+
+The geometry channel was doing 100% of the retrieval work. Projection in the streaming kernel was paying 5.3× in compute for an output (the agreement value) that the runtime printed and discarded — no threshold, no assert, no gate.
+
+**Implication framing at the time:** the projection channel is an "observer with no consumer" in the hot loop. Speedup is free if you move projection to a one-shot certify pass.
+
+**Subsequent correction:** the user pointed out that the projection channel's primary value is *historical and derivational*, not runtime-active — it's how G_M was derived from physical hardware. The derivation role was complete by Probe 9; the runtime question is separable. This reframe was correct.
+
+### Probe 11 v2 — `cp.async` pipelined tiling (bug discovered)
+
+Tried to upgrade the three kernels (dual, geom-only, proj-only) to use `cuda::pipeline<thread_scope_block, 2>` double-buffered async loads, in preparation for a future group-GEMM rewrite.
+
+**Result:** all three kernels at floor-of-random accuracy (~0.1-0.2%). Agreement metric was correct (because it sums over all keys and doesn't care about per-key attribution), which is what made the bug diagnosable.
+
+**Two bugs in operand staging:**
+1. K-side `memcpy_async` gated on `tid == 0` — 255 of 256 threads in each block read stale shared memory.
+2. Q-side wrote per-thread query data into a single per-block shared buffer — last writer wins, 255 query rows clobbered.
+
+**Lesson:** the v2 results looked like "all three kernels are aligned" because all three were getting identical wrong inputs. Not a finding about projection, just a bug.
+
+### Probe 11 v3 — known-good memory pattern with proj-only
+
+Reverted to the production memory pattern (Q in registers, K cooperatively loaded by all threads with thread-strided indexing) and added a `proj_only_streaming_perdim` kernel that drives the argmax off projection alone instead of geometry.
+
+**Result:**
+- tied / geom: 100% top-1 (matched, as expected)
+- proj-only: 0.00% top-1 across all sizes, both bases
+
+This was the surprise. The projection channel produced agreement of ~0.10 / ~0.06 (correct values) on a per-pair basis, but driving the argmax off it gave floor-of-random retrieval.
+
+### Probe 11.1 — diagnosing why proj-only fails
+
+CPU diagnostic that dumped projection per-pair distributions on query 0 against all keys.
+
+**Result:**
+- Per-pair geometry range on QPU: [0.345, 1.000], total range 0.655
+- Per-pair projection range on QPU: [0.662, 0.714], total range **0.052** — **12× compression**
+- Per-key aggregated projection std: 0.0005 (vs geometry's 0.0087 — **17× compression**)
+- 78 keys (QPU) and 287 keys (GPU) score within 0.001 of the projection-argmax
+
+**Mechanism:** importance reweighting compresses the per-pair dynamic range by ~10×. After averaging over d=64 dimensions, the per-key spread is below the float32 noise floor on a sum of 64 values. The signal is there; the per-key argmax has no resolution to pick it up.
+
+GPU base showed the same compression and additionally placed the true match at rank 1023 out of 1024 — anti-correlated, not just noisy. Different `(orig_a, orig_b)` regimes produced different orderings.
+
+### Probe 11.2 — minmax-rescale geometry into projection's range
+
+Tested whether geometry's argmax survives min-max rescaling into projection's compressed window. Three variants: linear, quantile-match, per-row.
+
+**Result:** all monotone rescalings preserved 100% top-1. The math is monotone-stable in float32 even with compressed values; projection's failure is **ordering distortion, not range compression alone**. Projection at certain `(orig_a, orig_b)` regimes doesn't track true similarity ordering, no matter how you stretch its output.
+
+**Standing conclusion at this point in the trajectory:** projection serves the certificate role only. Geometry drives retrieval. Two different jobs.
+
+---
+
+## Part 9 — Probes 13 through 18: the bucket-mask exploration
+
+The Probe 11.x conclusion seemed settled. Then a different question emerged: what if specific bucket pairs in the 18-int histogram are corrupting the projection signal, and dropping them recovers the retrieval capability?
+
+### Probe 13 — bucket ablation
+
+Systematic ablation of the nine `(f_a, f_b)` bucket pairs on the representative tile.
+
+**Result:**
+- Buckets (0,0) and (2,2) are pillars — dropping them kills the signal
+- Buckets (0,2) and (2,0) are anti-pillars — dropping them sharpens the signal
+
+### Probe 14 / 15 — the CUDA accident and the Golden Mask
+
+A CUDA accident in v7 of an earlier mask-sweep iteration accidentally left `BLOCK_SIZE = 9` for the counts18 shared-mem load, dropping the upper 9 of the 18 ints. Signal recovery jumped from 0.4% to 99.1%. By accident.
+
+Probe 15 then systematically swept all candidate masks at every threshold from 0 to 0.9, found that the principled mask (drop only the anti-pillars (0,2) and (2,0)) hit 99.2% — a cleaner result than the accidental block-9 mask.
+
+**Framing at the time:** the anti-pillars carry "asymmetric quantum crosstalk." Dropping them removes the toxic component while keeping the denominator intact. This was named the "Golden Mask."
+
+### Probe 16 — GhostFlow V4 production kernel
+
+Bundled three findings into one CUDA kernel:
+1. 7-bucket Golden Mask (drop (0,2) and (2,0)) — ~22% inner-loop reduction
+2. Threshold + power (P=4096) Flash-Squelch scoring instead of mean-pool argmax
+3. Online running-max accumulator (FlashAttention-style) so P=4096 doesn't overflow
+
+Result on QPU representative tile: V3 (9-bucket) 8.7% signal, V4 (7-bucket Golden Mask) 87.4% signal under attack. With a dynamic threshold sweep.
+
+**At this point we thought:** the production V5 kernel ships V4 with the Golden Mask hardcoded and a constant threshold, runs at 5.3× speedup over tied with measurable signal recovery, end of project.
+
+### Probe 17 — threshold robustness sweep
+
+12 QPU tiles × 10 seeds × 35 thresholds × 2 kernels = 8400 launches. Question: does V4 win on all 12 tiles, or only the representative one?
+
+**Result:**
+- V4 mean signal across all tiles at the recommended fixed threshold: **2.3%**
+- V4 dynamic-optimum mean: 10.6%
+- **Tile 11 alone hit 85.8% dynamic, 27.8% fixed. Ten of twelve tiles produced 0% under V4 regardless of threshold.**
+- 90/120 V4 optima landed at the 0.50 threshold floor — the sweep range had been too narrow to find true optima on most tiles.
+
+**Implication:** Probe 16 had been measured on the representative tile only (`representative_tile()` happens to select tile 11 for that base). The Golden Mask works on tile 11. It does not generalize.
+
+### Probe 18 — cross-tile mask sweep on a single base
+
+Eight masks × 12 tiles × 3 seeds × 200 thresholds. CPU implementation projected at 6 hours per base, then rewritten as a two-stage GPU kernel (precompute score matrix once per (tile, mask, seed); sweep all thresholds in one launch) that ran in 6 seconds per base.
+
+**Result on base 1:** no universal mask. M3 (anti-pillars) wins on 0 of 12 tiles at ≥80% lock. M1 (baseline, no mask) wins on 6 of 12. Different tiles prefer different masks.
+
+### Probe 18 fleet — across three independent QPU jobs
+
+Ran the same 8-mask × 12-tile × 3-seed sweep on three QPU job files from the same algorithm. Three job-base configurations × 12 tiles each = 36 (tile, job) pairs.
+
+**Result:** the optimal mask varies *both* across tiles within a job *and* across jobs for the same tile. Examples:
+- Tile 10 (2,2): Job 1 wins M1 at threshold 0.0; Job 2 wins M5 at 0.0; Job 3 wins M6 at 0.5
+- Tile 11 (2,3): Job 1 dead (0.3%), Job 2 dead (0.3%), Job 3 wins M5 at 92.3%
+
+**Conclusion:** the Golden Mask was tile-11-of-one-specific-job-specific. The "anti-pillars carry toxic quantum crosstalk" physics framing from Probes 13-15 was a story about one calibration of one tile, not a universal property. Mask selection is calibration-dependent rather than physics-dependent.
+
+This was a hard correction. The "GhostFlow V4 with Golden Mask" framing from Probe 16 — which was the production kernel for several iterations — was retracted.
+
+---
+
+## Part 10 — Probe 19: the Dynamic Mask Router
+
+The cross-job result raised the question: can we predict the optimal mask from `(orig_a, orig_b)` alone, so the kernel picks per-tile masks at load time without seeing the bucket counts?
+
+### Hypothesis (from a Gemini-articulated reframe of the cross-job data)
+
+The QPU's error channel rotates with `(orig_a, orig_b)` through the bucket space. As the prepared angles sweep through the Bloch sphere, the "toxic" buckets migrate. Different `(a, b)` zones need different masks. A static lookup `(orig_a, orig_b) → mask` would be enough.
+
+### Probe 19 — leave-one-job-out CV on the three Probe 18 dumps
+
+Built a router that uses only `(orig_a, orig_b)` (no bucket counts) to predict the optimal mask, trained on two jobs and evaluated on the third, cycled through all three holdouts.
+
+**Result:** router accuracy was poor. The same `(orig_a, orig_b)` produces different optimal masks across different calibrations of the same algorithm. The "rotating quantum noise" framing didn't survive the data.
+
+This eliminated the simplest version of the production path. The router needed to see bucket counts, not just angles.
+
+---
+
+## Part 11 — Probe 20: the auto-calibrating production kernel
+
+### V5 design
+
+Per-base pre-flight calibration: for each base file, sweep all 8 candidate masks at 50 candidate thresholds against a small calibration set (CALIB_N×CALIB_N attention problem), with multi-seed median over CALIB_SEEDS seeds, subject to a spike-fraction constraint (`spike <= 0.05`). Pick the best (tile, mask, threshold) triple per base, write to a JSON manifest, lock for inference.
+
+### First run (default settings: d=64, power=4096)
+
+Found a `gpu.py` bug worth recording: bimodal behavior on identical inputs. The same algorithm on the same files would press-play to 100% lock or 0% lock, never in between, with no changes to anything. This had been hiding the whole time.
+
+The user's diagnosis and fix to `gpu.py`: the original classical sampler was randomizing the control bit when `a_bit == b_bit`, but the GHZ-block circuit produces a deterministic `ctrl = 0` outcome in that case. The fix constrained `ctrl = 0` when `a_bit == b_bit` and a fair coin when they differ.
+
+The fix made the bimodal behavior go away. The classical sampler now produces what the noiseless circuit actually outputs.
+
+### Production run (d=256, power=256)
+
+After increasing dimensionality:
 
 ```
-ghost-oracle-suite/
-├── README.md
-├── LICENSE                            # CC0 1.0 Universal
-├── CONTRIBUTING.md                    # break-it-fix-it philosophy
-├── requirements.txt
-├── .gitignore
-│
-├── ghost_oracle/                      # the library
-│   ├── __init__.py
-│   ├── projector_benchmark.py         # headline tied-perdim-v2 benchmark
-│   ├── qpu.py                         # QPU job submission
-│   ├── gpu.py                         # noiseless GPU sampler
-│   ├── dump.py                        # QPU result -> npz
-│   └── kernels/
-│       └── ghost_kernel.cu            # CONSOLIDATED: all CUDA kernels in one file
-│                                       # (projection_eval, geometry_channel,
-│                                       # tied_streaming_perdim, tied_materialize_perdim,
-│                                       # projection_4x4_legacy, ghost_t1_batch)
-│
-├── probes/                            # forensic trajectory
-│   ├── README.md                      # narrative arc
-│   ├── probe1_identity_bridge.txt
-│   ├── probe2_projection_scrambled_control.txt
-│   ├── probe3_anchor_conditioned_projection.txt
-│   ├── probe4_build_base.txt
-│   ├── probe5_unified_engine.txt
-│   ├── probe6_3way_convergence.txt
-│   ├── probe7_ghost_parity.txt
-│   ├── probe8_residual_decomposition.py
-│   ├── probe8_1_split_readout.py
-│   ├── probe8_2_drift_alternating.py     # marked KNOWN ISSUE
-│   ├── probe8_4_padic_benford.py
-│   ├── probe9_ghost_operator.py
-│   ├── probe9_1_indef_kernel_attn.py
-│   ├── probe10_ghost_attention.py        # marked SUPERSEDED
-│   ├── probe10_1_real_softmax_attack.py
-│   └── benchmark_evolution/
-│       ├── final_benchmark.py
-│       ├── final_benchmark_combined.py
-│       ├── final_benchmark_tied.py
-│       └── final_benchmark_tied_perdim.py
-│
-├── data/
-│   ├── README.md
-│   └── (sample npz files)
-│
-├── docs/
-│   ├── math.md                        # T1, T3, G_M derivations
-│   ├── architecture.md                # tied-channel design
-│   └── known_issues.md                # running list
-│
-└── examples/
-    └── minimal_usage.py
+type  file                                          tile  mask     thr    Signal     Status
+QPU   job_d83putvtjchs73bpg5o0.npz                     0   M1   0.129   100.0%     LOCKED
+QPU   job_d83q037oha1c73bn14p0.npz                     0   M1   0.055   100.0%     LOCKED
+QPU   job_d83q0ivoha1c73bn15d0.npz                     0   M1   0.827   100.0%     LOCKED
+GPU   ghost_oracle_gpu_seed_*.npz                      0   M1   0.092   100.0%     LOCKED
+GPU   ghost_oracle_gpu_seed_*.npz                      0   M1   0.073   100.0%     LOCKED
+GPU   ghost_oracle_gpu_seed_*.npz                      0   M1   0.073   100.0%     LOCKED
 ```
+
+At d=256, M1 (no mask) wins on every base, at thresholds that vary per base but produce 100% lock everywhere. The Golden Mask story, the Dynamic Mask Router story, the rotating-noise story — none of it was needed. The √d SNR gain from d=64 → d=256 lifts the projection signal cleanly above the float32 noise floor without any mask architecture.
+
+The probes 13–19 bucket-mask exploration was solving an SNR problem that increasing d dissolves. The mask infrastructure was preserved in the production V5 kernel as a defensive measure for harder operating points (narrower d, fewer shots, harsher attacks) but does nothing at the production point.
 
 ---
 
-## Part 9 — Known issues, carried forward
+## Part 12 — Probe 12 redux: the substrate-equivalence correction
+
+After the GPU sampler fix in Probe 20 and the d=256 production result, Probe 12 (the original "quantum advantage" claim) needed re-running with the corrected classical sampler.
+
+### The original Probe 12 finding (now retracted)
+
+"GPU has true match below noise floor (gap = −0.003), QPU has it above (gap = +0.007). Topologically impossible to run on a GPU. Quantum advantage from physical preservation."
+
+This had been the project's strongest claim for many iterations.
+
+### The corrected Probe 12 run
+
+Same FP64 numpy reference verifier, d=64, against the corrected `gpu.py`:
+
+```
+QPU base:
+  GEOM gap (True - Bg):     0.07014
+  PROJ gap (True - Bg):     0.06161
+
+GPU base:
+  GEOM gap (True - Bg):     0.07014    (identical to QPU)
+  PROJ gap (True - Bg):     0.12119    (almost 2× the QPU gap)
+```
+
+**The classical noiseless sampler produces a *larger* projection gap than the QPU does.** Both substrates retrieve cleanly. The QPU's projection signal is *attenuated* by hardware noise relative to the noiseless reference; it isn't a privileged substrate.
+
+The original Probe 12 result had been measuring the `gpu.py` bug, not a physics property. The buggy classical sampler was producing bucket counts so noisy that projection couldn't extract a signal. The QPU was less broken than the buggy classical baseline. Both signals were degraded; the QPU's was degraded less. The interpretation "topological preservation gives quantum advantage" was wrong — the right interpretation was "the QPU is less broken than the buggy classical sampler."
+
+**This invalidates the "quantum advantage" framing the project had been operating under for the entire benchmark trajectory before this correction.**
+
+The user, to their credit, had been consistently framing the project as "same physics, three platforms" rather than "quantum advantage" throughout. The "quantum advantage" framing was something I (the AI assistant collaborating on these probes) kept reaching for and being corrected on. Eventually the data forced the issue.
+
+---
+
+## Part 13 — The final five-way benchmark
+
+### `final_benchmark_5way.py`
+
+Same retrieval problem, five score backends, all measured on the same 4096×4096 attention matrix under the Probe 10.1 attack profile, with per-base calibration via Probe 20's pre-flight pass:
+
+1. **CUBLAS** — standard dot-product attention via cuBLAS gemm. Classical transformer baseline.
+2. **TIED** — production dual-channel kernel. Argmax = geometry; agreement metric computed and reported.
+3. **GEO** — geometry-only argmax. Same top-1 as TIED, differs only in that TIED computes agreement.
+4. **QPROJ** — projection driven by QPU bucket counts, calibrated per-base.
+5. **GPROJ** — projection driven by classical noiseless bucket counts, calibrated the same way.
+
+### Result
+
+```
+CUBLAS              top1=100.0%  sig=100.0%  spk=0.0499  t=1.21 ms
+TIED (per QPU base) top1=100.0%  sig=100.0%  spk=0.0498  t≈500 ms
+GEO  (per base)     top1=100.0%  sig=100.0%  spk=0.0498  t≈500 ms
+QPROJ (mean 3 QPU)  top1=100.0%  sig=100.0%  spk=0.0498
+GPROJ (mean 3 GPU)  top1=100.0%  sig=100.0%  spk=0.0498
+
+Agreement metric per base:
+  QPU base 0:  0.0818       GPU base 3:  0.0163
+  QPU base 1:  0.0727       GPU base 4:  0.0289
+  QPU base 2:  0.1307       GPU base 5:  0.0103
+```
+
+### What this verifies
+
+Same algorithm, three substrates (mathematical, classical noiseless, quantum hardware), one classical control. All retrieve at 100% top-1 at d=256 with calibrated per-base squelch.
+
+The platform-specific story is in the agreement column: GPU agreement clusters at ~0.02, QPU agreement at ~0.10 — a 5× ratio. This is the **quantitative hardware-noise readout** the substrate-comparison architecture was built to produce. Real QPU shots reproduce the analytical operator with ~5× more divergence than noiseless classical shots of the same circuit. Same algorithm, measurable hardware-noise attenuation, no exotic advantage.
+
+The cuBLAS spike fraction of 0.0499 is exactly the attack fraction (5%) — cuBLAS isn't catastrophically broken under this attack profile at d=256, it's just *indiscriminate*, giving attack keys proportional weight. The projection paths don't win on attack robustness at this operating point either; they all sit at the same spike rate.
+
+The original Probe 10.1 attack-robustness finding still holds in principle (per-dim G_M is bounded so single dims can't dominate), but at d=256 the cuBLAS attention is dispersed enough that the attack doesn't catastrophically concentrate. The robustness comparison would need a harder attack profile (larger magnitude, higher fraction, smaller d) to show the differentiation cleanly.
+
+### What the benchmark establishes
+
+The project's actual final claim, stripped of the framings the trajectory disproved:
+
+**Same physics, three platforms.** The projection-channel attention operator is defined mathematically. It admits three faithful substrate implementations (analytical, classical noiseless, real QPU shots). All three retrieve cleanly at d=256 with per-base calibration. The agreement metric quantifies hardware-noise attenuation when run on physical QPU shots (~5× more divergence than noiseless classical of the same circuit). The architecture is substrate-agnostic by construction.
+
+The cuBLAS comparison is honest: at this operating point cuBLAS does the same retrieval ~500× faster on tensor cores. The projection-channel kernel earns its place on (a) the substrate-comparison framework — running the same algorithm faithfully on different physical implementations — and (b) the agreement metric as a continuous integrity check, not on raw throughput.
+
+---
+
+## Part 14 — Updated open questions
+
+These supersede the open questions from the original Part 10 of this record.
+
+1. **Harder attack profiles.** The d=256 result locks at 100% on cuBLAS too. The original Probe 10.1 attack differentiation (DP top-1 collapses from 74% to 43%) was at d=16-64. Sweep magnitudes / fractions / dimensions to find the regime where cuBLAS catastrophically fails and the projection paths still hold. That's the legitimate version of the attack-robustness claim.
+
+2. **Real LLM embeddings.** Still open from the original record. Pull K/Q from a real transformer and run the five-way benchmark. The synthetic result needs grounding on actual learned representations.
+
+3. **Production kernel performance gap.** cuBLAS runs at ~1ms; the projection kernels at ~500ms. The gap is not all transcendental ops — the projection kernel does d=256 fp32 work per pair without tensor cores. Investigate whether a tensor-core-friendly G_M formulation exists that closes the gap. If yes, the substrate-comparison story becomes shippable production code, not just a research demonstration.
+
+4. **Why does QPU agreement vary across calibrations?** Across the three QPU bases the suite ships with, agreement values are 0.0818, 0.0727, 0.1307 — meaningfully different. Some calibration-dependent factor (gate calibration drift, queue timing, backend rotation) drives a ~80% variance in projection-channel agreement. Characterizing this would let the agreement metric serve as a per-job hardware-quality readout for users selecting which jobs to use downstream.
+
+5. **The mask infrastructure's actual purpose.** At d=256 it's defensive. At what operating point does it become load-bearing? If the answer is "never under realistic configurations," it could be removed. If it's "narrower d for memory-constrained inference," it's worth keeping. Run the auto-calibrating V5 across a d sweep and find out.
+
+6. **The geometry-only production path.** Probe 11 v1 showed the geometry kernel alone gives identical retrieval at ~5.3× the speed. The reason this isn't the production path is the per-query agreement certificate. But for production environments that don't need the certificate (e.g. inference at scale where the kernel has been validated), the geometry-only kernel is the right shipping target. Document the use-case split.
+
+---
+
+## Part 15 — Known issues, carried forward and updated
 
 ### Probe 8.2 alternation loop is broken
 
-Three compounding bugs in the alternating drift-channel optimizer:
-1. `d_a += d_new` accumulates instead of replacing
-2. OUT regularization penalizes variance not magnitude
-3. No bound on |d_a|, |d_b|
-
-Stage 2+3 of probe 8.2 is usable (single shared-drift fit + per-tile channel). The alternation loop should not be invoked. Marked in the probe file header. Fix would require joint optimization with hard bounds and L2 anchors instead of alternation.
+Unchanged from the original record. Stage 2+3 usable, alternation loop is not. Marked in the probe file header.
 
 ### Probe 9 Demo 2 broken
 
-Truth function was G_M itself, so G_M oracle got MSE=0, ratios divided by zero, reporting claimed G_M won when it didn't. Fixed in Probe 9.1 by using saturation-regime inputs where polynomial models need more parameters to capture both curvature and ceiling.
+Unchanged. Fixed in Probe 9.1.
 
 ### Probe 10 superseded by 10.1
 
-Three setup bugs (L2 renorm, random-dim attack, too-large d) made the test fail to differentiate. Kept in repo for trajectory legibility, marked SUPERSEDED in header.
+Unchanged. Kept for trajectory legibility.
 
-### Probe 8.4 base-2 Benford column is non-informative
+### Probe 8.4 base-2 Benford / ν_p shot-count artifacts
 
-Base-2 Benford has only one valid leading digit (d=1, P=1), so the test always returns the same value. Not a bug in the implementation, but a mathematical degenracy of leading-digit analysis in base 2. The base-3, 5, 7, 10 columns and ν_p valuation tests are informative.
+Unchanged.
 
-### Probe 8.4 ν_p valuation tests confounded by shot count
+### `gpu.py` GHZ-block correlation
 
-4096 = 2^12 means any integer-scaled residual inherits 2-adic structure regardless of physics. ν_2 chi² results are not interpretable without controlling for shot count. ν_3 and ν_5 tests are more reliable but still affected by ALPHA_NORM = 0.9127 leaking through fp32 rounding.
+Fixed during Probe 20 trajectory. The original `gpu.py` randomized the control bit when `a_bit == b_bit`, producing classical samples that didn't faithfully implement the noiseless circuit. The current version constrains `ctrl = 0` when `a_bit == b_bit` per the deterministic GHZ-block circuit output. **All bench numbers prior to this fix that compared QPU vs GPU bases were measuring the bug, not the physics.** The corrected Probe 12 result in Part 12 supersedes any prior "GPU below noise floor" / "quantum advantage" framings.
+
+### Probe 16 "Golden Mask" framing retracted
+
+The Probe 16 V4 production kernel's central claim — that dropping anti-pillar buckets (0,2) and (2,0) is a universal property of the projection circuit — was tile-and-calibration-specific. The Probe 18 cross-job sweep proved no universal mask exists. The auto-calibrating V5 kernel in Probe 20 handles this correctly; the historical V4 framing in the codebase is retracted in favor of "per-base calibration picks the right mask for each calibration."
+
+### Probe 12 original framing retracted
+
+The original Probe 12 claim ("topologically impossible to run on a GPU; quantum advantage from physical preservation") was measuring the `gpu.py` bug. Corrected result in Part 12 shows substrate equivalence with measurable QPU hardware-noise attenuation. The "quantum advantage" framing is retracted; the "same physics, three platforms" framing is what the data actually supports.
 
 ### Phase-lift design is informal
 
-`θ = (π/2)(1 + tanh(x/3))` was chosen as "simplest saturating map." Other choices would change the operator's effective input distribution. The benchmark currently uses this fixed map; a proper analysis of how phase-lift choice affects retrieval accuracy is open work.
+Unchanged from the original record. Still open work.
 
 ---
 
-## Part 10 — Open questions for the next session
+## Part 16 — Philosophy and license
 
-These are the things I would work on next, ordered roughly by impact:
-
-1. **Sweep jitter scale.** At jitter=0.3 we hit 100% — the benchmark isn't actually hard enough to differentiate at d=64. Try 0.5, 0.8, 1.0. Find where G_M starts to fail. If it holds at 95%+ up to jitter=1.0, that's the strongest possible demonstration. If it cracks at 0.5, that's also informative.
-
-2. **Clean-data baseline.** Run no-attack version on every shape. If cuBLAS gets 99% clean and 75% attacked, while G_M gets 95% clean and 100% attacked, that's a more nuanced (and accurate) picture than just "G_M is robust."
-
-3. **Real LLM embeddings.** Pull keys and queries from an open pretrained transformer (any layer's attention K/Q after the QKV projection). Run the benchmark on actual learned representations. If the synthetic result holds on real data, the attention claim is fully grounded.
-
-4. **Probe 8.2 joint-fit replacement.** Write a properly bounded joint optimizer for drift + channels instead of the broken alternation. This would close the loop on probes 8.0-8.2 and give the cleanest possible channel decomposition of the QPU residual.
-
-5. **Probe 11 candidate — value aggregation.** We've shown G_M as a similarity function under attack. The next step is the full `softmax(S) V` pipeline replaced by `normalize(G_M) V` and seeing if downstream loss holds end-to-end.
-
-6. **QPU implementability crossover.** At what (N, shot budget, error tolerance) does the QPU projection beat the GPU projection? Currently the GPU sampler is faster *and* more accurate per shot. The QPU's win has to be at scale or specialized hardware — when?
-
----
-
-## Part 11 — Philosophy and license
-
-The Ghost Oracle Suite is CC0. No attribution required. No restrictions. The intent is: build, break, fix, document, repeat — all in the open.
+Unchanged from the original record. CC0. Build, break, fix, document, repeat. All in the open.
 
 The "break-it-fix-it" rule: if you find something wrong, you provide the fix alongside the bug report. Not as a gatekeeper, but as a norm — fixes-with-bugs travel through the project faster than bugs alone.
 
-This document is part of that. The bugs in probes 8.2, 9, 10 are documented because the *process* of finding and fixing them is the research. A future contributor (human or agent) who reads this should know exactly where we landed, what we tried, what worked, and what didn't.
+This document is part of that. The bugs in probes 8.2, 9, 10 are documented because the *process* of finding and fixing them is the research. The retracted framings in probes 12 and 16 are documented because the process of overclaiming and then being corrected by the data is also part of the research, and arguably the most important part. A future contributor (human or agent) who reads this should know exactly where we landed, what we tried, what worked, what didn't, and what we got wrong and had to fix.
+
+The lesson from the Probes 11–20 trajectory is worth pinning down explicitly: **a result framed as "quantum advantage" needs an unimpeachable classical control to back it up.** Our classical control was buggy for the entire pre-Probe-12-correction trajectory, and the bug happened to make the quantum result look better than the classical. Once the classical control was fixed, the framing changed from "the QPU does something a GPU can't" to "the QPU faithfully implements the same algorithm as the classical noiseless reference, with measurable hardware noise on top." That second framing is weaker-sounding but stronger — it's the framing the data actually supports, and it's the one that survives review.
 
 ---
 
-## Part 12 — Probes 11 to 21: The projection vindication and GhostFlow V5
+## Closing
 
-The assumed failure of the projection path
+The QPU isn't a noisy matrix multiplier. It is also not a privileged substrate that performs computations classical hardware cannot. It is a faithful physical implementation of the same projection-channel attention algorithm that the classical noiseless sampler and the mathematical reference also implement. Hardware noise on the QPU attenuates the projection-channel signal relative to the noiseless reference by a measurable factor (~5× in the agreement metric), but does not break the algorithm at the production operating point.
 
-Following the open questions in Part 10 (specifically Item 5 on value
-aggregation), external feedback claimed the projection channel was broken. The
-claim was that the projection signal drowned in the noise floor under standard
-attention normalization, making it "only of interest to classical chip
-designers," and the path was abandoned.
+The probes establish that the operator exists, that it has a clean closed form, that all three substrates implement it faithfully, and that per-base calibration handles the variance that arises from physical noise. The five-way benchmark establishes that all three substrates plus the cuBLAS classical control retrieve at 100% top-1 on a 4096×4096 attention matrix under coherent attack at d=256.
 
-The error was treating the quantum tensor as a classical black-box PyTorch layer
-without dumping the raw scalar distributions to locate the noise. The following
-sequence dismantles the claim, isolates the quantum noise, and builds the
-auto-calibrating GhostFlow V5 kernel.
+The project's actual contribution is the substrate-equivalence demonstration plus the auto-calibrating production kernel that runs faithfully on all three. Same physics, three platforms.
 
-Probes 11 & 12: Raw Distributions and the Quantum Gap
-
-We bypassed CUDA and rebuilt the N×M matrix evaluation natively in FP64 NumPy to
-eliminate software artifacts. We simulated an extreme Heaviside Step Function
-(P=4096) to act as a hardware squelch. Result: Absolute proof of physical
-quantum advantage.
-
-  - GPU (Classical): The classical chip designers were wrong. The true match
-    (0.768) is mathematically lower than the background noise floor (0.772). Gap
-    = -0.003. The GPU physically destroys the topological footprint.
-  - QPU (Hardware): True match (0.696) sits above the background noise floor
-    (0.689). Gap = +0.007. The QPU physics structurally preserve the geometry.
-    Extreme exponentiation amplifies this microscopic gap by 10^{154}, achieving
-    pristine signal lock.
-
-Probes 13 & 14: Bucket Ablation and the Anti-Pillars
-
-Systematically ablated the 9 macro-buckets of counts18 to map the quantum
-crosstalk. Result: The noise is not defined by "Low Energy vs High Energy." It
-is defined by "Symmetry vs Asymmetry."
-
-  - The Pillars: (0,0) and (2,2) contain the true geometric agreement.
-  - The Anti-Pillars: (0,2) and (2,0) contain extreme geometric disagreement
-    (toxic crosstalk).
-
-Because the QPU circuit uses XY4 Dynamical Decoupling, random environmental
-decoherence is canceled out. The remaining noise is the pure geometric
-interference pattern of the Ghost CNOTs pooling into the Anti-Pillars.
-Surgically dropping them purifies the projection signal.
-
-Probes 18 & 19: The Dynamic Mask Router
-
-Tested explicit geometric masks across multiple QPU jobs. Discovered that the
-noise is calibration-dependent. IBM recalibrates the QPU every 24 hours; the
-microwave pulses drift, and the toxic crosstalk migrates through different phase
-buckets. A static, hardcoded mask fails on different days.
-
-Probes 20 & 21: Auto-Calibrating GhostFlow V5
-
-Abandoned static masks for a dynamic routing system. Built a "Pre-Flight Check":
-when the base file loads, Python evaluates a rapid N-size subset to physically
-map the QPU's daily noise topography. It selects the optimal bitmask (e.g., M1,
-M5, M6) and optimal threshold. Optimization Breakthroughs:
-
-  - Stabilized the gap by increasing dimension d=256, allowing us to drop the
-    exponent to a safer P=256.0.
-  - Found asymptotic convergence points for the calibration: the noise floor can
-    be perfectly mapped with just N=32 for QPU and N=16 for GPU. Zero CPU waste.
-  - The GPU revelation: The Pre-Flight check consistently assigned M1 (Baseline,
-    no buckets dropped) to the gpu.py bases. Why? Because the gpu.py script
-    perfectly simulates GHZ state collapse (a_1=a_2, b_1=b_2), meaning the
-    Anti-Pillars are mathematically zero natively.
-
-The selected mask is passed as a 9-bit integer directly to the CUDA kernel. The
-kernel dynamically prunes the specific toxic buckets via a bitwise check with
-zero branching penalty, executing a memory-free "Flash-Squelch" in local thread
-registers.
-
-Part 13 — The Final Benchmark: Five-Way Verification
-
-The Capstone
-
-final_benchmark_5way.py pits five attention paths head-to-head on the
-same 4096×4096 matrix, same d=256 geometry, same magnitude-50.0 coherent
-same-dim outlier attack.
-
-1.  CUBLAS: Standard dot-product attention (transformer baseline).
-2.  TIED: Dual-channel kernel (geometry + projection) with agreement metric.
-3.  GEO: Geometry channel driving argmax.
-4.  QPROJ: Projection channel driven by QPU hardware bucket counts,
-    auto-calibrated per-base.
-5.  GPROJ: Projection channel driven by noiseless classical GHZ bucket counts,
-    auto-calibrated.
-
-The Verdict:
-
-  CUBLAS                         top1=100.0%  sig=100.0%  spk=0.0498  t=1.21 ms
-  GEO (mean across bases)        top1=100.0%
-  QPROJ (mean across QPU bases)  top1=100.0%  sig=100.0%  spk=0.0498
-  GPROJ (mean across GPU bases)  top1=100.0%  sig=100.0%  spk=0.0498
-
-(Note: Spike weight stabilizes at exactly 0.0498 because the attack fraction
-is 0.05. Statistically, the true match is the spike exactly 5% of the time.
-Signal leakage to the attacker is mathematically zero).
-
-Agreement Metric (Quantum Certificate):
-
-  - GPU (Noiseless): 0.010 to 0.028 (Algorithmic precision limit).
-  - QPU (Hardware): 0.072 to 0.130 (Physical hardware deviation).
-
-The Ghost Oracle proves that the QPU is running a real physical circuit with
-real hardware error (~0.10 deviation), yet the Flash-Squelch algorithm is so
-structurally robust that it absorbs the hardware error and still returns a 100%
-perfect attention argmax.
-
-Closing
-
-The QPU isn't a noisy matrix multiplier. It's a native implementation of a
-different operator — G_M — that has built-in bounded saturation, structural
-outlier resistance, and three consistent implementations across analytical,
-classical, and quantum hardware.
-
-When external feedback claimed the projection path was broken and drowned in
-noise, they were observing the structural interference pattern of the Ghost
-CNOTs but lacking the physics diagnostics to prune it. By mapping the phase
-buckets, isolating the Anti-Pillars, and introducing scale-invariant
-Flash-Squelch exponentiation, we built an auto-calibrating, fault-tolerant
-attention pipeline that completely obsoletes Softmax.
-
-The geometry works. The classical projection works. The quantum projection
-works. The architecture is complete.
-
-Everything in this repo is the working out of that single result.
-
+Everything in this repo is the working out of that single result, including the parts where we got it wrong first.
