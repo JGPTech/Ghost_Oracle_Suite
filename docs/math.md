@@ -179,7 +179,13 @@ $$\hat P_0(a, b) = \frac{\sum_{i, j \in \{0, 0.5, 1\}} w(i, j) \cdot n_0(i, j)}{
 
 where $n_c(i, j)$ is the count of shots with $(f_a, f_b, \mathrm{ctrl}) = (i, j, c)$.
 
-**Log-space evaluation with clipping.** The per-shot log-weight decomposes as a sum of base and slope terms, which lets the kernel compute base and slope once per tile and assemble the nine $\log w$ values by addition only. The $p$ values are clipped to $[\varepsilon,\ 1 - \varepsilon]$ before any logarithm, and the assembled $\log w$ is clipped to $[-C,\ +C]$. The constants $\varepsilon$ and $C$ correspond to the `EPS` and `CLIP_LOG_W` `#define`s at the top of `ghost_kernel.cu`, and are calibrated for fp32 stability over the suite's angle range.
+**Log-space evaluation with clipping.** The per-shot log-weight decomposes as a sum of base and slope terms:
+
+$$\log w(f_a, f_b) = \bigl[\log(1 - p_a) - \log(1 - p_{a_o})\bigr] + f_a\bigl[\log p_a - \log p_{a_o} - \bigl(\log(1 - p_a) - \log(1 - p_{a_o})\bigr)\bigr] + (\ldots b \ldots)$$
+
+which lets the kernel compute base and slope once per tile and assemble the nine $\log w$ values by addition only. The $p$ values are clipped to $[\varepsilon, 1 - \varepsilon]$ with $\varepsilon = 0.05$ before any logarithm, and the assembled $\log w$ is clipped to $[-C, +C]$ with $C = 3.0$. These constants correspond to the `EPS` and `CLIP_LOG_W` `#define`s at the top of `ghost_kernel.cu` Section 1, and are calibrated for fp32 stability over the suite's angle range.
+
+The agreement metric in the tied-channel architecture is the per-row mean of $|\hat G_M^{\text{proj}} - G_M^{\text{geom}}|$. On a noiseless GPU base, this measures shot noise on $N_{\text{shots}} = 4096$ per bucket, around 0.01 to 0.06 depending on angle. On a physical QPU base, it measures shot noise plus the hardware residual, around 0.10 to 0.20 — the same range Probes 7 and 8 characterized directly.
 
 ---
 
