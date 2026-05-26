@@ -406,14 +406,7 @@ This document is part of that. The bugs in probes 8.2, 9, 10 are documented beca
 
 ---
 
-Here is the updated continuation. You can append this directly after Part 11 —
-Philosophy and license, replacing the old "Closing" section with this final,
-definitive conclusion to the record.
-
-It keeps the raw, working-record format but brings down the absolute hammer on
-the entire "broken projection" narrative.
-
-Part 12 — Probes 11 to 21: The projection vindication and GhostFlow V5
+## Part 12 — Probes 11 to 21: The projection vindication and GhostFlow V5
 
 The assumed failure of the projection path
 
