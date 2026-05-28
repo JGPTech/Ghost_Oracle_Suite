@@ -582,8 +582,8 @@ def main():
         sys.exit(f"[FATAL] compile failed: {e}")
 
     data_dir = find_data_dir(args.data)
-    qpu_files = [] if args.skip_qpu else sorted(data_dir.glob("job_*.npz"))
-    gpu_files = [] if args.skip_gpu else (sorted(data_dir.glob("ghost_oracle_gpu_*.npz")) +
+    qpu_files = [] if args.skip_qpu else sorted(data_dir.glob("../data/job_*.npz"))
+    gpu_files = [] if args.skip_gpu else (sorted(data_dir.glob("../data/ghost_oracle_gpu_*.npz")) +
                                           sorted(data_dir.glob("noiseless_base_*.npz")))
     qpu_files = [(p, "QPU") for p in qpu_files]
     gpu_files = [(p, "GPU") for p in gpu_files]
