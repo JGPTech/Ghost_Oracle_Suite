@@ -25,6 +25,7 @@ This project maintains a deliberate, chronological research record (`PROCESS_REC
 - **The operator.** `G_M(a, b) = sqrt((1 + cos(a) cos(b)) / 2) / α`. Closed form, verified at machine precision, with three faithful substrate implementations (analytical, classical sampler, QPU circuit).
 - **The probes.** A forensic trajectory from "we thought the QPU was computing T1" through the discovery of T3 as the real target, the simplification to G_M, the projection-channel range investigation (probes 11–11.2), the bucket-mask ablations (probes 13–18), the cross-job validation (probe 18 fleet), the dynamic-mask router exploration (probe 19), the auto-calibrating production kernel (probe 20), and the final five-way benchmark.
 - **The final benchmark.** A single-file harness that compares five attention paths on the same data: cuBLAS, the tied dual-channel kernel, geometry-only, projection-driven-by-QPU-shots, and projection-driven-by-noiseless-classical-shots. All scored on top-1, signal sharpness, and attack-spike concentration with calibrated thresholds per base.
+- **The Auto Oracle harness.** `ghost_oracle/auto_oracle.py` performs in-memory calibration over QPU bases, selects the best tile/mask component per base, runs semantic retrieval against cosine and closed-form `G_M`, and provides negative controls that show the physical shot counts are load-bearing.
 - **The bases.** Sample QPU and GPU `.npz` files in `data/` from the same algorithm — the classical GPU sampler is a faithful noiseless simulation of the projection circuit, not an arbitrary baseline.
 - **The docs.** `docs/math.md` for the operator derivations, `docs/architecture.md` for the kernel design, `docs/known_issues.md` for the running list of what's open.
 
@@ -52,6 +53,38 @@ python -m ghost_oracle.final_benchmark_5way --N 4096 --d 256 --power 256
 ```
 
 ---
+
+## Auto Oracle — in-memory QPU calibration and semantic retrieval
+
+`ghost_oracle/auto_oracle.py` is the streamlined retrieval harness for QPU-shot bases. It loads every `data/job_*.npz`, builds per-tile projection bucket counts, calibrates tile/mask components fully in memory, then runs cosine, closed-form geometry, and QPU projection retrieval on the same semantic-memory task.
+
+```bash
+python -m ghost_oracle.auto_oracle
+python -m ghost_oracle.auto_oracle --probe
+```
+
+Current medium run, `M=250,000`, `N=1024`, `d=1024`, noise `0.12`, outlier fraction `0.03`, and outlier magnitude `60`:
+
+| Path | Recall@1 | Time | Speed vs cosine |
+|---|---:|---:|---:|
+| **cosine baseline** | 96.88% | 1.156 s | 1.00× |
+| **geometry `G_M` megakernel** | 100.00% | 0.897 s | **1.29× faster** |
+| **QPU projection — base 1** | 100.00% | 2.416 s | 0.48× |
+| **QPU projection — base 2** | 100.00% | 2.404 s | 0.48× |
+| **QPU projection — base 3** | 100.00% | 2.415 s | 0.48× |
+
+The speed result is the important surprise: on this semantic-retrieval workload, the closed-form geometry megakernel is faster than the cosine baseline even though cosine is the tensor-core-friendly GEMM path and the Ghost Oracle geometry kernel is not using tensor cores. The QPU projection path is slower because it reconstructs scores from calibrated physical shot-count buckets, but it still reaches 100% Recall@1 on all three QPU bases.
+
+`--probe` adds two controls:
+
+| Control | Result | Interpretation |
+|---|---:|---|
+| Real calibrated counts | 100.00% Recall@1 | Physical shot structure retrieves. |
+| Permuted counts | 0.00% Recall@1 | Destroying bucket structure destroys retrieval. |
+| Uniformized counts | 0.00% Recall@1 | Projection is not silently reducing to geometry. |
+
+The separation sweep checks that the task is not only an attack artifact. At zero outlier magnitude, cosine is competitive; as the coherent outlier grows, cosine falls while `G_M` geometry remains at 100% and calibrated QPU projection rises toward 99–99.9%.
+
 
 ## The three-substrate framing
 
@@ -91,7 +124,9 @@ All five paths retrieve cleanly at this operating point. The platform-specific s
 
 Noiseless classical sampler agreement: ~0.02. Real QPU shot agreement: ~0.10. Five-times divergence is the hardware-noise floor measurement.
 
-The honest framing: at d=256 with calibrated power, all three substrates retrieve identically. cuBLAS is ~500× faster on this workload but is indiscriminate (spike concentration equals attack fraction). The projection paths provide substrate-specific physical certification, not raw speed advantage. The projection-channel kernel earns its place on the same-algorithm-three-platforms claim and on the agreement readout, not on attention throughput against tensor cores.
+The honest framing: at d=256 with calibrated power, all three substrates retrieve identically. cuBLAS is ~500× faster on this dense 4096×4096 attention workload but is indiscriminate (spike concentration equals attack fraction). The projection paths provide substrate-specific physical certification, not raw speed advantage. The projection-channel kernel earns its place on the same-algorithm-three-platforms claim and on the agreement readout, not on dense-attention throughput against tensor cores.
+
+The Auto Oracle semantic-retrieval path is a different operating point. There, the closed-form `G_M` geometry megakernel ran in 0.897 s versus 1.156 s for the cosine baseline — about **1.29× faster than cosine** — despite cosine taking the tensor-core-friendly GEMM route and the Ghost Oracle geometry kernel not using tensor cores. The QPU projection megakernel remains slower at ~2.41 s per base, because it is doing physical shot-count projection rather than just evaluating the closed form.
 
 ---
 
@@ -102,6 +137,8 @@ ghost-oracle-suite/
 ├── ghost_oracle/                       # the library
 │   ├── final_benchmark_5way.py         # final five-way verification (THE headline)
 │   ├── projection_benchmark.py         # earlier headline benchmark (Probe 10.1 era)
+│   ├── auto_oracle.py                  # in-memory QPU calibration + semantic retrieval
+│   ├── megakernels_2d.cu               # 2D geometry/projection megakernels for Auto Oracle
 │   ├── qpu.py                          # QPU job submission
 │   ├── gpu.py                          # noiseless classical sampler
 │   ├── dump.py                         # QPU result -> npz
