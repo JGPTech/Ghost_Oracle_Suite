@@ -368,8 +368,8 @@ def main():
     p.add_argument("--mixed-k", type=int, default=1)
     p.add_argument("--mixed-temp", type=float, default=10.0)
     p.add_argument("--data", default="data")
-    p.add_argument("--kernel", default="kernels/ghost_kernel.cu")
-    p.add_argument("--mk-kernel", default="megakernels_2d.cu")
+    p.add_argument("--kernel", default="ghost_oracle\G_M\kernels\ghost_kernel.cu")
+    p.add_argument("--mk-kernel", default="ghost_oracle\G_M\kernels\megakernels_2d.cu")
     p.add_argument("--probe", action="store_true",
                    help="Run load-bearing + separation probes (after calibration) and exit.")
     args = p.parse_args()

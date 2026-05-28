@@ -95,9 +95,9 @@ DEFAULT_KERNEL_CANDIDATES = [
     HERE / "kernels" / "ghost_kernel.cu",
     HERE / "ghost_kernel.cu",
     HERE.parent / "ghost_kernel.cu",
-    HERE / "ghost_oracle" / "kernels" / "ghost_kernel.cu",
+    HERE / "kernels" / "ghost_kernel.cu",
 ]
-DEFAULT_DATA_CANDIDATES = [HERE / "data", HERE, HERE.parent / "data"]
+DEFAULT_DATA_CANDIDATES = [HERE.parent.parent / "data"]
 
 # Mask catalog matched to Probe 18/20.
 MASK_CONFIGS = [

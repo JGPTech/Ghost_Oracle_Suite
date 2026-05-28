@@ -1,33 +1,118 @@
 # Ghost Oracle Suite
 
-A CC0 community project implementing projection-channel attention as a single algorithm across three substrates: mathematical reference, classical GPU simulation, and quantum hardware shots from IBM Runtime.
+A CC0 community project for **projection-style operators discovered by treating failures as forensic evidence**.
 
-**Same physics, three platforms.** The projection-channel attention operator is defined mathematically. It admits three faithful implementations — analytical, classical noiseless, and real-QPU — and this repo is the math, the probes that mapped the trajectory, the CUDA kernel that runs it, and the final five-way benchmark that compares all three substrates head-to-head against a cuBLAS classical control.
+The suite currently tracks two related operator families:
 
----
+- **`G_M` — Ghost Metric:** a bounded projection-channel similarity operator over angle/state pairs.
+- **`S_M` — Syndrome Metric:** a bounded syndrome-spacetime field operator over repetition-code measurement records, with a derived stress tensor `T_S`.
 
-#### Interactive Context & AI Agent
+The shared method is simple:
 
-**NotebookLM Workspace:** [https://notebooklm.google.com/notebook/5d2f2af6-b462-4f72-88d9-8df2a467d87f]
+> Build the thing that should work.  
+> When it does something else, do not throw the result away.  
+> Freeze it, control it, scramble it, and ask what it actually computed.
 
-This project maintains a deliberate, chronological research record (`PROCESS_RECORD.md`) so any future contributor — human or AI agent — can pick up the work with full context, including the wrong turns and the corrections. The NotebookLM workspace gives you an interactive guide to the math, the probes, the architecture, and the open issues.
-
-**The Agent's Role:**
-*   **Trace the Math:** Ask for breakdowns from the assumed $T_1$ / $T_2$ targets through the GHZ-entangled $T_3$ mixed-state target to the definitive $G_M$ operator.
-*   **Analyze Tradeoffs:** Query the computational costs of the projection paths vs cuBLAS, the agreement metric as a hardware-quality readout, and the role of dynamic-mask calibration.
-*   **Navigate the Codebase:** Get instant explanations for any script, kernel, or probe.
-*   **Onboard for Contributions:** Get up to speed on the "break-it-fix-it" CC0 norms and the open work without reading the entire repo from scratch.
+That workflow took the original Ghost Oracle path from a wrong Hadamard-test assumption to the corrected `G_M` operator. It now also drives the `S_M` syndrome-field work.
 
 ---
 
-## What's in this repo
+## Operator families
 
-- **The operator.** `G_M(a, b) = sqrt((1 + cos(a) cos(b)) / 2) / α`. Closed form, verified at machine precision, with three faithful substrate implementations (analytical, classical sampler, QPU circuit).
-- **The probes.** A forensic trajectory from "we thought the QPU was computing T1" through the discovery of T3 as the real target, the simplification to G_M, the projection-channel range investigation (probes 11–11.2), the bucket-mask ablations (probes 13–18), the cross-job validation (probe 18 fleet), the dynamic-mask router exploration (probe 19), the auto-calibrating production kernel (probe 20), and the final five-way benchmark.
-- **The final benchmark.** A single-file harness that compares five attention paths on the same data: cuBLAS, the tied dual-channel kernel, geometry-only, projection-driven-by-QPU-shots, and projection-driven-by-noiseless-classical-shots. All scored on top-1, signal sharpness, and attack-spike concentration with calibrated thresholds per base.
-- **The Auto Oracle harness.** `ghost_oracle/auto_oracle.py` performs in-memory calibration over QPU bases, selects the best tile/mask component per base, runs semantic retrieval against cosine and closed-form `G_M`, and provides negative controls that show the physical shot counts are load-bearing.
-- **The bases.** Sample QPU and GPU `.npz` files in `data/` from the same algorithm — the classical GPU sampler is a faithful noiseless simulation of the projection circuit, not an arbitrary baseline.
-- **The docs.** `docs/math.md` for the operator derivations, `docs/architecture.md` for the kernel design, `docs/known_issues.md` for the running list of what's open.
+### `G_M` — Ghost Metric
+
+`G_M` is the original Ghost Oracle operator:
+
+```text
+G_M(a, b) = sqrt((1 + cos(a) cos(b)) / 2) / α
+```
+
+It is implemented across three substrates:
+
+1. mathematical reference,
+2. noiseless classical GPU sampler,
+3. real QPU shot data from IBM Runtime.
+
+The `G_M` pipeline lives in:
+
+```text
+ghost_oracle/G_M/
+```
+
+It contains the QPU/GPU base tools, CUDA kernels, final five-way benchmark, Auto Oracle calibration harness, and projection-retrieval experiments.
+
+### `S_M` — Syndrome Metric
+
+`S_M` is the sister operator family discovered from flag/repetition-code syndrome records.
+
+Unlike `G_M`, `S_M` is **not naturally scalar**. Current evidence points to a bounded syndrome-spacetime field:
+
+```text
+S_M(t, i)
+```
+
+where:
+
+- `t` is syndrome round / time index,
+- `i` is code edge / stabilizer index.
+
+From this field, the suite builds a stress-tensor-style diagnostic:
+
+```text
+T_S = [[<ΔtS ΔtS>, <ΔtS ΔxS>],
+       [<ΔxS ΔtS>, <ΔxS ΔxS>]]
+```
+
+The `S_M` pipeline lives in:
+
+```text
+ghost_oracle/S_M/
+```
+
+It has a simple three-step path:
+
+```bash
+python ghost_oracle/S_M/sm_submit.py
+python ghost_oracle/S_M/sm_dump.py
+python ghost_oracle/S_M/sm_analyze.py
+```
+
+The default `S_M` analysis reports the raw operator signature. It does **not** calibrate or normalize the tensor by default; exact values can vary between QPU jobs.
+
+---
+
+## Repository layout
+
+```text
+ghost-oracle-suite/
+├── ghost_oracle/
+│   ├── G_M/
+│   │   ├── README.md
+│   │   ├── kernels/
+│   │   │   └── ghost_kernel.cu
+│   │   ├── auto_oracle.py
+│   │   ├── dump.py
+│   │   ├── final_benchmark_5way.py
+│   │   ├── gpu.py
+│   │   ├── projection_benchmark.py
+│   │   └── qpu.py
+│   │
+│   └── S_M/
+│       ├── README.md
+│       ├── sm_submit.py              # step 1: submit default S_M QPU job
+│       ├── sm_dump.py                # step 2: dump Qiskit Runtime data
+│       ├── sm_analyze.py             # step 3: run unified S_M analysis
+│
+├── probes/                         # chronological G_M research trajectory
+├── examples/
+├── docs/
+├── data/                           # data files; see data/README.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── PROCESS_RECORD.md
+├── README.md
+└── requirements.txt
+```
 
 ---
 
@@ -37,184 +122,221 @@ This project maintains a deliberate, chronological research record (`PROCESS_REC
 git clone <repo-url> ghost-oracle-suite
 cd ghost-oracle-suite
 pip install -r requirements.txt
-python -m ghost_oracle.final_benchmark_5way
 ```
 
-That runs the final five-way verification on all base files in `data/`. To run with a saved calibration manifest from Probe 20:
+Run the original `G_M` five-way benchmark:
 
 ```bash
-python -m ghost_oracle.final_benchmark_5way --manifest probe20_calibration.json
+python ghost_oracle/G_M/final_benchmark_5way.py
 ```
 
-To run at a different operating point:
+Run Auto Oracle semantic retrieval:
 
 ```bash
-python -m ghost_oracle.final_benchmark_5way --N 4096 --d 256 --power 256
+python ghost_oracle/G_M/auto_oracle.py
+python ghost_oracle/G_M/auto_oracle.py --probe
 ```
+
+Run the default `S_M` pipeline:
+
+```bash
+python ghost_oracle/S_M/sm_submit.py
+python ghost_oracle/S_M/sm_dump.py
+python ghost_oracle/S_M/sm_analyze.py
+```
+
+The first command submits a QPU job. Wait for the job to complete before running `sm_dump.py`.
 
 ---
 
-## Auto Oracle — in-memory QPU calibration and semantic retrieval
+## `G_M` headline: projection-channel similarity
 
-`ghost_oracle/auto_oracle.py` is the streamlined retrieval harness for QPU-shot bases. It loads every `data/job_*.npz`, builds per-tile projection bucket counts, calibrates tile/mask components fully in memory, then runs cosine, closed-form geometry, and QPU projection retrieval on the same semantic-memory task.
+The `G_M` path began with a wrong assumption: the QPU circuit was thought to compute a textbook Hadamard-test target. Probes showed it did not. The project then traced what the circuit actually computed and simplified the result into:
 
-```bash
-python -m ghost_oracle.auto_oracle
-python -m ghost_oracle.auto_oracle --probe
+```text
+G_M(a, b) = sqrt((1 + cos(a) cos(b)) / 2) / α
 ```
 
-Current medium run, `M=250,000`, `N=1024`, `d=1024`, noise `0.12`, outlier fraction `0.03`, and outlier magnitude `60`:
+The final benchmark compares five paths on the same attention task:
+
+| Path | Role |
+|---|---|
+| `CUBLAS` | dot-product attention control |
+| `TIED` | dual-channel geometry + projection kernel |
+| `GEO` | closed-form `G_M` geometry |
+| `QPROJ` | projection driven by real QPU shots |
+| `GPROJ` | projection driven by noiseless GPU shots |
+
+All five retrieve cleanly at the calibrated dense-attention operating point. The substrate-specific story appears in the agreement metric: noiseless GPU projection sits near the shot-noise floor, while real QPU projection shows additional hardware-noise attenuation.
+
+### Auto Oracle result
+
+`ghost_oracle/G_M/auto_oracle.py` adds in-memory calibration over QPU bases and semantic retrieval against cosine and `G_M`.
+
+Medium run:
+
+```text
+M = 250,000
+N = 1024
+d = 1024
+noise = 0.12
+outlier fraction = 0.03
+outlier magnitude = 60
+```
 
 | Path | Recall@1 | Time | Speed vs cosine |
 |---|---:|---:|---:|
-| **cosine baseline** | 96.88% | 1.156 s | 1.00× |
-| **geometry `G_M` megakernel** | 100.00% | 0.897 s | **1.29× faster** |
-| **QPU projection — base 1** | 100.00% | 2.416 s | 0.48× |
-| **QPU projection — base 2** | 100.00% | 2.404 s | 0.48× |
-| **QPU projection — base 3** | 100.00% | 2.415 s | 0.48× |
+| cosine baseline | 96.88% | 1.156 s | 1.00× |
+| geometry `G_M` megakernel | 100.00% | 0.897 s | **1.29× faster** |
+| QPU projection — base 1 | 100.00% | 2.416 s | 0.48× |
+| QPU projection — base 2 | 100.00% | 2.404 s | 0.48× |
+| QPU projection — base 3 | 100.00% | 2.415 s | 0.48× |
 
-The speed result is the important surprise: on this semantic-retrieval workload, the closed-form geometry megakernel is faster than the cosine baseline even though cosine is the tensor-core-friendly GEMM path and the Ghost Oracle geometry kernel is not using tensor cores. The QPU projection path is slower because it reconstructs scores from calibrated physical shot-count buckets, but it still reaches 100% Recall@1 on all three QPU bases.
+The speed result is the surprise: on this semantic-retrieval workload, the closed-form `G_M` geometry megakernel ran faster than the cosine baseline even though cosine is the tensor-core-friendly GEMM path and the Ghost Oracle geometry kernel is not using tensor cores.
 
-`--probe` adds two controls:
+The QPU projection path is slower because it reconstructs scores from calibrated physical shot-count buckets. Its purpose is not raw throughput; it is substrate-backed projection evidence.
+
+`--probe` adds negative controls:
 
 | Control | Result | Interpretation |
 |---|---:|---|
-| Real calibrated counts | 100.00% Recall@1 | Physical shot structure retrieves. |
-| Permuted counts | 0.00% Recall@1 | Destroying bucket structure destroys retrieval. |
-| Uniformized counts | 0.00% Recall@1 | Projection is not silently reducing to geometry. |
-
-The separation sweep checks that the task is not only an attack artifact. At zero outlier magnitude, cosine is competitive; as the coherent outlier grows, cosine falls while `G_M` geometry remains at 100% and calibrated QPU projection rises toward 99–99.9%.
-
-
-## The three-substrate framing
-
-The base `.npz` files contain shot data from the projection-channel Hadamard-test circuit. The classical `gpu.py` file is a faithful noiseless implementation of that *same* circuit; the QPU `.npz` files are real hardware runs of it. Both feed the same operator.
-
-Two channels run side by side in the kernel:
-
-- **Projection channel** — bucket reweighting on physical shot data (QPU or noiseless classical). Hardware-realizable. The channel that carries the substrate-specific behavior.
-- **Geometry channel** — the analytical closed form evaluated inline. Sharp, exact, substrate-agnostic. Drives the production argmax.
-
-The agreement metric (mean `|projection − geometry|` per query) quantifies how much the projection-channel diverges from its noiseless analytical prediction — this is the **substrate quality readout**. Noiseless classical (GPROJ) hits ~0.02 agreement; real QPU shots (QPROJ) sit around ~0.10, with per-base variation reflecting calibration drift. Same algorithm, same retrieval accuracy, measurable hardware-noise attenuation.
+| real calibrated counts | 100.00% Recall@1 | physical shot structure retrieves |
+| permuted counts | 0.00% Recall@1 | destroying bucket structure destroys retrieval |
+| uniformized counts | 0.00% Recall@1 | projection is not silently reducing to geometry |
 
 ---
 
-## Headline result — five-way benchmark
+## `S_M` headline: syndrome-spacetime field
 
-Same retrieval problem, five score backends, 4096×4096 attention matrix, d=256, jitter=0.3, 5% same-dim coherent attack at magnitude 50, Flash-Squelch power=256:
+The `S_M` path began from a decoder that looked too clean. Instead of discarding it as broken, the suite asked what the QPU record was actually carrying.
 
-| Path | top-1 | sig fraction | spike | time |
-|---|---|---|---|---|
-| **CUBLAS** (classical control) | 100.0% | 100.0% | 0.0499 | 1.2 ms |
-| **TIED** (dual-channel kernel) | 100.0% | 100.0% | 0.0498 | ~500 ms |
-| **GEO** (geometry argmax) | 100.0% | 100.0% | 0.0498 | ~500 ms |
-| **QPROJ** (mean across 3 QPU bases) | 100.0% | 100.0% | 0.0498 | ~500 ms |
-| **GPROJ** (mean across 3 GPU bases) | 100.0% | 100.0% | 0.0498 | ~500 ms |
-
-All five paths retrieve cleanly at this operating point. The platform-specific story shows up in the agreement metric:
-
-| Base | Type | Agreement |
-|---|---|---|
-| job_d83putvtjchs73bpg5o0 | QPU | 0.0818 |
-| job_d83q037oha1c73bn14p0 | QPU | 0.0727 |
-| job_d83q0ivoha1c73bn15d0 | QPU | 0.1307 |
-| ghost_oracle_gpu_seed_496905 | GPU | 0.0163 |
-| ghost_oracle_gpu_seed_627861 | GPU | 0.0289 |
-| ghost_oracle_gpu_seed_837354 | GPU | 0.0103 |
-
-Noiseless classical sampler agreement: ~0.02. Real QPU shot agreement: ~0.10. Five-times divergence is the hardware-noise floor measurement.
-
-The honest framing: at d=256 with calibrated power, all three substrates retrieve identically. cuBLAS is ~500× faster on this dense 4096×4096 attention workload but is indiscriminate (spike concentration equals attack fraction). The projection paths provide substrate-specific physical certification, not raw speed advantage. The projection-channel kernel earns its place on the same-algorithm-three-platforms claim and on the agreement readout, not on dense-attention throughput against tensor cores.
-
-The Auto Oracle semantic-retrieval path is a different operating point. There, the closed-form `G_M` geometry megakernel ran in 0.897 s versus 1.156 s for the cosine baseline — about **1.29× faster than cosine** — despite cosine taking the tensor-core-friendly GEMM route and the Ghost Oracle geometry kernel not using tensor cores. The QPU projection megakernel remains slower at ~2.41 s per base, because it is doing physical shot-count projection rather than just evaluating the closed form.
-
----
-
-## Repository Structure
+The default `S_M` job prepares a logical cat state inside the repetition-code space:
 
 ```text
-ghost-oracle-suite/
-├── ghost_oracle/                       # the library
-│   ├── final_benchmark_5way.py         # final five-way verification (THE headline)
-│   ├── projection_benchmark.py         # earlier headline benchmark (Probe 10.1 era)
-│   ├── auto_oracle.py                  # in-memory QPU calibration + semantic retrieval
-│   ├── megakernels_2d.cu               # 2D geometry/projection megakernels for Auto Oracle
-│   ├── qpu.py                          # QPU job submission
-│   ├── gpu.py                          # noiseless classical sampler
-│   ├── dump.py                         # QPU result -> npz
-│   └── kernels/
-│       └── ghost_kernel.cu             # CUDA: projection + geometry + tied + V5 dynamic-mask
-│
-├── probes/                             # forensic trajectory (1 through 10.1)
-│   ├── README.md                       # narrative arc — start here for the story
-│   ├── probe1_identity_bridge.py
-│   ├── probe2_projection_scrambled_control.py
-│   ├── probe3_anchor_conditioned_projection.py
-│   ├── probe4_build_base.py
-│   ├── probe5_unified_engine.py
-│   ├── probe6_3way_convergence.py
-│   ├── probe7_ghost_parity.py
-│   ├── probe8_residual_decomposition.py
-│   ├── probe9_ghost_operator.py
-│   ├── probe9_1_indef_kernel_attn.py
-│   ├── probe10_ghost_attention.py
-│   ├── probe10_1_real_softmax_attack.py
-│   └── benchmark_evolution/            # benchmark iterations before the headline
-│       ├── final_benchmark.py
-│       ├── final_benchmark_combined.py
-│       ├── final_benchmark_tied.py
-│       └── final_benchmark_tied_perdim.py
-│
-├── data/                               # sample bases (everything below ships with the repo)
-│   ├── README.md                       # file schema, generation, reproducibility
-│   ├── job_d83putvtjchs73bpg5o0.npz    # QPU base 1
-│   ├── job_d83q037oha1c73bn14p0.npz    # QPU base 2
-│   ├── job_d83q0ivoha1c73bn15d0.npz    # QPU base 3
-│   ├── ghost_oracle_gpu_4096shots_*.npz   # noiseless classical bases (3 seeds)
-│   └── ghost_oracle_gpu_4096shots_*.npz
-│
-├── docs/
-│   ├── math.md                         # T1, T2, T3, G_M derivations
-│   ├── architecture.md                 # tied-channel design and data flow
-│   └── known_issues.md                 # running list of bugs and open work
-│
-├── examples/
-│   ├── README.md                       # results and design notes
-│   ├── parameter_ablation.py           # 1D sensitivity sweeps (d, jitter, magnitude, fraction)
-│   └── bsgs_geometric_engine.py        # semantic retrieval vs cosine, up to 1M keys
-│
-├── PROCESS_RECORD.md                   # long-form trajectory log (probes 1 through 20)
-├── CONTRIBUTING.md                     # break-it-fix-it rule, conventions
-├── README.md
-├── LICENSE                             # CC0 dedication
-└── requirements.txt
+|+_L> = (|000...0> + |111...1>) / sqrt(2)
+```
+
+Then it runs repeated syndrome extraction and analyzes the final data and syndrome spacetime record. For this experiment, final majority-vote logical error is diagnostic only; the useful terminal object is edge parity:
+
+```text
+E_i = D_i XOR D_{i+1}
+```
+
+The first key result: the candidate object is **not scalar**.
+
+Shape probe results from a logical-cat QPU run:
+
+| Distance | Field L2 | Detection-field L2 | Shape |
+|---:|---:|---:|---|
+| 3 | 1.2081 | 0.8680 | field / edge-anisotropic |
+| 5 | 2.0462 | 1.1921 | field / edge-anisotropic |
+| 7 | 1.9284 | 1.9591 | field / edge-anisotropic |
+| 9 | 2.1345 | 2.1913 | field / edge-anisotropic |
+
+The stress-tensor analysis builds:
+
+```text
+ΔtS[t,i] = S[t+1,i] XOR S[t,i]
+ΔxS[t,i] = S[t,i+1] XOR S[t,i]
+```
+
+and:
+
+```text
+T_S = [[<ΔtS ΔtS>, <ΔtS ΔxS>],
+       [<ΔxS ΔtS>, <ΔxS ΔxS>]]
+```
+
+Logical-cat QPU run:
+
+| d | Ttt | Txx | Ttx | trace | anisotropy | coupling | best local |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 3 | 0.10761 | 0.16930 | 0.03084 | 0.27691 | -0.2228 | 0.2285 | 1.23931 |
+| 5 | 0.11051 | 0.21118 | 0.04653 | 0.32169 | -0.3130 | 0.3046 | 1.45825 |
+| 7 | 0.12348 | 0.29035 | 0.05810 | 0.41383 | -0.4032 | 0.3068 | 2.36326 |
+| 9 | 0.12950 | 0.29289 | 0.06024 | 0.42238 | -0.3868 | 0.3093 | 2.85467 |
+
+Across distances:
+
+```text
+Txx > Ttt
+Ttx > 0
+anisotropy < 0
+```
+
+The observed field is spatially dominant but time-coupled, and its real-vs-control separation grows strongly in the local tensor field.
+
+Careful claim:
+
+> In a logical-cat-state QPU run, the syndrome record forms a bounded spacetime field with strong real-vs-control separation, distance-scaling, spatially dominant stress, and nonzero temporal-spatial coupling.
+
+Exact tensor values are hardware-run dependent. The default pipeline is meant to reproduce the **qualitative S_M signature**, not a bit-for-bit copy of one QPU job.
+
+---
+
+## Data
+
+The `data/` directory has its own README and is intentionally separate from the code layout.
+
+Large generated files should usually stay out of git unless they are small reproducibility fixtures. Recommended ignore patterns:
+
+```gitignore
+data/*.npz
+analysis/
+*_report.json
+stress_tensor*.png
+operator_shape*.json
+repcode*_job_*.json
+sm_job_*.json
+latest_sm_*.json
 ```
 
 ---
 
-## The probes
+## Docs and process record
 
-The numbered probes document the actual research trajectory — not just final results but the wrong turns, the bugs, the corrections. They're chronological and honest. Probe 1 starts believing the QPU computes T1. Probe 4 derives the real target T3. Probe 9 simplifies T3 to G_M. Probes 11–12 investigate projection-channel range and originally claimed quantum advantage. Probes 13–18 search for the right bucket-mask architecture and document the eventual finding that mask-selection is calibration-dependent rather than physics-dependent. Probe 12 was re-run with a corrected classical sampler and the "quantum advantage" framing was retracted in favor of the substrate-equivalence finding the project actually verified. Probe 20 builds the auto-calibrating production kernel; the final benchmark closes the sequence.
+- `docs/math.md` contains the `G_M` derivation and related operator math.
+- `docs/architecture.md` explains the original tied-channel design and data flow.
+- `docs/known_issues.md` preserves known bugs, superseded probes, and caveats.
+- `PROCESS_RECORD.md` is the chronological research log.
 
-Some probes have known issues that are preserved in place because the corrections are part of the story. See `docs/known_issues.md` and the probe file headers.
+The process record is intentionally honest: wrong turns stay in the repo, fixes live in follow-up probes, and claims get retracted when controls do not support them.
 
 ---
 
 ## Contributing
 
-CC0 community project. The norm is simple: **if you break something, you provide the fix.** No bug reports without a patch attempt. No claims without code. No "this is wrong" without "and here's what's right."
+This is a CC0 community project.
 
-See `CONTRIBUTING.md` for the full philosophy. The short version: build, break, fix, document, repeat. Everything in the open.
+The norm is:
+
+> If you break something, you provide the fix.
+
+That does not mean bug reports are unwelcome. It means the project moves on reproductions, probes, patches, and clear deltas.
+
+Useful contributions:
+
+- new probes with controls,
+- fixes for known issues,
+- documentation improvements,
+- benchmark sweeps,
+- small reproducibility fixtures,
+- clearer null models.
+
+See `CONTRIBUTING.md` for the full philosophy.
 
 ---
 
 ## License
 
-CC0 1.0 Universal. Public domain dedication. Use it for anything, attribute if you want to, don't if you don't. See `LICENSE`.
+CC0 1.0 Universal. Public domain dedication.
+
+Use it for anything. Attribute if you want to. Do not if you do not.
 
 ---
 
 ## Citation
 
-Not asking for one. For all my fellow ghosts, may our silence speak your name.
-```
+Not asking for one.
+
+For all my fellow ghosts, may our silence speak your name.
