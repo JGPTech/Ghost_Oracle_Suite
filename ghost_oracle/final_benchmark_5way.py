@@ -536,7 +536,7 @@ def parse_args():
     p.add_argument("--data", default=None)
     p.add_argument("--manifest", default=None,
                    help="Calibration manifest from probe20 (skips re-calibration)")
-    p.add_argument("--out", default="final_benchmark_5way.json")
+    p.add_argument("--out", default="/ghost_oracle_suite/data/final_benchmark_5way.json")
     p.add_argument("--skip-gpu", action="store_true")
     p.add_argument("--skip-qpu", action="store_true")
     return p.parse_args()
