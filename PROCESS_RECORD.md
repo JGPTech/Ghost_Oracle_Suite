@@ -1297,7 +1297,689 @@ If it is a projector ingredient, identify which coordinate it supplies.
 If a field term changes ordering, measure rankΔ.
 If it helps only in a narrow band, report the over-steer region too.
 ```
+---
+
+## Addendum H — S_M Token Retrieval: from TSP projector to transformer retrieval
+
+After the S_M/TSP projector testbed stabilized, the next question was whether the same projector discipline could be moved from a graph/route optimization problem into token retrieval.
+
+The goal was not to claim that S_M is a language model, and not to claim quantum advantage. The goal was narrower and cleaner:
+
+```text
+Can the same bounded projection / deformation framework be applied to a token
+retrieval task where cosine and dot-product baselines are known and measurable?
+```
+
+The TSP result had already separated:
+
+```text
+ΔL
+  raw classical control
+
+S_I = sm_improve
+  bounded projector spine
+
+S_F = sm_field
+  tunable field deformation channel
+
+rankΔ
+  measure of how much the field changes move ordering
+```
+
+The token retrieval path reused the same structure but changed the domain:
+
+```text
+cosine / dot
+  raw classical retrieval controls
+
+geo_projected
+  analytical bounded projection coordinate
+
+gpu_projected
+  synthetic/noiseless projection-table coordinate
+
+qpu_projected
+  projection-table coordinate derived from raw S_M QPU syndrome data
+
+field_*
+  retrieval-rank field deformation channel
+
+rankΔ
+  measure of how much projected scoring changes candidate ordering
+```
+
+This became the first S_M-to-token retrieval bridge.
+
+---
+
+### H.1 — Clean token retrieval pipeline
+
+A new folder was created for the token retrieval path:
+
+```text
+ghost_oracle/S_M/S_M_token/
+```
+
+The final pipeline was split into two scripts on purpose:
+
+```text
+build_torch_token_dataset.py
+  builds real transformer hidden-state retrieval datasets
+
+token_retrieval_projector.py
+  runs the classical/projected retrieval benchmark
+```
+
+This split matters. The PyTorch script only creates data. The projector script only evaluates retrieval. That keeps the benchmark logic from being tangled with model-loading code.
+
+The dataset schema is:
+
+```text
+queries        float32, shape (Nq, d)
+keys           float32, shape (Nk, d)
+true_ids       int64,   shape (Nq,)
+candidates     int64,   shape (Nq, candidate_k)
+attacked_keys  bool,    shape (Nk,)
+attack_dim     int64 scalar
+```
+
+The benchmark enforces the same honesty constraint across all backends:
+
+```text
+same query vectors
+same key vectors
+same true target ids
+same candidate sets
+different scoring coordinates
+shared metrics
+```
+
+The benchmark reports:
+
+```text
+top1
+top5
+MRR
+mean rank
+mean margin
+attacked-key top1 fraction
+rankΔ vs cosine top-20
+runtime
+```
+
+This made token retrieval comparable to the earlier TSP projector result: not just “which score wins,” but how much the projected coordinate changes ordering and whether that change helps or over-steers.
+
+---
+
+### H.2 — Raw S_M dump as QPU projection base
+
+The first implementation expected `--qpu-base` to be a ready-made 2D projection table.
+
+When pointed directly at a raw S_M dump:
+
+```text
+data/sm_data_plus_<JOB_ID>.npz
+```
+
+it failed because the file contained:
+
+```text
+data_d3, synd_d3
+data_d5, synd_d5
+data_d7, synd_d7
+data_d9, synd_d9
+```
+
+rather than:
+
+```text
+projection_table
+qpu_table
+scores
+```
+
+This was fixed by adding an S_M-dump conversion path.
+
+The projector now accepts raw S_M dump files directly:
+
+```text
+--qpu-base data/sm_data_plus_<JOB_ID>.npz
+```
+
+If a raw S_M dump is detected, the script derives a bounded projection response surface from measured S_M field statistics:
+
+```text
+terminal edge / syndrome agreement
+detection-event rate
+stress tensor trace
+anisotropy
+coupling
+local field profile texture
+```
+
+This produces a 2D table in `[0,1]` that can be used by the same token retrieval harness.
+
+Important framing:
+
+```text
+raw S_M QPU field
+  → calibration-derived bounded projection response surface
+  → token retrieval scoring harness
+```
+
+This does not mean the raw S_M dump directly contains token retrieval scores. It means the QPU/S_M file supplies a measured projection calibration surface. The token retrieval problem remains classically reproducible and auditable.
+
+A representative loaded S_M base reported:
+
+```text
+S_M agreement = 0.8181
+detection     = 0.1202
+trace         = 0.3587
+```
+
+---
+
+### H.3 — Synthetic token retrieval smoke test
+
+The first synthetic token retrieval run used:
+
+```text
+n_queries   = 1000
+n_keys      = 8192
+dim         = 64
+candidate_k = 256
+attack frac = 0.05
+```
+
+All primary backends achieved 100% top-1:
+
+```text
+cosine         top1 = 1.000
+dot            top1 = 1.000
+geo_projected  top1 = 1.000
+gpu_projected  top1 = 1.000
+qpu_projected  top1 = 1.000
+```
+
+This was useful, but not as an advantage result. It only proved that the plumbing worked:
+
+```text
+raw S_M dump loaded successfully
+projection table derived successfully
+token retrieval harness executed successfully
+projected scoring did not explode
+```
+
+The field deformation channel also behaved like the TSP field channel:
+
+```text
+small λ
+  stable
+
+large λ
+  over-steers and degrades retrieval
+```
+
+This confirmed the diagnostic was alive, but the task was too easy.
+
+---
+
+### H.4 — Harder synthetic regime and operating-band sweep
+
+The retrieval task was made harder by increasing query noise, increasing candidate count, lowering dimension, and injecting a coherent same-dimension spike attack.
+
+A representative harsh run used:
+
+```text
+dim                    = 16
+jitter                 = 1.25
+candidate_k            = 1024
+attack_magnitude       = 16
+query_attack_magnitude = 4
+```
+
+Result:
+
+```text
+geo_projected  top1 = 0.163
+gpu_projected  top1 = 0.162
+qpu_projected  top1 = 0.159
+cosine         top1 = 0.128
+dot            top1 = 0.028
+```
+
+The attack readout was the important part:
+
+```text
+dot atk@1            = 0.984
+cosine atk@1         = 0.305
+qpu_projected atk@1  = 0.170
+```
+
+Dot product collapsed into attacked-key selection. Cosine degraded. The bounded projected coordinates reduced attacked-key selection and recovered a modest top-1 advantage.
+
+A sweep mode was then added to automatically search operating regimes. It swept dimensions, jitter, candidate count, attack magnitude, and query-attack magnitude, ranking rows by:
+
+```text
+qpu_adv_top1 = qpu_projected_top1 - cosine_top1
+qpu_attack_reduction = cosine atk@1 - qpu atk@1
+```
+
+The sweep found a strong synthetic operating band:
+
+```text
+dim   = 32
+jitter = 0.75
+k     = 512
+atk   = 16
+qAtk  = 8
+
+cosine top1 = 0.063
+qpu top1    = 0.962
+adv         = +0.898
+atk↓        = +0.933
+rankΔ       = 0.942
+```
+
+The top sweep rows were not a single lucky point. They clustered around:
+
+```text
+dim = 32
+jitter = 0.75 to 1.00
+candidate_k = 512 or 1024
+query_attack_magnitude = 8
+attack_magnitude = 8, 16, or 24
+```
+
+This established the synthetic coherent-spike regime:
+
+```text
+cosine collapses into the attack axis
+dot collapses harder
+bounded projected scoring resists single-dimension domination
+qpu_projected tracks geo_projected and gpu_projected
+```
+
+---
+
+### H.5 — PyTorch / DistilGPT2 dataset builder
+
+After the synthetic sweep found the operating band, a real transformer data path was added.
+
+`build_torch_token_dataset.py` uses PyTorch and HuggingFace Transformers to build retrieval datasets from hidden states and input embeddings.
+
+Two target modes were implemented:
+
+```text
+self_token
+  query  = hidden state at token position t
+  target = token id at position t
+
+next_token
+  query  = hidden state at token position t
+  target = token id at position t+1
+```
+
+The model used for the first tests was:
+
+```text
+distilgpt2
+```
+
+The script extracts:
+
+```text
+queries
+  transformer hidden states
+
+keys
+  model input embedding vectors
+
+true_ids
+  key-row index of the target token
+
+candidates
+  sampled candidate key rows including the true target
+```
+
+It also supports the same coherent spike attack:
+
+```text
+--attack
+--attack-magnitude 16
+--query-attack-magnitude 8
+```
+
+This made the token retrieval benchmark real-embedding rather than purely synthetic.
+
+---
+
+### H.6 — DistilGPT2 self-token result
+
+The first real-transformer retrieval test used DistilGPT2 self-token mode without attack.
+
+Result:
+
+```text
+qpu_projected  top1 ≈ 17.2%
+geo/gpu        top1 ≈ 17.2–17.3%
+dot            top1 ≈ 14.9%
+cosine         top1 ≈ 1.7%
+```
+
+Cosine was essentially unusable for raw hidden-state-to-input-embedding retrieval in this setup. The projected coordinate and dot product both did better, with projected scoring slightly ahead of dot in top-1.
+
+Then the same self-token setup was run with coherent spike attack:
+
+```text
+gpu_projected  top1 = 17.5%
+qpu_projected  top1 = 17.3%
+geo_projected  top1 = 17.2%
+cosine         top1 = 9.8%
+dot            top1 = 9.5%
+```
+
+Attack readout:
+
+```text
+cosine atk@1 = 1.000
+dot atk@1    = 1.000
+qpu atk@1    = 0.102
+```
+
+Under attack, cosine and dot were fully hijacked by attacked keys. The projected paths stayed around their non-attack top-1 level and selected attacked keys only about 10% of the time.
+
+This was the first real-transformer confirmation of the synthetic coherent-spike result.
+
+---
+
+### H.7 — DistilGPT2 next-token result
+
+The strongest current result came from DistilGPT2 next-token retrieval with coherent spike attack.
+
+Dataset:
+
+```text
+model                  = distilgpt2
+target_mode            = next_token
+queries                = (2000, 768)
+keys                   = (8328, 768)
+candidates             = (2000, 512)
+attacked keys          = 416 / 8328
+attack_magnitude       = 16
+query_attack_magnitude = 8
+```
+
+Benchmark result:
+
+```text
+geo_projected  top1 = 0.473
+gpu_projected  top1 = 0.473
+qpu_projected  top1 = 0.472
+
+cosine         top1 = 0.095
+dot            top1 = 0.094
+```
+
+Attack readout:
+
+```text
+cosine atk@1 = 1.000
+dot atk@1    = 1.000
+qpu atk@1    = 0.122
+```
+
+The projected paths also stayed tightly aligned:
+
+```text
+geo_projected ≈ gpu_projected ≈ qpu_projected
+```
+
+This is the cleanest token-retrieval result so far:
+
+```text
+real transformer hidden states
+next-token retrieval target
+same candidate set
+cosine/dot collapse into attacked-key selection
+bounded projected scoring recovers much higher top-1
+QPU-derived S_M projection table tracks analytical and synthetic GPU projection
+```
+
+---
+
+### H.8 — Field deformation in token retrieval
+
+The field deformation channel was carried over from the TSP work, but adapted to retrieval-rank space:
+
+```text
+sort candidates by classical cosine rank
+rough_i = |S_i - S_{i-1}| + |S_{i+1} - S_i|
+field_score_i = S_i + λ*zscore(rough_i)
+```
+
+This field channel is diagnostic, not yet a production token-retrieval method.
+
+In token retrieval, field deformation often reduced attacked-key selection further, but also reduced top-1 accuracy. Example from the DistilGPT2 next-token attack run:
+
+```text
+qpu_projected, λ=0:
+  top1  = 0.472
+  atk@1 = 0.122
+
+field_qpu_projected, λ=0.001:
+  top1  = 0.461
+  atk@1 = 0.086
+
+field_qpu_projected, λ=0.005:
+  top1  = 0.401
+  atk@1 = 0.025
+
+field_qpu_projected, λ=0.050:
+  top1  = 0.338
+  atk@1 = 0.004
+```
+
+This is a real tradeoff:
+
+```text
+larger λ suppresses attacked-key selection
+larger λ also over-steers and harms retrieval
+```
+
+The current retrieval-rank roughness definition is therefore useful as a diagnostic, but not the final token field theory.
+
+This mirrors the TSP lesson: a field term is only useful if its deformation improves the target metric in the tested regime. If it changes ordering but hurts the task, report that honestly.
+
+---
+
+### H.9 — Current token retrieval interpretation
+
+Do not claim:
+
+```text
+S_M is a language model.
+S_M solves token prediction.
+S_M proves quantum advantage.
+QPU beats GPU.
+```
+
+What the token retrieval result does show:
+
+```text
+1. The S_M/TSP projector discipline transfers cleanly to token retrieval:
+   baseline coordinate, bounded projection coordinate, field deformation,
+   rankΔ, shared metrics.
+
+2. A raw S_M QPU dump can be converted into a bounded calibration-derived
+   projection table and used in the same retrieval harness.
+
+3. In synthetic coherent-spike regimes, cosine and dot can collapse into
+   attack-axis selection while projected scoring remains substantially more
+   stable.
+
+4. On real DistilGPT2 hidden-state retrieval datasets, the projected paths
+   outperform cosine/dot under coherent same-dimension attack.
+
+5. The QPU-derived S_M projection table closely tracks the analytical and
+   synthetic GPU projection paths, supporting the substrate-comparison framing.
+
+6. The field deformation channel changes ordering strongly, but in the current
+   token retrieval version it mostly acts as an attack-suppression / over-steer
+   diagnostic rather than a top-1 improvement mechanism.
+```
+
+The supported claim:
+
+```text
+On transformer hidden-state token retrieval under coherent same-dimension spike
+attack, standard cosine/dot retrieval can collapse into attacked-key selection.
+Analytical, synthetic-GPU, and S_M/QPU-derived projected scoring remain closely
+aligned and can recover substantially higher top-1 retrieval while strongly
+reducing attacked-key selection.
+```
+
+The important framing:
+
+```text
+same retrieval problem
+same candidates
+same targets
+different scoring coordinates
+QPU/S_M supplies a measured projection calibration surface
+no quantum advantage claim
+```
+
+---
+
+## Addendum I — Known issues added after token retrieval work
+
+### Raw S_M dump conversion is a calibration bridge, not a direct token measurement
+
+The S_M dump-to-table path converts syndrome-spacetime field statistics into a bounded response surface. This is useful for substrate-comparison and projection-calibration experiments, but it should not be described as the QPU directly scoring token pairs.
+
+Correct framing:
+
+```text
+raw S_M field → projection calibration table → token retrieval harness
+```
+
+Incorrect framing:
+
+```text
+QPU directly retrieved tokens
+```
+
+### Field deformation is not yet tuned for token retrieval
+
+The current token field uses retrieval-rank roughness. It changes ordering and suppresses attacked-key selection, but usually reduces top-1 accuracy. It is a diagnostic and a placeholder for better token-field definitions.
+
+Future token-field definitions should test:
+
+```text
+embedding-neighborhood roughness
+token-position/window roughness
+attention-neighborhood roughness
+semantic-cluster roughness
+multi-layer hidden-state field curvature
+```
+
+### DistilGPT2 results need multi-seed replication
+
+The current DistilGPT2 runs are strong enough to keep, but the result should be repeated across seeds before being treated as final. The next validation table should report:
+
+```text
+seed
+cosine top1
+dot top1
+geo top1
+gpu top1
+qpu top1
+cosine atk@1
+dot atk@1
+qpu atk@1
+```
+
+### Real text diversity is still limited
+
+The first PyTorch datasets used repeated/default project text. This is fine for proving the harness, but broader claims require more varied text:
+
+```text
+project documentation
+general prose
+code comments
+Wikipedia-style text
+dialogue
+technical papers
+```
+
+### Model diversity is open
+
+The first real-transformer path used DistilGPT2. Next tests should include:
+
+```text
+GPT-2 small/medium
+BERT-style masked language models
+small modern causal models
+embedding-only baselines
+multiple hidden layers
+```
+
+### Performance is not optimized
+
+The current token retrieval projector is NumPy-first and clarity-first. It is not the production CUDA kernel. Projection scoring over real transformer embeddings is slower than cosine/dot. This is acceptable for the research harness, but production work needs GPU kernels or tensor-friendly reformulation.
+
+---
+
+## Addendum J — Open questions after token retrieval
+
+1. **Multi-seed repeatability.** Does the DistilGPT2 next-token attack result hold across 5–10 seeds?
+
+2. **Attack sweep on real embeddings.** Synthetic sweep found the operating band. Repeat a smaller sweep on real transformer datasets: attack magnitude, query attack magnitude, candidate count, target mode.
+
+3. **Layer sweep.** Which hidden layer works best for projected retrieval? Test early/middle/final layers.
+
+4. **Target-mode comparison.** Compare self-token, next-token, previous-token, and masked-token style retrieval.
+
+5. **Better token field definitions.** Replace retrieval-rank roughness with field definitions grounded in token position, embedding neighborhoods, attention neighborhoods, or hidden-state curvature.
+
+6. **Projection table derivation.** The S_M dump-to-table conversion is currently a principled calibration bridge, but not unique. Compare alternate derivations from agreement, detection events, stress tensor components, and local field profiles.
+
+7. **GPU implementation.** Move token projection scoring from NumPy to CuPy/CUDA once the scoring contract is stable.
+
+8. **Real QPU projection experiment.** The current QPU contribution is a measured S_M calibration table. A future experiment could submit a purpose-built QPU job designed specifically to produce token-retrieval projection tables rather than deriving them from the S_M syndrome field.
+
+9. **Comparison against stronger retrieval baselines.** Compare against learned linear probes, MLP probes, FAISS/cosine indexes, and model-native logits. Until then, the result is a projector robustness/retrieval probe, not a state-of-the-art token prediction claim.
+
+---
+
+## Addendum K — Updated working philosophy after token retrieval
+
+The token retrieval path extends the S_M/TSP lesson.
+
+The useful result is not:
+
+```text
+We made a better language model.
+```
+
+The useful result is:
+
+```text
+We transferred the projector discipline into a real transformer retrieval
+setting, kept the candidate set fixed, measured how projected scoring changes
+ordering, and found regimes where bounded projection resists coherent
+single-dimension attack better than cosine/dot.
+```
+
+The standard remains:
+
+```text
+If the result is just a baseline, call it a baseline.
+If the QPU supplies calibration rather than direct inference, say calibration.
+If projection changes ordering, measure rankΔ.
+If field deformation suppresses attacks but hurts top-1, report both.
+If a claim sounds like quantum advantage, demand the classical control first.
+```
 
 Build, break, fix, document, repeat.
-
-```
