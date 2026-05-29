@@ -602,12 +602,702 @@ The lesson from the Probes 11–20 trajectory is worth pinning down explicitly: 
 
 ---
 
-## Closing
+## Addendum A — S_M: from repetition-code dump trouble to syndrome-spacetime operator
 
-The QPU isn't a noisy matrix multiplier. It is also not a privileged substrate that performs computations classical hardware cannot. It is a faithful physical implementation of the same projection-channel attention algorithm that the classical noiseless sampler and the mathematical reference also implement. Hardware noise on the QPU attenuates the projection-channel signal relative to the noiseless reference by a measurable factor (~5× in the agreement metric), but does not break the algorithm at the production operating point.
+This addendum records the work that happened after the final five-way `G_M` benchmark. It begins as a practical Qiskit data-dump cleanup and ends with the first usable `S_M` projector testbed.
 
-The probes establish that the operator exists, that it has a clean closed form, that all three substrates implement it faithfully, and that per-base calibration handles the variance that arises from physical noise. The five-way benchmark establishes that all three substrates plus the cuBLAS classical control retrieve at 100% top-1 on a 4096×4096 attention matrix under coherent attack at d=256.
+The important context: this did not start as a clean planned operator search. It started the same way the original `G_M` path did — with a thing that should have worked, did not work as expected, and then had to be interrogated instead of discarded.
 
-The project's actual contribution is the substrate-equivalence demonstration plus the auto-calibrating production kernel that runs faithfully on all three. Same physics, three platforms.
+### A.1 — The S_M data pipeline problem
 
-Everything in this repo is the working out of that single result, including the parts where we got it wrong first.
+The first issue was mundane but important: the repetition-code dump script could not read a completed IBM Runtime job cleanly.
+
+The original `dump_repcode.py` expected a metadata file with fields such as:
+
+```text
+num_blocks
+rounds
+logical_init
+inject_qubit
+block_layout
+````
+
+but one of the available metadata files came from a different flag/superposition job format and did not contain `num_blocks`. The immediate symptom was:
+
+```text
+KeyError: 'num_blocks'
+```
+
+The conclusion was not that the QPU job was bad. The conclusion was that the S_M folder had become impossible to run because the analysis scripts were coupled to specific metadata formats and legacy job layouts.
+
+The cleanup plan was:
+
+1. one script to submit/run the S_M QPU job,
+2. one script to dump raw Qiskit Runtime data into a self-contained `.npz`,
+3. one unified script to run the whole S_M analysis stack from the dumped `.npz` plus metadata.
+
+This is also where the rule was clarified: S_M analysis can require metadata, but the metadata must be produced by the submission script and saved alongside the `.npz` so a future user is not guessing which file belongs to which job.
+
+### A.2 — Raw Qiskit Runtime dump
+
+A general `qiskit_sampler_raw_dump.py` path was introduced to extract classical registers from SamplerV2 results without assuming the old repetition-code layout.
+
+The Runtime result shape is version-sensitive:
+
+```text
+job.result()[0].data
+```
+
+is a `DataBin`, and the classical register names are attributes on that object. The robust dumper therefore does two things:
+
+* optionally lists all register names,
+* saves the raw register arrays into `.npz` with enough metadata to analyze offline.
+
+This separated the fragile Qiskit API surface from the actual S_M probes. Once the `.npz` exists, no IBM Runtime connection is needed for downstream analysis.
+
+### A.3 — Scalar vs vector vs field: the first S_M shape result
+
+The first operator-shape probe asked whether the repetition-code syndrome object could be reduced to a scalar, whether it was edge/vector-like, time/vector-like, or whether the full round × edge field was load-bearing.
+
+The observed summary was:
+
+```text
+d=3  field / smooth-distributed
+d=5  field / smooth-distributed
+d=7  field / edge-anisotropic
+d=9  field / edge-anisotropic
+```
+
+Representative edge profiles showed that the stabilizer/edge coordinate carried real structure:
+
+```text
+d=3 edge agreement:
+  0.9705 0.9833
+  range=0.0129
+
+d=5 edge agreement:
+  0.9714 0.9673 0.9747 0.9774
+  range=0.0101
+
+d=7 edge agreement:
+  0.9737 0.9689 0.9832 0.9798 0.9802 0.9379
+  range=0.0452
+
+d=9 edge agreement:
+  0.9777 0.9755 0.9825 0.9791 0.9805 0.9432 0.9708 0.8820
+  range=0.1004
+```
+
+This answered an important early question: S_M should not be treated as a scalar unless a specific downstream projection requires it. The syndrome record is a spacetime field.
+
+### A.4 — Detection-event sister object
+
+A parallel detection-event summary was added. This asked whether the useful object lived in terminal parity / final readout, or in syndrome dynamics.
+
+The detection-event field L2 values were larger than the scalar reductions:
+
+```text
+d=3 det field L2 = 0.0761
+d=5 det field L2 = 0.1434
+d=7 det field L2 = 0.2432
+d=9 det field L2 = 0.3068
+```
+
+This supported the sister-operator framing: the S_M object is probably not just a terminal logical-parity object. It is a syndrome-dynamics object living in the spacetime record.
+
+### A.5 — Pauli rotational-rate stress tensor reintroduced
+
+A previous line of work had treated rotational rates of Pauli operators as stress-tensor components — informally, like a “card on a bike spoke” clicking as the operator rotates. That framing was brought back and adapted to the repetition-code syndrome field.
+
+The S_M stress tensor was defined over the syndrome-spacetime field:
+
+```text
+Ttt = <ΔtS ΔtS>    temporal syndrome-gradient energy
+Txx = <ΔxS ΔxS>    spatial syndrome-gradient energy
+Ttx = <ΔtS ΔxS>    temporal-spatial coupling
+```
+
+The first stress-tensor probe found:
+
+```text
+d | Ttt      Txx      Ttx      trace    anis      coupling
+3 | 0.02715  0.03950  0.01302  0.06665 -0.1852   0.3976
+5 | 0.02883  0.04097  0.01372  0.06980 -0.1740   0.3991
+7 | 0.02016  0.03828  0.01004  0.05844 -0.3101   0.3615
+9 | 0.03381  0.05279  0.01670  0.08660 -0.2192   0.3954
+```
+
+Across distances:
+
+```text
+Txx > Ttt
+Ttx > 0
+anisotropy < 0
+```
+
+Interpretation:
+
+* spatial stress dominates temporal stress,
+* the field is still time-coupled,
+* the object is not just a global 2×2 tensor because the local real-control separation grows strongly with distance.
+
+This was the point where the S_M evidence started to look like physical support for the earlier Pauli-stress-tensor idea, but now grounded in real QPU syndrome records.
+
+### A.6 — Logical-cat / superposition S_M run
+
+The next step was to change the starting state. Instead of treating the repetition code as a purely classical initialized bit, the QPU run was moved to a logical-cat / superposition setup.
+
+Representative job configuration:
+
+```text
+Backend      : ibm_marrakesh
+Flag level   : f=0
+Distances    : [3, 5, 7, 9]
+Rounds       : 10
+Shots        : 4096
+Basis        : Z
+Init state   : plus
+```
+
+The submission script discovered role-chain layouts on the backend and wrote metadata such as:
+
+```text
+repcode_flag_superposition_job_<JOB_ID>.json
+```
+
+The intended pipeline became:
+
+```text
+submit QPU job
+→ dump SamplerV2 registers to .npz
+→ run unified S_M analysis
+→ write shape/stress/operator reports
+```
+
+The calibration attempt added a reference `.npz` comparison, but empirically it mostly added complexity rather than insight. It was kept as an optional diagnostic, not the default story.
+
+The cleaned S_M folder therefore settled around:
+
+```text
+ghost_oracle/S_M/
+  sm_qpu_submit.py              # or equivalent QPU submitter
+  qiskit_sampler_raw_dump.py    # raw Runtime job → npz
+  sm_unified_analysis.py        # shape + stress + reports
+  README.md
+  legacy/
+```
+
+The legacy scripts are preserved for trajectory, but the runnable path should be the three-step pipeline.
+
+---
+
+## Addendum B — Repository split into G_M and S_M
+
+The repo was reorganized conceptually into two operator families:
+
+```text
+G_M — Ghost Metric
+S_M — Syndrome Metric
+```
+
+The intent:
+
+```text
+ghost_oracle/G_M/
+ghost_oracle/S_M/
+```
+
+`G_M` contains the original projection-channel similarity operator, CUDA kernels, QPU/GPU base tools, five-way benchmark, Auto Oracle path, and semantic retrieval experiments.
+
+`S_M` contains the repetition-code / syndrome-spacetime operator path: QPU submitter, Runtime dumper, shape probe, stress tensor probe, sister-operator probe, plotting tools, and later TSP projector experiments.
+
+This split matters because the two operators have different natural domains:
+
+```text
+G_M(a,b)
+  bounded projection similarity over angle/state pairs
+
+S_M(t,i)
+  bounded syndrome-spacetime field over round/time and edge/stabilizer index
+```
+
+The shared philosophy is the same:
+
+```text
+Build the thing that should work.
+When it does something else, do not throw it away.
+Freeze it, control it, scramble it, and ask what it actually computed.
+```
+
+---
+
+## Addendum C — S_M to TSP: from optimizer drift to projector ingredients
+
+After the QPU S_M probes, the next question was whether the S_M projector idea could be tested on a classical optimization problem before returning to quantum projection.
+
+The chosen toy problem was TSP, partly because there was old high-speed TSP code available and partly because it gives a clear distinction between local move scoring, global search, and projection-style deformation.
+
+The initial caution was important: do the classical version first, prove the analytical path, then worry about quantum projection.
+
+### C.1 — sm_geo_tsp: first classical geo-path probe
+
+The first TSP probe, `sm_geo_tsp.py`, worked mechanically but performed badly.
+
+Representative small result:
+
+```text
+N=8, routes=200, repeats=8
+
+two_opt_from_nearest   mean gap ≈ 5.18%
+nearest_neighbor       mean gap ≈ 8.89%
+echokey7               mean gap ≈ 26.93%
+greedy_delta           mean gap ≈ 26.97%
+random_adjacent        mean gap ≈ 30.70%
+sm_geo_tsp             mean gap ≈ 32.00%
+```
+
+This did not kill the project. It clarified that the first S_M-inspired policy was not the right optimizer. The useful question became: is the local move score accurate?
+
+### C.2 — Move-ranking probe: sm_improve
+
+The rank probe isolated local adjacent-swap scoring from global rollout behavior.
+
+It compared policies including:
+
+```text
+oracle_delta
+sm_improve
+echokey7
+sm_base
+delta_plus_sm
+stress_drop
+sm_plus_stress
+sm_safe
+```
+
+The key result:
+
+```text
+sm_improve:
+  top1              = 1.000
+  top3              = 1.000
+  chosen_improves   = 1.000
+  mean regret       = 0.000000
+  max regret        = 0.000000
+  pairwise accuracy = 1.000
+```
+
+EchoKey-7 stayed in the probes as a diagnostic because derivatives/components may be useful later, but it was explicitly not the optimization spine.
+
+The winning local coordinate was:
+
+```text
+sm_improve(k) = 0.5 + 0.5 * tanh(-ΔL(k) / scale)
+```
+
+where `ΔL(k)` is the local tour-length change for a candidate move. Because `tanh` is monotonic and `scale > 0`, this preserves the local `-ΔL` ordering while mapping it into a bounded projector-friendly coordinate.
+
+Important distinction:
+
+```text
+delta
+  raw unbounded classical local improvement
+
+sm_improve
+  bounded monotonic projector coordinate
+
+sm_field
+  bounded coordinate plus geometry/field deformation channel
+```
+
+### C.3 — First valid large TSP pipeline
+
+The old high-speed TSP code was brought back. It was fast, but the old “outlier adjustment” path had a validity bug: it could insert an alternate city without removing its previous occurrence later in the tour, creating duplicate visits and invalid tours.
+
+The cleaned `sm_improve_tsp_large.py` enforced:
+
+```text
+valid permutation tour at every stage
+no duplicate insertions
+only improving 2-opt moves
+tour validation after major stages
+```
+
+Small validation:
+
+```text
+N=8, routes=100
+
+construct_mean_gap   = 8.7719%
+polished_mean_gap    = 0.3974%
+construct_hit_rate   = 0.16
+polished_hit_rate    = 0.89
+mean_seconds/route   = 0.000423
+```
+
+First large valid run on `pla85900.tsp`:
+
+```text
+final length = 154,464,953.556438
+known optimum reference = 142,382,641
+gap ≈ 8.486%
+runtime ≈ 79 s
+valid = True
+```
+
+This established a valid baseline, not the final S_M result.
+
+### C.4 — CUDA candidate 2-opt kernel
+
+Because the Python loop could not support hundreds or thousands of passes at large N, a CUDA candidate-evaluation kernel was introduced.
+
+Phase 1 design:
+
+```text
+GPU:
+  for each tour edge i
+    for each candidate neighbor c
+      compute 2-opt ΔL
+      keep best improving move for edge i
+
+CPU:
+  choose move(s)
+  apply reversal(s)
+  update tour/pos
+  validate
+```
+
+The first conservative version applied one best global move per pass.
+
+Large result:
+
+```text
+candidate-k = 1024
+passes      = 50,000
+accepted    = 50,000
+final length = 150,778,768
+known optimum reference = 142,382,641
+gap ≈ 5.90%
+runtime ≈ 617 s
+valid = True
+```
+
+This was a real engineering milestone: deep polishing became feasible and validity was preserved. But it also exposed a conceptual drift.
+
+### C.5 — The 2-opt drift correction
+
+At this point the work had drifted into textbook candidate 2-opt engineering.
+
+That was useful infrastructure, but not itself an S_M result. The correction was:
+
+```text
+CUDA 2-opt = substrate / baseline
+S_M_TSP = projector field layered on top
+```
+
+The next probe therefore asked:
+
+```text
+Does an S_M-style field change move ordering and improve outcomes
+relative to plain delta-ranked candidate 2-opt?
+```
+
+### C.6 — CPU sampled S_M field probe
+
+The first field probe compared:
+
+```text
+delta_batch
+  score = -ΔL
+
+sm_improve_batch
+  score = 0.5 + 0.5*tanh(-ΔL/scale)
+
+sm_field_batch
+  S(i) = sm_improve at tour edge i
+  rough(i) = |S(i)-S(i-1)| + |S(i+1)-S(i)|
+  score = sm_improve + field_weight*zscore(rough)
+```
+
+The full CPU version looked frozen on `pla85900` because it was doing billions of Python-level distance operations:
+
+```text
+85,900 edges × candidate_k × passes × policies × field weights
+```
+
+A sampled version fixed this for intel gathering.
+
+Representative sampled results:
+
+At `candidate-k=16`, `passes=2000`, `edge-sample=256`:
+
+```text
+rank 1: sm_field_batch fw=0.050
+final length ≈ 159,995,032
+rankΔ ≈ 0.287
+```
+
+At `candidate-k=8`, the field hurt. This suggested that the field term needs enough candidate breadth to have useful structure. The key signal was not the absolute length; it was that `rankΔ` was nonzero and the field sometimes improved the result. The field was actually changing move order.
+
+### C.7 — CUDA S_M field projector
+
+The field logic was then moved back onto the scalable CUDA substrate.
+
+CUDA still evaluates best 2-opt candidate moves for every tour edge. CPU then computes the policy scores, selects non-overlapping improving reversals, applies them, and validates.
+
+The comparison policies:
+
+```text
+delta_batch
+sm_improve_batch
+sm_field_batch
+```
+
+Default press-play run:
+
+```text
+TSP file      = data/pla85900.tsp
+candidate-k   = 128
+passes        = 500
+max_batch     = 32
+field weights = [0.0001, 0.001, 0.005, 0.01, 0.05]
+known optimum = 142,382,641
+```
+
+Representative final result:
+
+```text
+rank | policy             | fw      | gap      | final length | imp%   | sel/pass | rankΔ
+1    | sm_field_batch     | 0.001   | 6.0360%  | 150,976,816  | 14.668 | 31.70    | 0.340
+2    | sm_field_batch     | 0.005   | 6.1465%  | 151,134,192  | 14.579 | 31.94    | 0.443
+3    | sm_improve_batch   | 0.000   | 6.2113%  | 151,226,464  | 14.527 | 32.00    | 0.012
+4    | sm_field_batch     | 0.0001  | 6.6825%  | 151,897,344  | 14.147 | 32.00    | 0.072
+5    | sm_field_batch     | 0.010   | 7.7491%  | 153,416,080  | 13.289 | 32.00    | 0.595
+6    | sm_field_batch     | 0.050   | 7.8476%  | 153,556,272  | 13.210 | 31.80    | 0.845
+7    | delta_batch        | 0.000   | 8.2824%  | 154,175,328  | 12.860 | 32.00    | 0.000
+```
+
+This is the clean projector result:
+
+```text
+delta_batch
+  raw classical baseline
+
+sm_improve_batch
+  bounded projection coordinate improves over delta
+
+sm_field_batch
+  small field deformation improves again
+
+large field deformation
+  over-steers and degrades
+```
+
+The key diagnostic is `rankΔ`.
+
+At `fw=0.001`:
+
+```text
+rankΔ = 0.340
+```
+
+So the field is not just a monotonic wrapper around 2-opt. It changes the top move ordering substantially, and at small weight it improves the trajectory.
+
+### C.8 — GitHub example
+
+The result was packaged into:
+
+```text
+examples/sm_tsp_projector_example.py
+data/pla85900.tsp
+```
+
+Default run:
+
+```bash
+python examples/sm_tsp_projector_example.py
+```
+
+The example script includes a mini-paper docstring explaining the three projector coordinates:
+
+```text
+delta_batch       = classical control coordinate
+sm_improve_batch  = bounded projector spine
+sm_field_batch    = tunable S_M field deformation channel
+```
+
+The script writes:
+
+```text
+analysis/sm_tsp_projector_<timestamp>/
+  result.json
+  summary.csv
+  routes.csv
+  tour_delta_batch_fw0.txt
+  tour_sm_improve_batch_fw0.txt
+  tour_sm_field_batch_fw*.txt
+```
+
+A bug was caught in the first GitHub-ready version: the summarizer assumed `hit` existed whenever `gap_pct` existed. In large TSPLIB mode, there is a known optimum length but no exact optimum tour, so `gap_pct` exists while `hit` does not. The fix was to treat `hit_rate` as optional and only compute it when exact tours are available.
+
+This is a small bug, but it belongs in the record because it is exactly the kind of press-play failure the examples folder is meant to avoid.
+
+---
+
+## Addendum D — Current S_M/TSP interpretation
+
+The current S_M/TSP result should be stated carefully.
+
+Do not claim:
+
+```text
+S_M solves TSP.
+S_M beats state-of-the-art TSP solvers.
+S_M proves a quantum advantage.
+```
+
+What the result does show:
+
+```text
+1. A bounded monotonic local-improvement coordinate, sm_improve, preserves local move ordering exactly in the adjacent-swap rank probe.
+
+2. In batch candidate 2-opt, sm_improve behaves differently from raw delta because bounded compression interacts with non-overlap selection.
+
+3. A simple S_M-style field roughness term changes move ordering nontrivially.
+
+4. Small field deformation improves the CUDA batch trajectory on pla85900 under the tested settings.
+
+5. Excessive field deformation degrades the trajectory, giving a useful tuning curve instead of a one-off lucky result.
+```
+
+The right framing:
+
+```text
+S_M_TSP is not the final solver.
+It is a projector testbed.
+```
+
+The useful ingredients now exist:
+
+```text
+ΔL
+  raw classical control
+
+S_I = sm_improve
+  bounded projector spine
+
+S_F = sm_field
+  tunable field deformation channel
+
+rankΔ
+  measure of how much the field changes the move ordering
+```
+
+This mirrors the earlier `G_M` lesson. The point is not just a scalar score; the point is the coupled geometry/projection pair and the integrity of the deformation channel.
+
+---
+
+## Addendum E — Known issues added after S_M/TSP work
+
+### S_M metadata coupling
+
+Some old S_M scripts assume a specific metadata schema and fail on newer superposition/flag job metadata. The cleaned path is:
+
+```text
+submit script writes metadata
+raw dump script writes npz
+unified analysis consumes both
+```
+
+Legacy scripts should stay in `legacy/` with clear headers.
+
+### S_M calibration reference is optional
+
+The calibration/reference `.npz` comparison did not materially improve the S_M analysis in the first tested form. It can diagnose drift, but it should not be required for the press-play S_M analysis path.
+
+### Full CPU field probe is not suitable for large TSPLIB
+
+The unsampled CPU `sm_field_tsp_probe.py` can appear frozen on `pla85900` because it evaluates an enormous number of candidate moves in Python. Use the sampled fast probe for intel or the CUDA field probe for real scale.
+
+### CUDA TSP kernel is a projector testbed, not a complete solver
+
+The CUDA TSP path currently evaluates candidate 2-opt moves and applies safe non-overlapping CPU-side batches. It is valid and useful, but it is not a full TSP solver architecture.
+
+Current constraints:
+
+```text
+non-wrapping 2-opt only
+candidate-neighbor limited
+CPU applies batches
+field roughness term is v1
+no full GPU tour-update kernel yet
+no Lin-Kernighan-style move class
+```
+
+### Known optimum reference should be documented
+
+The example uses:
+
+```text
+pla85900 optimum/reference = 142,382,641
+```
+
+If this is shipped in the repo, the data README should document where this reference comes from. The code should allow `--known-opt 0` to disable gap reporting.
+
+### `hit` only exists for exact small-N validation
+
+Large TSPLIB mode may know an optimum length but not an exact optimum tour. In that case:
+
+```text
+gap_pct exists
+hit does not
+```
+
+Any summarizer must treat `hit_rate` as optional.
+
+---
+
+## Addendum F — Open questions after S_M/TSP
+
+1. **S_M field definition.** The current field term uses local roughness of `sm_improve` over tour-edge position. This is a first useful deformation, not the final S_M field theory. Test alternate field definitions: curvature, tension, basin persistence, multi-pass memory, detection-event analogues.
+
+2. **Projector evolution.** The next intended step is not more 2-opt tuning. It is proper EchoKey / unitary-style evolution using `sm_improve` as the bounded coordinate and `sm_field` as the deformation channel.
+
+3. **Derivative use of EchoKey.** EchoKey-7 is not the optimizer spine, but it should remain in probes because its components/derivatives may be useful in the projector.
+
+4. **CUDA batch evolution.** Current CUDA evaluates best moves for every edge and CPU applies batches. Future versions could move conflict detection and non-overlapping batch application to GPU.
+
+5. **Comparison against stronger TSP baselines.** The current comparisons are against internal delta/sm variants and simple 2-opt-style policies. For solver claims, compare against OR-Tools, LKH-style heuristics, and modern GPU TSP heuristics. Until then, frame this as a projector testbed.
+
+6. **QPU projection of S_M_TSP.** The classical path now has a bounded coordinate and a tunable field deformation. The next research question is whether an S_M/QPU projection can reproduce or perturb those coordinates in a controlled way.
+
+7. **Cross-instance stability.** The pla85900 result is useful because it is large and concrete, but the field-weight curve needs replication across multiple TSPLIB instances and random Euclidean instances.
+
+---
+
+## Addendum G — Updated working philosophy
+
+The lesson from this addendum is continuous with the original process record.
+
+The original `G_M` path started with a wrong Hadamard-test target and ended with a corrected operator. The `S_M` path started with a dump/metadata failure, then a syndrome record that refused to behave like a scalar, and then a stress-tensor field that looked load-bearing.
+
+The TSP path almost drifted into ordinary optimization engineering. Catching that drift was part of the process. The useful result was not “we made 2-opt faster.” The useful result was:
+
+```text
+We separated the classical control, the bounded projector coordinate,
+and the field deformation channel, then showed the deformation channel
+can change ranking and improve a large valid trajectory when tuned.
+```
+
+That is the standard this repo should keep using:
+
+```text
+If the result is just an optimizer, call it an optimizer.
+If it is a projector ingredient, identify which coordinate it supplies.
+If a field term changes ordering, measure rankΔ.
+If it helps only in a narrow band, report the over-steer region too.
+```
+
+Build, break, fix, document, repeat.
+
+```
