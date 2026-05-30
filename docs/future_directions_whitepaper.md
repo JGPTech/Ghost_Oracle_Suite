@@ -5,6 +5,8 @@
 **Project:** Ghost Oracle Suite  
 **Core idea:** ghost-channel operators as a transformer-adjacent Converger layer
 
+**GitHub note:** formulas are written in fenced text blocks and inline code spans so the document renders cleanly in GitHub Markdown without relying on LaTeX support.
+
 ---
 
 ## Abstract
@@ -82,39 +84,39 @@ A ghost channel is considered load-bearing only when destroying that channel des
 
 A transformer can be abstracted as a sequence of maps:
 
-$$
-x_{1:T} \rightarrow E_{1:T} \rightarrow H_{1:T}^{(1:L)} \rightarrow S \rightarrow y
-$$
+```text
+x_{1:T} -> E_{1:T} -> H_{1:T}^{(1:L)} -> S -> y
+```
 
 where:
 
-- $x_{1:T}$ are input tokens,
-- $E_{1:T}$ are embeddings,
-- $H_{1:T}^{(l)}$ are hidden states at layer $l$,
-- $S$ is a score field such as attention, logits, retrieval scores, or value estimates,
-- $y$ is an output token, action, ranking, or decision.
+- `x_{1:T}` are input tokens,
+- `E_{1:T}` are embeddings,
+- `H_{1:T}^{(l)}` are hidden states at layer `l`,
+- `S` is a score field such as attention, logits, retrieval scores, or value estimates,
+- `y` is an output token, action, ranking, or decision.
 
 The Converger sits beside this process:
 
-$$
-C = \mathcal{C}(E, H, S, R, M)
-$$
+```text
+C = {C}(E, H, S, R, M)
+```
 
 where:
 
-- $E$ are embeddings,
-- $H$ are hidden states,
-- $S$ are score fields,
-- $R$ are residual or activation records,
-- $M$ are memory/retrieval candidate sets.
+- `E` are embeddings,
+- `H` are hidden states,
+- `S` are score fields,
+- `R` are residual or activation records,
+- `M` are memory/retrieval candidate sets.
 
 The Converger does not produce the primary model output. It produces auxiliary operator measurements:
 
-$$
-\mathcal{C}(E,H,S,R,M)
+```text
+{C}(E,H,S,R,M)
 =
-\{G_M, S_M, T_S, I_M^{local}, I_M^{field}, F_M, D_M\}
-$$
+{G_M, S_M, T_S, I_M^{local}, I_M^{field}, F_M, D_M}
+```
 
 These outputs can then be used for diagnostics, rank deformation, retrieval correction, localized training signals, model governance, hardware calibration, control-loop feedback, and node-level alignment.
 
@@ -179,48 +181,48 @@ The benchmark is the only place where comparative claims should be made.
 
 ## 4. Standard Substrate Paths
 
-For every operator $O$, define three variants:
+For every operator `O`, define three variants:
 
-$$
-O^{geo}, \quad O^{gproj}, \quad O^{qproj}
-$$
+```text
+O^{geo},     O^{gproj},     O^{qproj}
+```
 
 ### 4.1 Classical geometry path
 
-$$
+```text
 O^{geo}(X)
-$$
+```
 
 The `geo` path is the classical analytical reference. It requires no physical base file.
 
 ### 4.2 GPU projection path
 
-$$
+```text
 O^{gproj}(X; B_g)
-$$
+```
 
-The `gproj` path uses a GPU/noiseless base $B_g$.
+The `gproj` path uses a GPU/noiseless base `B_g`.
 
 ### 4.3 QPU projection path
 
-$$
+```text
 O^{qproj}(X; B_q)
-$$
+```
 
-The `qproj` path uses a QPU/hardware-calibrated base $B_q$.
+The `qproj` path uses a QPU/hardware-calibrated base `B_q`.
 
 The comparison rule is:
 
-$$
-\text{benchmark}(O)
+```text
+benchmark}(O)
 =
-\text{compare}
-\left(
+compare}
+(
 O^{geo},
 O^{gproj},
 O^{qproj}
-\right)
-$$
+)
+```
 
 with matched input, controls, and metrics.
 
@@ -232,42 +234,42 @@ The Converger can be used for localized training without replacing the transform
 
 Let a transformer produce a primary loss:
 
-$$
-\mathcal{L}_{model}
-$$
+```text
+{L}_{model}
+```
 
-For a local component $c$, such as a layer, head, token window, memory shard, or retrieval candidate set, a ghost-channel operator produces an auxiliary measurement:
+For a local component `c`, such as a layer, head, token window, memory shard, or retrieval candidate set, a ghost-channel operator produces an auxiliary measurement:
 
-$$
+```text
 O_c = O(c)
-$$
+```
 
 A local Converger loss can be defined as:
 
-$$
-\mathcal{L}_{conv}
+```text
+{L}_{conv}
 =
-\sum_{O \in \Omega}
-\lambda_O \, \ell_O(O_c, \widetilde{O}_c)
-$$
+sum_{O in \Omega}
+lambda_O \, \ell_O(O_c, \widetilde{O}_c)
+```
 
 where:
 
-- $\Omega$ is the active operator set,
-- $\lambda_O$ is the operator weight,
-- $O_c$ is the real operator measurement,
-- $\widetilde{O}_c$ is a matched control, target, or reference measurement,
-- $\ell_O$ is an operator-specific loss.
+- `\Omega` is the active operator set,
+- `lambda_O` is the operator weight,
+- `O_c` is the real operator measurement,
+- `\widetilde{O}_c` is a matched control, target, or reference measurement,
+- `\ell_O` is an operator-specific loss.
 
 The total training objective becomes:
 
-$$
-\mathcal{L}_{total}
+```text
+{L}_{total}
 =
-\mathcal{L}_{model}
+{L}_{model}
 +
-\mathcal{L}_{conv}
-$$
+{L}_{conv}
+```
 
 The Converger can therefore guide local representation shaping, retrieval stability, field smoothness, dimensional compression, or interaction constraints without requiring end-to-end replacement of the model.
 
@@ -291,11 +293,11 @@ Each maps to a Converger component and receives the same `geo/gproj/qproj` treat
 
 ---
 
-## 7. $G_M$ — Generalized Metric Channel
+## 7. `G_M` — Generalized Metric Channel
 
 ### 7.1 Role
 
-$G_M$ is the generalized metric/projection operator. It measures bounded similarity, retrieval structure, and ranking behavior.
+`G_M` is the generalized metric/projection operator. It measures bounded similarity, retrieval structure, and ranking behavior.
 
 Transformer analogue:
 
@@ -314,78 +316,78 @@ metric_projection_component
 
 ### 7.2 Mathematical Form
 
-Given query vectors $q_i \in \mathbb{R}^d$ and key vectors $k_j \in \mathbb{R}^d$, a classical baseline is cosine similarity:
+Given query vectors `q_i in \mathbb{R}^d` and key vectors `k_j in \mathbb{R}^d`, a classical baseline is cosine similarity:
 
-$$
+```text
 s_{ij}^{cos}
 =
-\frac{q_i \cdot k_j}
-{\|q_i\|\|k_j\|}
-$$
+frac{q_i * k_j}
+{|q_i||k_j|}
+```
 
 A bounded generalized metric coordinate can be written:
 
-$$
-c_q^{(m)} = \tanh\left(\frac{q^{(m)}}{\sigma_m}\right),
-\quad
-c_k^{(m)} = \tanh\left(\frac{k^{(m)}}{\sigma_m}\right)
-$$
+```text
+c_q^{(m)} = tanh(frac{q^{(m)}}{sigma_m}),
+   
+c_k^{(m)} = tanh(frac{k^{(m)}}{sigma_m})
+```
 
-$$
+```text
 G_{dim}(q,k,m)
 =
-\sqrt{
-\frac{1 + c_q^{(m)} c_k^{(m)}}{2}
+sqrt{
+frac{1 + c_q^{(m)} c_k^{(m)}}{2}
 }
-$$
+```
 
-$$
+```text
 G_M(q,k)
 =
-\frac{1}{d}
-\sum_{m=1}^{d}
+frac{1}{d}
+sum_{m=1}^{d}
 G_{dim}(q,k,m)
-$$
+```
 
 ### 7.3 Paths
 
-#### $G_M^{geo}$
+#### `G_M^{geo}`
 
 Uses the analytical bounded metric directly:
 
-$$
+```text
 G_M^{geo}(q,k) = G_M(q,k)
-$$
+```
 
-#### $G_M^{gproj}$
+#### `G_M^{gproj}`
 
-Uses a GPU/noiseless projection table $B_g$:
+Uses a GPU/noiseless projection table `B_g`:
 
-$$
+```text
 G_M^{gproj}(q,k)
 =
-\frac{1}{d}
-\sum_m
+frac{1}{d}
+sum_m
 B_g[
-\text{bin}(c_q^{(m)}),
-\text{bin}(c_k^{(m)})
+bin}(c_q^{(m)}),
+bin}(c_k^{(m)})
 ]
-$$
+```
 
-#### $G_M^{qproj}$
+#### `G_M^{qproj}`
 
-Uses a QPU-calibrated projection table $B_q$:
+Uses a QPU-calibrated projection table `B_q`:
 
-$$
+```text
 G_M^{qproj}(q,k)
 =
-\frac{1}{d}
-\sum_m
+frac{1}{d}
+sum_m
 B_q[
-\text{bin}(c_q^{(m)}),
-\text{bin}(c_k^{(m)})
+bin}(c_q^{(m)}),
+bin}(c_k^{(m)})
 ]
-$$
+```
 
 ### 7.4 Benchmark
 
@@ -411,11 +413,11 @@ G_M/
 
 ---
 
-## 8. $S_M$ — Syndrome Metric Channel
+## 8. `S_M` — Syndrome Metric Channel
 
 ### 8.1 Role
 
-$S_M$ is the syndrome-spacetime field operator. It measures field structure in physical error records or model-adjacent symbolic error fields.
+`S_M` is the syndrome-spacetime field operator. It measures field structure in physical error records or model-adjacent symbolic error fields.
 
 Transformer analogue:
 
@@ -436,61 +438,61 @@ syndrome_field_component
 
 Let:
 
-$$
-S[t,i] \in \{0,1\}
-$$
+```text
+S[t,i] in {0,1}
+```
 
-be a syndrome field over time/round $t$ and edge/location $i$.
+be a syndrome field over time/round `t` and edge/location `i`.
 
 Let final data bits be:
 
-$$
-D[i] \in \{0,1\}
-$$
+```text
+D[i] in {0,1}
+```
 
 Define final edge parity:
 
-$$
-E[i] = D[i] \oplus D[i+1]
-$$
+```text
+E[i] = D[i] XOR D[i+1]
+```
 
 The syndrome metric is not a single scalar. It is the field:
 
-$$
-S_M = \{S[t,i], E[i]\}
-$$
+```text
+S_M = {S[t,i], E[i]}
+```
 
 with derived agreement profiles:
 
-$$
-A[t,i] = 1 - (S[t,i] \oplus E[i])
-$$
+```text
+A[t,i] = 1 - (S[t,i] XOR E[i])
+```
 
 ### 8.3 Paths
 
-#### $S_M^{geo}$
+#### `S_M^{geo}`
 
 Uses a classical synthetic or analytical field model:
 
-$$
-S_M^{geo} = \text{field_model}(\theta)
-$$
+```text
+S_M^{geo} = field_model}(\theta)
+```
 
-#### $S_M^{gproj}$
+#### `S_M^{gproj}`
 
 Uses GPU-generated noiseless or controlled syndrome fields:
 
-$$
-S_M^{gproj} = \text{gpu_field}(B_g)
-$$
+```text
+S_M^{gproj} = gpu_field}(B_g)
+```
 
-#### $S_M^{qproj}$
+#### `S_M^{qproj}`
 
 Uses real QPU syndrome-spacetime records:
 
-$$
-S_M^{qproj} = \text{qpu_field}(B_q)
-$$
+```text
+S_M^{qproj} = qpu_field}(B_q)
+```
 
 ### 8.4 Benchmark
 
@@ -516,11 +518,11 @@ S_M/
 
 ---
 
-## 9. $T_S$ — Stress Channel
+## 9. `T_S` — Stress Channel
 
 ### 9.1 Role
 
-$T_S$ is the stress tensor derived from the $S_M$ field. It measures gradients, anisotropy, and coupling inside syndrome-spacetime.
+`T_S` is the stress tensor derived from the `S_M` field. It measures gradients, anisotropy, and coupling inside syndrome-spacetime.
 
 Transformer analogue:
 
@@ -539,60 +541,60 @@ stress_tensor_component
 
 ### 9.2 Mathematical Form
 
-Given syndrome field $S[t,i]$, define temporal and spatial differences:
+Given syndrome field `S[t,i]`, define temporal and spatial differences:
 
-$$
-\Delta_t S[t,i] = S[t+1,i] \oplus S[t,i]
-$$
+```text
+Delta_t S[t,i] = S[t+1,i] XOR S[t,i]
+```
 
-$$
-\Delta_x S[t,i] = S[t,i+1] \oplus S[t,i]
-$$
+```text
+Delta_x S[t,i] = S[t,i+1] XOR S[t,i]
+```
 
 The stress tensor is:
 
-$$
+```text
 T_S
 =
-\begin{bmatrix}
+
 T_{tt} & T_{tx} \\
 T_{xt} & T_{xx}
-\end{bmatrix}
-$$
+
+```
 
 where:
 
-$$
-T_{tt} = \langle \Delta_t S \Delta_t S \rangle
-$$
+```text
+T_{tt} = < Delta_t S Delta_t S >
+```
 
-$$
-T_{xx} = \langle \Delta_x S \Delta_x S \rangle
-$$
+```text
+T_{xx} = < Delta_x S Delta_x S >
+```
 
-$$
-T_{tx} = T_{xt} = \langle \Delta_t S \Delta_x S \rangle
-$$
+```text
+T_{tx} = T_{xt} = < Delta_t S Delta_x S >
+```
 
 Derived metrics:
 
-$$
-\text{trace}(T_S) = T_{tt} + T_{xx}
-$$
+```text
+trace}(T_S) = T_{tt} + T_{xx}
+```
 
-$$
-\text{anisotropy}(T_S) = T_{tt} - T_{xx}
-$$
+```text
+anisotropy}(T_S) = T_{tt} - T_{xx}
+```
 
-$$
-\text{coupling}(T_S) = T_{tx}
-$$
+```text
+coupling}(T_S) = T_{tx}
+```
 
 ### 9.3 Paths
 
-- $T_S^{geo}$: stress tensor from analytical or synthetic fields.
-- $T_S^{gproj}$: stress tensor from GPU/noiseless syndrome-field base.
-- $T_S^{qproj}$: stress tensor from QPU syndrome-field base.
+- `T_S^{geo}`: stress tensor from analytical or synthetic fields.
+- `T_S^{gproj}`: stress tensor from GPU/noiseless syndrome-field base.
+- `T_S^{qproj}`: stress tensor from QPU syndrome-field base.
 
 ### 9.4 Benchmark
 
@@ -619,11 +621,11 @@ T_S/
 
 ---
 
-## 10. $I_M^{local}$ — Local Interaction Channel
+## 10. `I_M^{local}` — Local Interaction Channel
 
 ### 10.1 Role
 
-$I_M^{local}$ measures pointwise or row-local interaction between complexity and countercomplexity coordinates.
+`I_M^{local}` measures pointwise or row-local interaction between complexity and countercomplexity coordinates.
 
 Transformer analogue:
 
@@ -642,43 +644,43 @@ local_interaction_component
 
 ### 10.2 Mathematical Form
 
-Let $Q$ be a generalized metric/projection score matrix and $F$ be a field/countercomplexity coordinate.
+Let `Q` be a generalized metric/projection score matrix and `F` be a field/countercomplexity coordinate.
 
 Row-normalize:
 
-$$
+```text
 z_Q[i,j] =
-\frac{Q[i,j] - \mu_Q[i]}{\sigma_Q[i] + \epsilon}
-$$
+frac{Q[i,j] - mu_Q[i]}{sigma_Q[i] + epsilon}
+```
 
-$$
+```text
 z_F[i,j] =
-\frac{F[i,j] - \mu_F[i]}{\sigma_F[i] + \epsilon}
-$$
+frac{F[i,j] - mu_F[i]}{sigma_F[i] + epsilon}
+```
 
 The local interaction is:
 
-$$
+```text
 I_M^{local}[i,j]
 =
-z_Q[i,j] \cdot z_F[i,j]
-$$
+z_Q[i,j] * z_F[i,j]
+```
 
 A locally adjusted energy can be:
 
-$$
+```text
 E_{local}[i,j]
 =
 z_Q[i,j]
 +
-\lambda I_M^{local}[i,j]
-$$
+lambda I_M^{local}[i,j]
+```
 
 ### 10.3 Paths
 
-- $I_M^{local,geo}$ uses classical $Q^{geo}$ and $F^{geo}$.
-- $I_M^{local,gproj}$ uses GPU/noiseless projection or field bases.
-- $I_M^{local,qproj}$ uses QPU-calibrated projection or field bases.
+- `I_M^{local,geo}` uses classical `Q^{geo}` and `F^{geo}`.
+- `I_M^{local,gproj}` uses GPU/noiseless projection or field bases.
+- `I_M^{local,qproj}` uses QPU-calibrated projection or field bases.
 
 ### 10.4 Benchmark
 
@@ -705,11 +707,11 @@ I_M_local/
 
 ---
 
-## 11. $I_M^{field}$ — Field Interaction Channel
+## 11. `I_M^{field}` — Field Interaction Channel
 
 ### 11.1 Role
 
-$I_M^{field}$ measures nonlocal deformation of ordering, trajectory, flow, or rank fields.
+`I_M^{field}` measures nonlocal deformation of ordering, trajectory, flow, or rank fields.
 
 Transformer analogue:
 
@@ -730,51 +732,51 @@ field_interaction_component
 
 Let candidates be ordered by a baseline score:
 
-$$
-r_1, r_2, \dots, r_K
-$$
+```text
+r_1, r_2, ..., r_K
+```
 
-Let $S_i$ be a bounded score along this rank field.
+Let `S_i` be a bounded score along this rank field.
 
 Define local roughness:
 
-$$
-\rho_i
+```text
+rho_i
 =
 |S_i - S_{i-1}|
 +
 |S_{i+1} - S_i|
-$$
+```
 
 Normalize:
 
-$$
-\hat{\rho}_i
+```text
+hat{rho}_i
 =
-\frac{\rho_i - \mu_\rho}{\sigma_\rho + \epsilon}
-$$
+frac{rho_i - mu_rho}{sigma_rho + epsilon}
+```
 
 Define field-deformed score:
 
-$$
+```text
 E_{field,i}
 =
-S_i + \lambda \hat{\rho}_i
-$$
+S_i + lambda hat{rho}_i
+```
 
 The field interaction is the deformation:
 
-$$
+```text
 I_M^{field}
 =
 E_{field} - S
-$$
+```
 
 ### 11.3 Paths
 
-- $I_M^{field,geo}$: classical rank-field deformation.
-- $I_M^{field,gproj}$: GPU/noiseless field deformation.
-- $I_M^{field,qproj}$: QPU-calibrated field deformation.
+- `I_M^{field,geo}`: classical rank-field deformation.
+- `I_M^{field,gproj}`: GPU/noiseless field deformation.
+- `I_M^{field,qproj}`: QPU-calibrated field deformation.
 
 ### 11.4 Benchmark
 
@@ -800,11 +802,11 @@ I_M_field/
 
 ---
 
-## 12. $F_M$ — Fractal Expansion Channel
+## 12. `F_M` — Fractal Expansion Channel
 
 ### 12.1 Role
 
-$F_M$ is the fractal/Benford expansion operator. It replaces the old recursive Benford framing with a multi-scale expansion surface.
+`F_M` is the fractal/Benford expansion operator. It replaces the old recursive Benford framing with a multi-scale expansion surface.
 
 Transformer analogue:
 
@@ -825,69 +827,69 @@ fractal_expansion_component
 
 The old failed test asked whether a recursive transformation produced stronger Benford structure than random:
 
-$$
-x \rightarrow f(x) \rightarrow f(f(x)) \rightarrow \dots
-$$
+```text
+x -> f(x) -> f(f(x)) -> ...
+```
 
 The new operator instead computes an expansion surface across bases, scales, and partitions.
 
 Let:
 
-- $b \in \mathcal{B}$ be a digit base,
-- $s \in \mathcal{S}$ be a scale,
-- $p \in \mathcal{P}$ be a partition or chunk mode.
+- `b in {B}` be a digit base,
+- `s in {S}` be a scale,
+- `p in {P}` be a partition or chunk mode.
 
 Define:
 
-$$
-\Phi_{b,s,p}(x)
+```text
+Phi_{b,s,p}(x)
 =
-\text{histogram}_{base=b}
-\left(
-\text{partition}_p
-\left(
-\text{scale}_s(x)
-\right)
-\right)
-$$
+histogram}_{base=b}
+(
+partition}_p
+(
+scale}_s(x)
+)
+)
+```
 
 The full fractal signature is:
 
-$$
+```text
 F_M(x)
 =
-\{\Phi_{b,s,p}(x)\}_{b,s,p}
-$$
+{Phi_{b,s,p}(x)}_{b,s,p}
+```
 
 A benchmark distance is:
 
-$$
-d_F(x,\tilde{x})
+```text
+d_F(x,tilde{x})
 =
-\|F_M(x) - F_M(\tilde{x})\|_2
-$$
+|F_M(x) - F_M(tilde{x})|_2
+```
 
-where $\tilde{x}$ is a matched control.
+where `tilde{x}` is a matched control.
 
 The expansion score can be written:
 
-$$
+```text
 Z_F
 =
-\frac{
-d_F(x, \mu_{control})
+frac{
+d_F(x, mu_{control})
 -
-\mu[d_F(\tilde{x}, \mu_{control})]
+mu[d_F(tilde{x}, mu_{control})]
 }{
-\sigma[d_F(\tilde{x}, \mu_{control})] + \epsilon
+sigma[d_F(tilde{x}, mu_{control})] + epsilon
 }
-$$
+```
 
 ### 12.3 Paths
 
-- $F_M^{geo}$: classical expansion on analytical or synthetic records.
-- $F_M^{gproj}$: expansion on GPU/noiseless projection records.
-- $F_M^{qproj}$: expansion on QPU projection, syndrome, or residual records.
+- `F_M^{geo}`: classical expansion on analytical or synthetic records.
+- `F_M^{gproj}`: expansion on GPU/noiseless projection records.
+- `F_M^{qproj}`: expansion on QPU projection, syndrome, or residual records.
 
 ### 12.4 Benchmark
 
@@ -915,11 +917,11 @@ F_M/
 
 ---
 
-## 13. $D_M$ — Dimensional Metric Channel
+## 13. `D_M` — Dimensional Metric Channel
 
 ### 13.1 Role
 
-$D_M$ measures dimensional structure: intrinsic dimension, spectral rank, projection stability, rank collapse, and lift behavior.
+`D_M` measures dimensional structure: intrinsic dimension, spectral rank, projection stability, rank collapse, and lift behavior.
 
 Transformer analogue:
 
@@ -941,88 +943,88 @@ dimensional_metric_component
 
 Given a matrixized component record:
 
-$$
-X \in \mathbb{R}^{n \times d}
-$$
+```text
+X in \mathbb{R}^{n x d}
+```
 
 compute covariance:
 
-$$
-C = \frac{1}{n} X^\top X
-$$
+```text
+C = frac{1}{n} X^T X
+```
 
 Let eigenvalues be:
 
-$$
-\lambda_1 \ge \lambda_2 \ge \dots \ge \lambda_d \ge 0
-$$
+```text
+lambda_1 >= lambda_2 >= ... >= lambda_d >= 0
+```
 
 Normalize:
 
-$$
-p_i = \frac{\lambda_i}{\sum_j \lambda_j + \epsilon}
-$$
+```text
+p_i = frac{lambda_i}{sum_j lambda_j + epsilon}
+```
 
 Spectral entropy:
 
-$$
-H_D = -\sum_i p_i \log(p_i + \epsilon)
-$$
+```text
+H_D = -sum_i p_i log(p_i + epsilon)
+```
 
 Effective rank:
 
-$$
-r_{eff} = \exp(H_D)
-$$
+```text
+r_{eff} = exp(H_D)
+```
 
 Participation ratio:
 
-$$
+```text
 r_{part}
 =
-\frac{(\sum_i \lambda_i)^2}
-{\sum_i \lambda_i^2 + \epsilon}
-$$
+frac{(sum_i lambda_i)^2}
+{sum_i lambda_i^2 + epsilon}
+```
 
 Stable rank:
 
-$$
+```text
 r_{stable}
 =
-\frac{\|X\|_F^2}{\|X\|_2^2 + \epsilon}
+frac{|X|_F^2}{|X|_2^2 + epsilon}
 =
-\frac{\sum_i \lambda_i}{\lambda_1 + \epsilon}
-$$
+frac{sum_i lambda_i}{lambda_1 + epsilon}
+```
 
 Rank thresholds:
 
-$$
-r_\alpha
+```text
+r_alpha
 =
 \min
-\left\{
+{
 k :
-\frac{\sum_{i=1}^{k}\lambda_i}
-{\sum_j \lambda_j}
-\ge \alpha
-\right\}
-$$
+frac{sum_{i=1}^{k}lambda_i}
+{sum_j lambda_j}
+>= alpha
+}
+```
 
-for $\alpha \in \{0.90, 0.95, 0.99\}$.
+for `alpha in {0.90, 0.95, 0.99}`.
 
-Projection stability can be estimated with random projection matrices $R_k \in \mathbb{R}^{d \times k}$:
+Projection stability can be estimated with random projection matrices `R_k in \mathbb{R}^{d x k}`:
 
-$$
+```text
 P_k(X) = X R_k
-$$
+```
 
 and measured by neighborhood preservation, distance correlation, or reconstruction proxies.
 
 ### 13.3 Paths
 
-- $D_M^{geo}$: dimensional metrics on synthetic/classical component records.
-- $D_M^{gproj}$: dimensional metrics on GPU/noiseless base records.
-- $D_M^{qproj}$: dimensional metrics on QPU/hardware base records.
+- `D_M^{geo}`: dimensional metrics on synthetic/classical component records.
+- `D_M^{gproj}`: dimensional metrics on GPU/noiseless base records.
+- `D_M^{qproj}`: dimensional metrics on QPU/hardware base records.
 
 ### 13.4 Benchmark
 
@@ -1110,35 +1112,35 @@ The Converger is adjacent and independent:
 
 At network scale, local models can be treated as nodes:
 
-$$
-\mathcal{N} = \{n_1, n_2, \dots, n_M\}
-$$
+```text
+{N} = {n_1, n_2, ..., n_M}
+```
 
 Each node may represent a human, a local model, a lab, a device, an industrial subsystem, a context window, or a community.
 
 A node state can be written:
 
-$$
+```text
 n_i = (m_i, h_i, c_i, p_i)
-$$
+```
 
 where:
 
-- $m_i$ is the local model,
-- $h_i$ is human/context representation,
-- $c_i$ is the Converger state,
-- $p_i$ is policy, preference, or safety state.
+- `m_i` is the local model,
+- `h_i` is human/context representation,
+- `c_i` is the Converger state,
+- `p_i` is policy, preference, or safety state.
 
 The network Converger aggregates without erasing:
 
-$$
+```text
 C_{net}
 =
-\mathcal{A}
-\left(
-C_1, C_2, \dots, C_M
-\right)
-$$
+{A}
+(
+C_1, C_2, ..., C_M
+)
+```
 
 subject to equal-footing constraints:
 
@@ -1164,35 +1166,35 @@ On industrial hardware, the same architecture can be mapped to physical control 
 
 A physical system has sensor state:
 
-$$
+```text
 P_t
-$$
+```
 
 actuator parameters:
 
-$$
+```text
 u_t
-$$
+```
 
 and target envelope:
 
-$$
-\mathcal{E}
-$$
+```text
+{E}
+```
 
 A Converger control layer can evaluate:
 
-$$
-C_t = \mathcal{C}(P_t, u_t, \mathcal{E})
-$$
+```text
+C_t = {C}(P_t, u_t, {E})
+```
 
 and produce auxiliary control signals:
 
-$$
-\Delta u_t
+```text
+Delta u_t
 =
 f(C_t)
-$$
+```
 
 For high-stakes systems, the Converger must remain bounded by explicit safety controls:
 
