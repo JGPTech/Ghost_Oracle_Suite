@@ -1,3 +1,83 @@
+# Documentation is out of date*
+The documentation throughout is out of date. The code is the ground truth of the current state of the project. For up to date documentation please consider donating to the cause. Thank you. 
+
+That sounds solid. I’d phrase it as a **standard operator package**: every ghost-channel operator gets the same three implementation files and exposes the same three variants: `geo`, `qproj`, and `gproj`.
+
+Here’s an updated README-ready version:
+
+## Current Work
+
+Ghost Oracle Suite is being reframed around **ghost-channel operators**: auxiliary, side-channel-like measurement and projection channels that expose structure not captured by a primary classical score alone.
+
+The current operator stack is expanding from the original `G_M / S_M` split into seven ghost-channel operators:
+
+- `G_M` — **Generalized Metric channel**  
+  A bounded metric/projection operator for similarity, retrieval, and ranking tasks.
+
+- `S_M` — **Syndrome Metric channel**  
+  A syndrome-spacetime field operator built from physical error records.
+
+- `T_S` — **Stress channel**  
+  A stress-tensor operator derived from gradients inside the `S_M` field.
+
+- `I_M.local` — **Local Interaction channel**  
+  A pointwise interaction operator coupling complexity and countercomplexity coordinates.
+
+- `I_M.field` — **Field Interaction channel**  
+  A nonlocal deformation operator for rank, flow, trajectory, and field-level behavior.
+
+- `F_M` — **Fractal Expansion channel**  
+  A multi-scale Benford/fractal expansion operator over bases, scales, partitions, and matched controls.
+
+- `D_M` — **Dimensional Metric channel**  
+  A dimensional-structure operator for intrinsic dimension, spectral rank, projection stability, and rank/lift behavior.
+
+The design goal is simple:
+
+> Every ghost-channel operator gets the same three substrate variants:  
+> **classical geometry**, **QPU-base projection**, and **GPU-base projection**.
+
+Each operator package will follow the same structure:
+
+```text
+operator/
+├── operator_qpu_generate.py      # generate or submit the QPU base record
+├── operator_gpu_generate.py      # generate the GPU/noiseless base record
+└── operator_benchmark.py         # compare geo / qproj / gproj under shared metrics
+````
+
+Each benchmark projector exposes the same three paths:
+
+```text
+geo      classical geometric reference
+qproj    QPU-calibrated projection/base channel
+gproj    GPU/noiseless projection/base channel
+```
+
+And each operator is evaluated through the same high-level pattern:
+
+```text
+operator
+├── geo      classical reference path
+├── qproj    QPU-base projection path
+├── gproj    GPU-base projection path
+└── bench    shared benchmark projector
+```
+
+The point is not to make one-off backend claims. The point is to keep every operator test matched:
+
+```text
+same operator
+same input schema
+same base-file structure
+same controls
+same benchmark metrics
+three substrate paths
+```
+
+This turns the suite into a repeatable ghost-channel benchmark platform instead of a collection of isolated probes.
+
+
 # Ghost Oracle Suite
 
 A CC0 community project for **projection-style operators discovered by treating failures as forensic evidence**.
