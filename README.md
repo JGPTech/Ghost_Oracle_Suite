@@ -1,3 +1,7 @@
+# Documentation is out of date*
+The documentation throughout is out of date. The code is the ground truth of the current state of the project. For up to date documentation please consider donating to the cause. Thank you. 
+
+
 # Ghost Oracle Suite
 
 A CC0 community project for **projection-style operators discovered by treating failures as forensic evidence**.
