@@ -1,0 +1,6 @@
+{
+  "job_id": "sm_gpu_plus_4096shots_seed3362741097996462646",
+  "npz": "C:\\Ghost_Oracle_Suite\\ghost_oracle\\S_M\\data\\sm_gpu_data_plus_4096shots_seed3362741097996462646.npz",
+  "meta": "C:\\Ghost_Oracle_Suite\\ghost_oracle\\S_M\\data\\sm_gpu_job_sm_gpu_plus_4096shots_seed3362741097996462646.json",
+  "source": "gpu"
+}

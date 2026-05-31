@@ -1,192 +1,159 @@
-# Documentation is out of date*
-The documentation throughout is out of date. The code is the ground truth of the current state of the project. For up to date documentation please consider donating to the cause. Thank you. 
+# Ghost Oracle Suite
 
-That sounds solid. I’d phrase it as a **standard operator package**: every ghost-channel operator gets the same three implementation files and exposes the same three variants: `geo`, `qproj`, and `gproj`.
+A CC0 community project for **ghost-channel operators**: measurement and projection channels that expose structure not captured by a primary classical score alone.
 
-Here’s an updated README-ready version:
+The current suite is organized around completed operator packages. Each operator follows the same discipline:
 
-## Current Work
+```text
+define the operator
+generate a GPU/reference base
+generate or dump a QPU/hardware base
+benchmark geo / gproj / qproj under shared controls
+make only bounded claims
+```
 
-Ghost Oracle Suite is being reframed around **ghost-channel operators**: auxiliary, side-channel-like measurement and projection channels that expose structure not captured by a primary classical score alone.
+The current completed packages are:
 
-The current operator stack is expanding from the original `G_M / S_M` split into seven ghost-channel operators:
+```text
+G_M    Generalized Metric
+S_M    Syndrome Metric
+```
 
-- `G_M` — **Generalized Metric channel**  
-  A bounded metric/projection operator for similarity, retrieval, and ranking tasks.
+The larger roadmap frames these operators as parts of a transformer-adjacent **Converger**: a system that does not replace transformers, humans, or existing tools, but measures structure around them.
 
-- `S_M` — **Syndrome Metric channel**  
-  A syndrome-spacetime field operator built from physical error records.
+The core method is:
 
-- `T_S` — **Stress channel**  
-  A stress-tensor operator derived from gradients inside the `S_M` field.
+```text
+freeze the record
+build matched controls
+scramble the channel
+compare substrates
+measure what survives
+```
 
-- `I_M.local` — **Local Interaction channel**  
-  A pointwise interaction operator coupling complexity and countercomplexity coordinates.
+A ghost channel is considered load-bearing only when destroying that channel destroys the effect while preserving the surrounding task.
 
-- `I_M.field` — **Field Interaction channel**  
-  A nonlocal deformation operator for rank, flow, trajectory, and field-level behavior.
+---
 
-- `F_M` — **Fractal Expansion channel**  
-  A multi-scale Benford/fractal expansion operator over bases, scales, partitions, and matched controls.
+## Current status
 
-- `D_M` — **Dimensional Metric channel**  
-  A dimensional-structure operator for intrinsic dimension, spectral rank, projection stability, and rank/lift behavior.
+The repo now has two main operator packages:
 
-The design goal is simple:
+```text
+ghost_oracle/
+├── G_M/
+└── S_M/
+```
 
-> Every ghost-channel operator gets the same three substrate variants:  
-> **classical geometry**, **QPU-base projection**, and **GPU-base projection**.
-
-Each operator package will follow the same structure:
+Both packages use the same high-level structure:
 
 ```text
 operator/
-├── operator_qpu_generate.py      # generate or submit the QPU base record
-├── operator_gpu_generate.py      # generate the GPU/noiseless base record
-└── operator_benchmark.py         # compare geo / qproj / gproj under shared metrics
-````
-
-Each benchmark projector exposes the same three paths:
-
-```text
-geo      classical geometric reference
-qproj    QPU-calibrated projection/base channel
-gproj    GPU/noiseless projection/base channel
+├── data/
+├── docs/
+├── examples/
+├── kernels/
+├── probes/
+├── README.md
+├── operator_benchmark.py
+├── operator_gpu_generate.py
+└── operator_qpu_generate.py
 ```
 
-And each operator is evaluated through the same high-level pattern:
+For the current repo:
 
 ```text
-operator
-├── geo      classical reference path
-├── qproj    QPU-base projection path
-├── gproj    GPU-base projection path
-└── bench    shared benchmark projector
+G_M/
+├── g_m_benchmark.py
+├── g_m_gpu_generate.py
+└── g_m_qpu_generate.py
+
+S_M/
+├── s_m_benchmark.py
+├── s_m_gpu_generate.py
+└── s_m_qpu_generate.py
 ```
 
-The point is not to make one-off backend claims. The point is to keep every operator test matched:
+The active architecture is no longer a loose collection of probes. It is a repeatable ghost-channel benchmark platform.
+
+---
+
+## Operator stack
+
+The long-term Converger roadmap contains seven ghost-channel operators:
+
+| Operator    | Name                       | Current status                                         |
+| ----------- | -------------------------- | ------------------------------------------------------ |
+| `G_M`       | Generalized Metric         | Completed for this version.                            |
+| `S_M`       | Syndrome Metric            | Completed for this version.                            |
+| `T_S`       | Stress channel             | Future/sibling operator derived from S_M-style fields. |
+| `I_M.local` | Local Interaction channel  | Future operator.                                       |
+| `I_M.field` | Field Interaction channel  | Future operator.                                       |
+| `F_M`       | Fractal Expansion channel  | Future operator.                                       |
+| `D_M`       | Dimensional Metric channel | Future operator.                                       |
+
+The current repo contains finished `G_M` and `S_M` packages. The other channels are roadmap items unless and until they receive the same package structure, benchmark controls, and bounded claim discipline.
+
+---
+
+## Standard substrate paths
+
+Each completed operator exposes the same three substrate paths:
+
+```text
+geo      synthetic / analytical / classical reference path
+gproj    GPU-generated or noiseless projection/base path
+qproj    QPU / hardware-derived base path
+```
+
+The rule is:
 
 ```text
 same operator
 same input schema
-same base-file structure
 same controls
 same benchmark metrics
 three substrate paths
 ```
 
-This turns the suite into a repeatable ghost-channel benchmark platform instead of a collection of isolated probes.
-
-
-# Ghost Oracle Suite
-
-A CC0 community project for **projection-style operators discovered by treating failures as forensic evidence**.
-
-The suite currently tracks two related operator families:
-
-- **`G_M` — Ghost Metric:** a bounded projection-channel similarity operator over angle/state pairs.
-- **`S_M` — Syndrome Metric:** a bounded syndrome-spacetime field operator over repetition-code measurement records, with a derived stress tensor `T_S`.
-
-The shared method is simple:
-
-> Build the thing that should work.  
-> When it does something else, do not throw the result away.  
-> Freeze it, control it, scramble it, and ask what it actually computed.
-
-That workflow took the original Ghost Oracle path from a wrong Hadamard-test assumption to the corrected `G_M` operator. It now also drives the `S_M` syndrome-field work.
-
----
-
-## Operator families
-
-### `G_M` — Ghost Metric
-
-`G_M` is the original Ghost Oracle operator:
-
-```text
-G_M(a, b) = sqrt((1 + cos(a) cos(b)) / 2) / α
-```
-
-It is implemented across three substrates:
-
-1. mathematical reference,
-2. noiseless classical GPU sampler,
-3. real QPU shot data from IBM Runtime.
-
-The `G_M` pipeline lives in:
-
-```text
-ghost_oracle/G_M/
-```
-
-It contains the QPU/GPU base tools, CUDA kernels, final five-way benchmark, Auto Oracle calibration harness, and projection-retrieval experiments.
-
-### `S_M` — Syndrome Metric
-
-`S_M` is the sister operator family discovered from flag/repetition-code syndrome records.
-
-Unlike `G_M`, `S_M` is **not naturally scalar**. Current evidence points to a bounded syndrome-spacetime field:
-
-```text
-S_M(t, i)
-```
-
-where:
-
-- `t` is syndrome round / time index,
-- `i` is code edge / stabilizer index.
-
-From this field, the suite builds a stress-tensor-style diagnostic:
-
-```text
-T_S = [[<ΔtS ΔtS>, <ΔtS ΔxS>],
-       [<ΔxS ΔtS>, <ΔxS ΔxS>]]
-```
-
-The `S_M` pipeline lives in:
-
-```text
-ghost_oracle/S_M/
-```
-
-It has a simple three-step path:
-
-```bash
-python ghost_oracle/S_M/sm_submit.py
-python ghost_oracle/S_M/sm_dump.py
-python ghost_oracle/S_M/sm_analyze.py
-```
-
-The default `S_M` analysis reports the raw operator signature. It does **not** calibrate or normalize the tensor by default; exact values can vary between QPU jobs.
+The benchmark runner is the only place where comparative claims should be made.
 
 ---
 
 ## Repository layout
 
 ```text
-ghost-oracle-suite/
+GHOST_ORACLE_SUITE/
 ├── ghost_oracle/
 │   ├── G_M/
-│   │   ├── README.md
+│   │   ├── data/
+│   │   ├── docs/
+│   │   │   ├── architecture.md
+│   │   │   ├── known_issues.md
+│   │   │   └── math.md
+│   │   ├── examples/
 │   │   ├── kernels/
-│   │   │   └── ghost_kernel.cu
-│   │   ├── auto_oracle.py
-│   │   ├── dump.py
-│   │   ├── final_benchmark_5way.py
-│   │   ├── gpu.py
-│   │   ├── projection_benchmark.py
-│   │   └── qpu.py
+│   │   ├── probes/
+│   │   ├── README.md
+│   │   ├── g_m_benchmark.py
+│   │   ├── g_m_gpu_generate.py
+│   │   └── g_m_qpu_generate.py
 │   │
 │   └── S_M/
+│       ├── data/
+│       ├── docs/
+│       │   ├── architecture.md
+│       │   ├── known_issues.md
+│       │   └── math.md
+│       ├── examples/
+│       ├── kernels/
+│       │   └── sm_kernel.cu
+│       ├── probes/
 │       ├── README.md
-│       ├── sm_submit.py              # step 1: submit default S_M QPU job
-│       ├── sm_dump.py                # step 2: dump Qiskit Runtime data
-│       ├── sm_analyze.py             # step 3: run unified S_M analysis
+│       ├── s_m_benchmark.py
+│       ├── s_m_gpu_generate.py
+│       └── s_m_qpu_generate.py
 │
-├── probes/                         # chronological G_M research trajectory
-├── examples/
-├── docs/
-├── data/                           # data files; see data/README.md
 ├── CONTRIBUTING.md
 ├── LICENSE
 ├── PROCESS_RECORD.md
@@ -199,186 +166,401 @@ ghost-oracle-suite/
 ## Quick start
 
 ```bash
-git clone <repo-url> ghost-oracle-suite
-cd ghost-oracle-suite
+git clone <repo-url> Ghost_Oracle_Suite
+cd Ghost_Oracle_Suite
 pip install -r requirements.txt
 ```
 
-Run the original `G_M` five-way benchmark:
+Run the current `G_M` benchmark:
 
 ```bash
-python ghost_oracle/G_M/final_benchmark_5way.py
+python ghost_oracle/G_M/g_m_benchmark.py
 ```
 
-Run Auto Oracle semantic retrieval:
+Run the current `S_M` benchmark:
 
 ```bash
-python ghost_oracle/G_M/auto_oracle.py
-python ghost_oracle/G_M/auto_oracle.py --probe
+python ghost_oracle/S_M/s_m_benchmark.py
 ```
 
-Run the default `S_M` pipeline:
+Run full benchmark modes:
 
 ```bash
-python ghost_oracle/S_M/sm_submit.py
-python ghost_oracle/S_M/sm_dump.py
-python ghost_oracle/S_M/sm_analyze.py
+python ghost_oracle/G_M/g_m_benchmark.py --sweep ALL --probe
+python ghost_oracle/S_M/s_m_benchmark.py --sweep ALL --probe
 ```
-
-The first command submits a QPU job. Wait for the job to complete before running `sm_dump.py`.
 
 ---
 
-## `G_M` headline: projection-channel similarity
+## `G_M` — Generalized Metric
 
-The `G_M` path began with a wrong assumption: the QPU circuit was thought to compute a textbook Hadamard-test target. Probes showed it did not. The project then traced what the circuit actually computed and simplified the result into:
+`G_M` is the original Ghost Oracle operator family: **Generalized Metric**, formerly **Ghost Metric**.
 
-```text
-G_M(a, b) = sqrt((1 + cos(a) cos(b)) / 2) / α
-```
+It began as a failed Hadamard-test interpretation. The QPU circuit was first assumed to compute a textbook overlap target, but the probes showed that assumption was wrong. The useful step was to stop asking why the circuit failed to compute the intended object and instead ask what it was consistently computing.
 
-The final benchmark compares five paths on the same attention task:
-
-| Path | Role |
-|---|---|
-| `CUBLAS` | dot-product attention control |
-| `TIED` | dual-channel geometry + projection kernel |
-| `GEO` | closed-form `G_M` geometry |
-| `QPROJ` | projection driven by real QPU shots |
-| `GPROJ` | projection driven by noiseless GPU shots |
-
-All five retrieve cleanly at the calibrated dense-attention operating point. The substrate-specific story appears in the agreement metric: noiseless GPU projection sits near the shot-noise floor, while real QPU projection shows additional hardware-noise attenuation.
-
-### Auto Oracle result
-
-`ghost_oracle/G_M/auto_oracle.py` adds in-memory calibration over QPU bases and semantic retrieval against cosine and `G_M`.
-
-Medium run:
+The resulting closed-form operator is:
 
 ```text
-M = 250,000
-N = 1024
-d = 1024
-noise = 0.12
-outlier fraction = 0.03
-outlier magnitude = 60
+G_M(a, b) = sqrt((1 + cos(a) cos(b)) / 2) / alpha
 ```
 
-| Path | Recall@1 | Time | Speed vs cosine |
-|---|---:|---:|---:|
-| cosine baseline | 96.88% | 1.156 s | 1.00× |
-| geometry `G_M` megakernel | 100.00% | 0.897 s | **1.29× faster** |
-| QPU projection — base 1 | 100.00% | 2.416 s | 0.48× |
-| QPU projection — base 2 | 100.00% | 2.404 s | 0.48× |
-| QPU projection — base 3 | 100.00% | 2.415 s | 0.48× |
+Current framing:
 
-The speed result is the surprise: on this semantic-retrieval workload, the closed-form `G_M` geometry megakernel ran faster than the cosine baseline even though cosine is the tensor-core-friendly GEMM path and the Ghost Oracle geometry kernel is not using tensor cores.
+```text
+G_M = bounded projection-channel / geometry-channel generalized similarity operator
+```
 
-The QPU projection path is slower because it reconstructs scores from calibrated physical shot-count buckets. Its purpose is not raw throughput; it is substrate-backed projection evidence.
+`G_M` is implemented across three substrates:
 
-`--probe` adds negative controls:
+```text
+geo      closed-form geometry channel
+gproj    GPU/noiseless projection base
+qproj    real QPU shot-count projection base
+```
 
-| Control | Result | Interpretation |
-|---|---:|---|
-| real calibrated counts | 100.00% Recall@1 | physical shot structure retrieves |
-| permuted counts | 0.00% Recall@1 | destroying bucket structure destroys retrieval |
-| uniformized counts | 0.00% Recall@1 | projection is not silently reducing to geometry |
+The core claim is not that QPU projection is faster than classical GPU attention.
+
+The core claim is that the same generalized projection-style operator can be expressed across mathematical, classical-sampler, and physical-shot substrates, with an agreement metric that exposes substrate quality.
+
+### G_M package
+
+```text
+ghost_oracle/G_M/
+├── README.md
+├── g_m_benchmark.py
+├── g_m_gpu_generate.py
+├── g_m_qpu_generate.py
+├── data/
+├── docs/
+├── examples/
+├── kernels/
+└── probes/
+```
+
+### G_M quick path
+
+```bash
+python ghost_oracle/G_M/g_m_benchmark.py
+python ghost_oracle/G_M/g_m_benchmark.py --sweep ALL
+python ghost_oracle/G_M/g_m_benchmark.py --probe
+```
+
+Base generation:
+
+```bash
+python ghost_oracle/G_M/g_m_gpu_generate.py
+python ghost_oracle/G_M/g_m_qpu_generate.py
+```
+
+### G_M benchmark claim
+
+The current bounded claim is:
+
+```text
+G_M is a bounded, calibrated, substrate-comparable generalized metric.
+```
+
+The benchmark evidence supports:
+
+```text
+1. The closed-form geometry channel retrieves under coherent same-dimension attack.
+2. Real QPU projection bases retrieve when calibrated.
+3. Noiseless GPU projection bases retrieve when calibrated.
+4. Destroying calibrated bucket structure destroys projection retrieval.
+5. The projection path is therefore using load-bearing shot-count structure.
+6. cuBLAS remains the correct dense GEMM throughput control.
+```
+
+The non-claims are:
+
+```text
+G_M is not a universal replacement for dot-product attention.
+G_M is not claimed to make QPU shot reconstruction faster than cuBLAS.
+G_M is not a quantum-advantage claim.
+G_M is not distribution-shift-proof without recalibration.
+```
+
+See:
+
+```text
+ghost_oracle/G_M/README.md
+ghost_oracle/G_M/docs/math.md
+ghost_oracle/G_M/docs/architecture.md
+ghost_oracle/G_M/docs/known_issues.md
+```
 
 ---
 
-## `S_M` headline: syndrome-spacetime field
+## `S_M` — Syndrome Metric
 
-The `S_M` path began from a decoder that looked too clean. Instead of discarding it as broken, the suite asked what the QPU record was actually carrying.
+`S_M` is the Ghost Oracle Suite syndrome-field operator family: **Syndrome Metric**.
 
-The default `S_M` job prepares a logical cat state inside the repetition-code space:
+`S_M` treats repeated syndrome measurements not as a single logical-error statistic, but as a syndrome-spacetime field. The useful object is the relationship between final data edge parity and repeated syndrome records.
 
-```text
-|+_L> = (|000...0> + |111...1>) / sqrt(2)
-```
-
-Then it runs repeated syndrome extraction and analyzes the final data and syndrome spacetime record. For this experiment, final majority-vote logical error is diagnostic only; the useful terminal object is edge parity:
+Current framing:
 
 ```text
-E_i = D_i XOR D_{i+1}
+S_M = syndrome-spacetime field operator
 ```
 
-The first key result: the candidate object is **not scalar**.
-
-Shape probe results from a logical-cat QPU run:
-
-| Distance | Field L2 | Detection-field L2 | Shape |
-|---:|---:|---:|---|
-| 3 | 1.2081 | 0.8680 | field / edge-anisotropic |
-| 5 | 2.0462 | 1.1921 | field / edge-anisotropic |
-| 7 | 1.9284 | 1.9591 | field / edge-anisotropic |
-| 9 | 2.1345 | 2.1913 | field / edge-anisotropic |
-
-The stress-tensor analysis builds:
+The core field is:
 
 ```text
-ΔtS[t,i] = S[t+1,i] XOR S[t,i]
-ΔxS[t,i] = S[t,i+1] XOR S[t,i]
+S_M = {S[t,i], E[i], A[t,i]}
 ```
 
-and:
+where:
 
 ```text
-T_S = [[<ΔtS ΔtS>, <ΔtS ΔxS>],
-       [<ΔxS ΔtS>, <ΔxS ΔxS>]]
+D[i]   = final data bit at code position i
+E[i]   = D[i] XOR D[i+1]
+S[t,i] = measured syndrome bit at round/time t and edge i
+A[t,i] = 1 - (S[t,i] XOR E[i])
 ```
 
-Logical-cat QPU run:
-
-| d | Ttt | Txx | Ttx | trace | anisotropy | coupling | best local |
-|---:|---:|---:|---:|---:|---:|---:|---:|
-| 3 | 0.10761 | 0.16930 | 0.03084 | 0.27691 | -0.2228 | 0.2285 | 1.23931 |
-| 5 | 0.11051 | 0.21118 | 0.04653 | 0.32169 | -0.3130 | 0.3046 | 1.45825 |
-| 7 | 0.12348 | 0.29035 | 0.05810 | 0.41383 | -0.4032 | 0.3068 | 2.36326 |
-| 9 | 0.12950 | 0.29289 | 0.06024 | 0.42238 | -0.3868 | 0.3093 | 2.85467 |
-
-Across distances:
+`S_M` is implemented across three substrates:
 
 ```text
-Txx > Ttt
-Ttx > 0
-anisotropy < 0
+geo      synthetic/reference syndrome-spacetime field
+gproj    GPU-generated syndrome-spacetime base
+qproj    real QPU syndrome-spacetime data from IBM Runtime
 ```
 
-The observed field is spatially dominant but time-coupled, and its real-vs-control separation grows strongly in the local tensor field.
+The core claim is not that `S_M` is a logical-error-rate benchmark.
 
-Careful claim:
+The core claim is that final data edge parity and repeated syndrome records form a load-bearing field structure that can be measured, scrambled, classified, and compared across synthetic, GPU-generated, and physical QPU-derived records.
 
-> In a logical-cat-state QPU run, the syndrome record forms a bounded spacetime field with strong real-vs-control separation, distance-scaling, spatially dominant stress, and nonzero temporal-spatial coupling.
+### S_M package
 
-Exact tensor values are hardware-run dependent. The default pipeline is meant to reproduce the **qualitative S_M signature**, not a bit-for-bit copy of one QPU job.
+```text
+ghost_oracle/S_M/
+├── README.md
+├── s_m_benchmark.py
+├── s_m_gpu_generate.py
+├── s_m_qpu_generate.py
+├── data/
+├── docs/
+├── examples/
+├── kernels/
+│   └── sm_kernel.cu
+└── probes/
+```
+
+### S_M quick path
+
+```bash
+python ghost_oracle/S_M/s_m_benchmark.py
+python ghost_oracle/S_M/s_m_benchmark.py --sweep ALL
+python ghost_oracle/S_M/s_m_benchmark.py --probe
+```
+
+Base generation:
+
+```bash
+python ghost_oracle/S_M/s_m_gpu_generate.py
+python ghost_oracle/S_M/s_m_qpu_generate.py submit
+python ghost_oracle/S_M/s_m_qpu_generate.py dump <JOB_ID>
+```
+
+Useful CUDA options:
+
+```bash
+python ghost_oracle/S_M/s_m_benchmark.py --cuda-debug
+python ghost_oracle/S_M/s_m_benchmark.py --no-cuda
+```
+
+### S_M current benchmark result
+
+Current benchmark configuration:
+
+```text
+windows      = [8, 16, 32, 64]
+distances    = d3, d5, d7, d9
+rounds       = 10
+shots        = 4096 per distance/base
+substates    = GEO, GPROJ, QPROJ
+CUDA kernel  = yes
+```
+
+Current key result:
+
+```text
+QPROJ real-vs-control:
+  sm_all               = 0.999 balanced accuracy
+  sm_field             = 0.998 balanced accuracy
+  agreement_profiles   = 0.990 balanced accuracy
+
+QPROJ control-source:
+  sm_field             = 0.853 balanced accuracy
+  sm_all               = 0.848 balanced accuracy
+
+Distance prediction:
+  GEO / GPROJ / QPROJ  = 1.000 balanced accuracy
+```
+
+The important S_M operator signature is:
+
+```text
+raw_rates / detection_rates stay near chance
+agreement_profiles / sm_field / sm_all go near-perfect
+```
+
+That split is the evidence that `S_M` is reading field structure rather than only scalar syndrome density.
+
+### S_M benchmark claim
+
+The current bounded claim is:
+
+```text
+S_M is a field-structured, control-tested, substrate-comparable syndrome metric.
+```
+
+The benchmark evidence supports:
+
+```text
+1. The benchmark loads geo, gproj, and qproj S_M records under one shared task harness.
+2. Field-aware features separate real QPU records from destructive controls.
+3. Raw scalar-like rates remain near chance for real-vs-control separation.
+4. Agreement and full field features approach near-perfect real-vs-control separation.
+5. Control-source classification rises well above chance.
+6. Distance prediction is stable across geo, gproj, and qproj records.
+7. The CUDA kernel accelerates S_M feature extraction while preserving the same operator boundary.
+```
+
+The non-claims are:
+
+```text
+S_M is not a logical-error-rate benchmark.
+S_M is not the T_S stress tensor.
+S_M is not a token retrieval benchmark.
+S_M is not a universal hardware advantage claim.
+```
+
+See:
+
+```text
+ghost_oracle/S_M/README.md
+ghost_oracle/S_M/docs/math.md
+ghost_oracle/S_M/docs/architecture.md
+ghost_oracle/S_M/docs/known_issues.md
+```
+
+---
+
+## Current completed operators
+
+| Package | Operator           | Main benchmark     | GPU path              | QPU path              | Kernel                 |
+| ------- | ------------------ | ------------------ | --------------------- | --------------------- | ---------------------- |
+| `G_M/`  | Generalized Metric | `g_m_benchmark.py` | `g_m_gpu_generate.py` | `g_m_qpu_generate.py` | `kernels/`             |
+| `S_M/`  | Syndrome Metric    | `s_m_benchmark.py` | `s_m_gpu_generate.py` | `s_m_qpu_generate.py` | `kernels/sm_kernel.cu` |
+
+---
+
+## Converger framing
+
+The larger Ghost Oracle Suite architecture frames ghost-channel operators as components of a transformer-adjacent **Converger**.
+
+A transformer answers:
+
+```text
+What is the next useful representation, token, action, or score?
+```
+
+A Converger asks:
+
+```text
+What hidden structure exists around that score, and does it survive controls?
+```
+
+The Converger is adjacent and independent:
+
+```text
+transformer predicts
+converger measures
+benchmark controls
+operator survives or fails
+```
+
+Current operator mapping:
+
+| Operator    | Converger component          | Role                                                       |
+| ----------- | ---------------------------- | ---------------------------------------------------------- |
+| `G_M`       | metric projection component  | Bounded similarity, retrieval structure, ranking behavior. |
+| `S_M`       | syndrome field component     | Syndrome-spacetime fields and agreement structure.         |
+| `T_S`       | stress tensor component      | Future stress/anisotropy/coupling channel.                 |
+| `I_M.local` | local interaction component  | Future pointwise interaction channel.                      |
+| `I_M.field` | field interaction component  | Future nonlocal deformation channel.                       |
+| `F_M`       | fractal expansion component  | Future multi-scale expansion channel.                      |
+| `D_M`       | dimensional metric component | Future dimensional/rank/spectral channel.                  |
+
+The goal is not one-off backend claims. The goal is a repeatable benchmark architecture where every operator gets:
+
+```text
+same package pattern
+same substrate pattern
+same control discipline
+same bounded-claim standard
+```
 
 ---
 
 ## Data
 
-The `data/` directory has its own README and is intentionally separate from the code layout.
+Each operator package has its own local `data/` directory.
 
-Large generated files should usually stay out of git unless they are small reproducibility fixtures. Recommended ignore patterns:
+```text
+ghost_oracle/G_M/data/
+ghost_oracle/S_M/data/
+```
+
+Generated files are usually large and should not be committed unless intentionally shipped as small reproducibility fixtures.
+
+Recommended ignore patterns:
 
 ```gitignore
-data/*.npz
-analysis/
+ghost_oracle/G_M/data/job_*.npz
+ghost_oracle/G_M/data/ghost_oracle_gpu_*.npz
+ghost_oracle/S_M/data/sm_data_*.npz
+ghost_oracle/S_M/data/sm_gpu_data_*.npz
+ghost_oracle/S_M/data/sm_job_*.json
+ghost_oracle/S_M/data/sm_gpu_job_*.json
+ghost_oracle/*/analysis/
 *_report.json
-stress_tensor*.png
-operator_shape*.json
-repcode*_job_*.json
-sm_job_*.json
-latest_sm_*.json
 ```
+
+Keep small curated fixtures if they are part of the reproducibility story.
+
+Keep large generated bases out of git unless intentionally shipping them.
 
 ---
 
 ## Docs and process record
 
-- `docs/math.md` contains the `G_M` derivation and related operator math.
-- `docs/architecture.md` explains the original tied-channel design and data flow.
-- `docs/known_issues.md` preserves known bugs, superseded probes, and caveats.
-- `PROCESS_RECORD.md` is the chronological research log.
+Each operator package has its own docs:
+
+```text
+ghost_oracle/G_M/docs/
+ghost_oracle/S_M/docs/
+```
+
+Typical docs:
+
+```text
+architecture.md
+math.md
+known_issues.md
+```
+
+Root-level project files:
+
+```text
+PROCESS_RECORD.md
+CONTRIBUTING.md
+LICENSE
+requirements.txt
+```
+
+`PROCESS_RECORD.md` is the chronological research log.
 
 The process record is intentionally honest: wrong turns stay in the repo, fixes live in follow-up probes, and claims get retracted when controls do not support them.
 
@@ -390,20 +572,40 @@ This is a CC0 community project.
 
 The norm is:
 
-> If you break something, you provide the fix.
-
-That does not mean bug reports are unwelcome. It means the project moves on reproductions, probes, patches, and clear deltas.
+```text
+break it, fix it, document what happened
+```
 
 Useful contributions:
 
-- new probes with controls,
-- fixes for known issues,
-- documentation improvements,
-- benchmark sweeps,
-- small reproducibility fixtures,
-- clearer null models.
+```text
+new probes with controls
+bug fixes
+documentation improvements
+benchmark sweeps
+small reproducibility fixtures
+clearer null models
+backend comparison runs
+CUDA/kernel cleanup
+```
 
-See `CONTRIBUTING.md` for the full philosophy.
+A valid operator contribution should preserve the package discipline:
+
+```text
+same operator
+same input schema
+same base-file structure
+same controls
+same benchmark metrics
+three substrate paths
+bounded claims only
+```
+
+See:
+
+```text
+CONTRIBUTING.md
+```
 
 ---
 

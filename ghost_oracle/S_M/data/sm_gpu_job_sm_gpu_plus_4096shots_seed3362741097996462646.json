@@ -1,0 +1,77 @@
+{
+  "schema": "sm_gpu_synthetic_base",
+  "job_id": "sm_gpu_plus_4096shots_seed3362741097996462646",
+  "created_utc": "2026-05-31T17:37:12.371497+00:00",
+  "generator": "s_m_gpu_generate.py",
+  "generation_backend": "cupy_gpu",
+  "device": "NVIDIA GeForce RTX 3090",
+  "shots": 4096,
+  "rounds": 10,
+  "distances": [
+    3,
+    5,
+    7,
+    9
+  ],
+  "flag_level": 0,
+  "logical_init": 0,
+  "basis": "z",
+  "init_state": "plus",
+  "state_family": "logical_cat_branch_model",
+  "noise_model": {
+    "p_data": 0.01,
+    "p_syndrome": 0.03,
+    "p_readout": 0.02,
+    "p_flag": 0.005,
+    "p_burst": 0.0,
+    "burst_width": 3
+  },
+  "seed": 3362741097996462646,
+  "diagnostics": [
+    {
+      "distance": 3,
+      "shots": 4096,
+      "bits": 3,
+      "data_mean": 0.504638671875,
+      "synd_mean": 0.119287109375,
+      "flag_mean": null,
+      "majority_ler_diagnostic": 0.504150390625,
+      "last_syndrome_mismatch": 0.0635986328125,
+      "syndrome_instability": 0.07671440972222222
+    },
+    {
+      "distance": 5,
+      "shots": 4096,
+      "bits": 5,
+      "data_mean": 0.500341796875,
+      "synd_mean": 0.125201416015625,
+      "flag_mean": null,
+      "majority_ler_diagnostic": 0.49853515625,
+      "last_syndrome_mismatch": 0.06744384765625,
+      "syndrome_instability": 0.07731119791666667
+    },
+    {
+      "distance": 7,
+      "shots": 4096,
+      "bits": 7,
+      "data_mean": 0.4949428013392857,
+      "synd_mean": 0.12135416666666667,
+      "flag_mean": null,
+      "majority_ler_diagnostic": 0.49267578125,
+      "last_syndrome_mismatch": 0.0677490234375,
+      "syndrome_instability": 0.07627133969907407
+    },
+    {
+      "distance": 9,
+      "shots": 4096,
+      "bits": 9,
+      "data_mean": 0.4917263454861111,
+      "synd_mean": 0.1214752197265625,
+      "flag_mean": null,
+      "majority_ler_diagnostic": 0.4892578125,
+      "last_syndrome_mismatch": 0.06781005859375,
+      "syndrome_instability": 0.07533433702256945
+    }
+  ],
+  "notes": "Controlled S_M syndrome-spacetime generator. This is not a QPU simulation claim. It writes the same analysis-facing sm_data arrays as sm_qpu.py dump."
+}

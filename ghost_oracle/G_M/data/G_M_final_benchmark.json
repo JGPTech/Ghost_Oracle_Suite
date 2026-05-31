@@ -1,0 +1,449 @@
+{
+  "config": {
+    "N": 4096,
+    "d": 64,
+    "jitter": 0.3,
+    "attack_fraction": 0.05,
+    "magnitude": 200.0,
+    "power": 256.0,
+    "master_seed": 3762754174319845921
+  },
+  "cublas": {
+    "top1": 0.57421875,
+    "sig": 0.5740345120429993,
+    "spk": 0.43133649230003357,
+    "time_ms": 0.749819993507117
+  },
+  "entries": [
+    {
+      "file": "job_d8c4q5r8ch0s738uaq30.npz",
+      "type": "QPU",
+      "calibration": {
+        "tile_idx": 0,
+        "tile_rc": [
+          0,
+          0
+        ],
+        "orig_a": 0.41233403578366035,
+        "orig_b": 1.6493361431346414,
+        "mask_tag": "M1",
+        "mask_name": "Baseline (all 9)",
+        "mask_drops": [],
+        "mask_bits": 511,
+        "thr": 0.5693877551020409,
+        "sig": 1.0,
+        "score": 1.0,
+        "spk": 0.046875,
+        "clean": true
+      },
+      "agreement": 0.010617167688906193,
+      "kernel_time_ms": 17.379180004354566,
+      "tied": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 20.635480002965778
+      },
+      "geo": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 20.635480002965778
+      },
+      "proj": {
+        "top1": 1.0,
+        "sig": 0.999838650226593,
+        "spk": 0.049803704023361206,
+        "time_ms": 20.63284000614658,
+        "path_label": "QPROJ"
+      }
+    },
+    {
+      "file": "job_d8c4qjr8ch0s738uaqk0.npz",
+      "type": "QPU",
+      "calibration": {
+        "tile_idx": 0,
+        "tile_rc": [
+          0,
+          0
+        ],
+        "orig_a": 0.41233403578366035,
+        "orig_b": 1.6493361431346414,
+        "mask_tag": "M1",
+        "mask_name": "Baseline (all 9)",
+        "mask_drops": [],
+        "mask_bits": 511,
+        "thr": 0.5510204081632654,
+        "sig": 1.0,
+        "score": 1.0,
+        "spk": 0.046875,
+        "clean": true
+      },
+      "agreement": 0.088755302131176,
+      "kernel_time_ms": 24.852720007766038,
+      "tied": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 26.978700002655387
+      },
+      "geo": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 26.978700002655387
+      },
+      "proj": {
+        "top1": 0.9990234375,
+        "sig": 0.9989959001541138,
+        "spk": 0.04979725927114487,
+        "time_ms": 26.99000000720844,
+        "path_label": "QPROJ"
+      }
+    },
+    {
+      "file": "job_d8c4qmr8amns73bj0b0g.npz",
+      "type": "QPU",
+      "calibration": {
+        "tile_idx": 0,
+        "tile_rc": [
+          0,
+          0
+        ],
+        "orig_a": 0.41233403578366035,
+        "orig_b": 1.6493361431346414,
+        "mask_tag": "M1",
+        "mask_name": "Baseline (all 9)",
+        "mask_drops": [],
+        "mask_bits": 511,
+        "thr": 0.47755102040816333,
+        "sig": 1.0,
+        "score": 1.0,
+        "spk": 0.046875,
+        "clean": true
+      },
+      "agreement": 0.06648500263690948,
+      "kernel_time_ms": 20.060179999563843,
+      "tied": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 33.15982000203803
+      },
+      "geo": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 33.15982000203803
+      },
+      "proj": {
+        "top1": 1.0,
+        "sig": 0.9999751448631287,
+        "spk": 0.0498044416308403,
+        "time_ms": 22.029079997446384,
+        "path_label": "QPROJ"
+      }
+    },
+    {
+      "file": "job_d8dod1i4gq0s73aqj3m0.npz",
+      "type": "QPU",
+      "calibration": {
+        "tile_idx": 0,
+        "tile_rc": [
+          0,
+          0
+        ],
+        "orig_a": 0.41233403578366035,
+        "orig_b": 1.6493361431346414,
+        "mask_tag": "M1",
+        "mask_name": "Baseline (all 9)",
+        "mask_drops": [],
+        "mask_bits": 511,
+        "thr": 0.49591836734693884,
+        "sig": 1.0,
+        "score": 1.0,
+        "spk": 0.046875,
+        "clean": true
+      },
+      "agreement": 0.004920703358948231,
+      "kernel_time_ms": 22.77112000156194,
+      "tied": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 29.83170000370592
+      },
+      "geo": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 29.83170000370592
+      },
+      "proj": {
+        "top1": 1.0,
+        "sig": 0.999994158744812,
+        "spk": 0.04980526864528656,
+        "time_ms": 24.75041999714449,
+        "path_label": "QPROJ"
+      }
+    },
+    {
+      "file": "job_d8e4fmpvjngc73ansgug.npz",
+      "type": "QPU",
+      "calibration": {
+        "tile_idx": 0,
+        "tile_rc": [
+          0,
+          0
+        ],
+        "orig_a": 0.41233403578366035,
+        "orig_b": 1.6493361431346414,
+        "mask_tag": "M1",
+        "mask_name": "Baseline (all 9)",
+        "mask_drops": [],
+        "mask_bits": 511,
+        "thr": 0.5142857142857143,
+        "sig": 1.0,
+        "score": 1.0,
+        "spk": 0.046875,
+        "clean": true
+      },
+      "agreement": 0.02375084161758423,
+      "kernel_time_ms": 18.955520004965365,
+      "tied": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 22.13596000801772
+      },
+      "geo": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 22.13596000801772
+      },
+      "proj": {
+        "top1": 1.0,
+        "sig": 0.9999794960021973,
+        "spk": 0.0498041994869709,
+        "time_ms": 22.16296000406146,
+        "path_label": "QPROJ"
+      }
+    },
+    {
+      "file": "ghost_oracle_gpu_4096shots_seed215178935609871186.npz",
+      "type": "GPU",
+      "calibration": {
+        "tile_idx": 8,
+        "tile_rc": [
+          2,
+          0
+        ],
+        "orig_a": 1.2370021073509812,
+        "orig_b": 1.6493361431346414,
+        "mask_tag": "M1",
+        "mask_name": "Baseline (all 9)",
+        "mask_drops": [],
+        "mask_bits": 511,
+        "thr": 0.753061224489796,
+        "sig": 1.0,
+        "score": 1.0,
+        "spk": 0.046875,
+        "clean": true
+      },
+      "agreement": 0.01681998372077942,
+      "kernel_time_ms": 24.81890000635758,
+      "tied": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 28.58806001022458
+      },
+      "geo": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 28.58806001022458
+      },
+      "proj": {
+        "top1": 1.0,
+        "sig": 1.0,
+        "spk": 0.0498046875,
+        "time_ms": 26.713559997733682,
+        "path_label": "GPROJ"
+      }
+    },
+    {
+      "file": "ghost_oracle_gpu_4096shots_seed3921949297082858259.npz",
+      "type": "GPU",
+      "calibration": {
+        "tile_idx": 10,
+        "tile_rc": [
+          2,
+          2
+        ],
+        "orig_a": 1.2370021073509812,
+        "orig_b": 0.6597344572538566,
+        "mask_tag": "M1",
+        "mask_name": "Baseline (all 9)",
+        "mask_drops": [],
+        "mask_bits": 511,
+        "thr": 0.863265306122449,
+        "sig": 0.9973379373550415,
+        "score": 0.9973379373550415,
+        "spk": 0.046875,
+        "clean": true
+      },
+      "agreement": 0.10483276844024658,
+      "kernel_time_ms": 19.350059994030744,
+      "tied": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 22.583979996852577
+      },
+      "geo": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 22.583979996852577
+      },
+      "proj": {
+        "top1": 0.98681640625,
+        "sig": 0.984882652759552,
+        "spk": 0.051124535501003265,
+        "time_ms": 22.5945399957709,
+        "path_label": "GPROJ"
+      }
+    },
+    {
+      "file": "ghost_oracle_gpu_4096shots_seed5434204264420130171.npz",
+      "type": "GPU",
+      "calibration": {
+        "tile_idx": 1,
+        "tile_rc": [
+          0,
+          1
+        ],
+        "orig_a": 0.41233403578366035,
+        "orig_b": 1.3194689145077132,
+        "mask_tag": "M1",
+        "mask_name": "Baseline (all 9)",
+        "mask_drops": [],
+        "mask_bits": 511,
+        "thr": 0.863265306122449,
+        "sig": 1.0,
+        "score": 1.0,
+        "spk": 0.046875,
+        "clean": true
+      },
+      "agreement": 0.09421506524085999,
+      "kernel_time_ms": 20.94917999347672,
+      "tied": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 32.92489999439567
+      },
+      "geo": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 32.92489999439567
+      },
+      "proj": {
+        "top1": 1.0,
+        "sig": 1.0,
+        "spk": 0.0498046875,
+        "time_ms": 22.83275999361649,
+        "path_label": "GPROJ"
+      }
+    },
+    {
+      "file": "ghost_oracle_gpu_4096shots_seed6568604389055453570.npz",
+      "type": "GPU",
+      "calibration": {
+        "tile_idx": 0,
+        "tile_rc": [
+          0,
+          0
+        ],
+        "orig_a": 0.41233403578366035,
+        "orig_b": 1.6493361431346414,
+        "mask_tag": "M1",
+        "mask_name": "Baseline (all 9)",
+        "mask_drops": [],
+        "mask_bits": 511,
+        "thr": 0.7714285714285715,
+        "sig": 1.0,
+        "score": 1.0,
+        "spk": 0.046875,
+        "clean": true
+      },
+      "agreement": 0.012520617805421352,
+      "kernel_time_ms": 19.756000000052154,
+      "tied": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 23.064339999109507
+      },
+      "geo": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 23.064339999109507
+      },
+      "proj": {
+        "top1": 1.0,
+        "sig": 0.9999915361404419,
+        "spk": 0.0498046875,
+        "time_ms": 23.146220005583018,
+        "path_label": "GPROJ"
+      }
+    },
+    {
+      "file": "ghost_oracle_gpu_4096shots_seed68133331033786366.npz",
+      "type": "GPU",
+      "calibration": {
+        "tile_idx": 0,
+        "tile_rc": [
+          0,
+          0
+        ],
+        "orig_a": 0.41233403578366035,
+        "orig_b": 1.6493361431346414,
+        "mask_tag": "M1",
+        "mask_name": "Baseline (all 9)",
+        "mask_drops": [],
+        "mask_bits": 511,
+        "thr": 0.753061224489796,
+        "sig": 1.0,
+        "score": 1.0,
+        "spk": 0.046875,
+        "clean": true
+      },
+      "agreement": 0.010331965982913971,
+      "kernel_time_ms": 29.150679998565465,
+      "tied": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 38.308459997642785
+      },
+      "geo": {
+        "top1": 1.0,
+        "sig": 0.9991256594657898,
+        "spk": 0.04980552941560745,
+        "time_ms": 38.308459997642785
+      },
+      "proj": {
+        "top1": 1.0,
+        "sig": 0.9999986290931702,
+        "spk": 0.04980495199561119,
+        "time_ms": 31.142299994826317,
+        "path_label": "GPROJ"
+      }
+    }
+  ]
+}
