@@ -18,6 +18,7 @@ The current completed packages are:
 G_M    Generalized Metric
 S_M    Syndrome Metric
 T_S    Temporal Stress Metric
+F_M    Fractal / Frequency / Field Metric
 ```
 
 The larger roadmap frames these operators as parts of a transformer-adjacent **Converger**: a system that does not replace transformers, humans, or existing tools, but measures structure around them.
@@ -38,16 +39,17 @@ A ghost channel is considered load-bearing only when destroying that channel des
 
 ## Current status
 
-The repo now has three main operator packages:
+The repo now has four main operator packages:
 
 ```text
 ghost_oracle/
 ├── G_M/
 ├── S_M/
-└── T_S/
+├── T_S/
+└── F_M/
 ```
 
-Both packages use the same high-level structure:
+All completed packages use the same high-level structure:
 
 ```text
 operator/
@@ -79,6 +81,11 @@ T_S/
 ├── t_s_benchmark.py
 ├── t_s_gpu_generate.py
 └── t_s_qpu_generate.py
+
+F_M/
+├── F_M_final_benchmark.py
+├── f_m_gpu_generate.py
+└── f_m_qpu_generate.py
 ```
 
 The active architecture is no longer a loose collection of probes. It is a repeatable ghost-channel benchmark platform.
@@ -89,17 +96,17 @@ The active architecture is no longer a loose collection of probes. It is a repea
 
 The long-term Converger roadmap contains seven ghost-channel operators:
 
-| Operator    | Name                       | Current status                                         |
-| ----------- | -------------------------- | ------------------------------------------------------ |
-| `G_M`       | Generalized Metric         | Completed for this version.                            |
-| `S_M`       | Syndrome Metric            | Completed for this version.                            |
-| `T_S`       | Temporal Stress Metric     | Completed for this version.                            |
-| `I_M.local` | Local Interaction channel  | Future operator.                                       |
-| `I_M.field` | Field Interaction channel  | Future operator.                                       |
-| `F_M`       | Fractal Expansion channel  | Future operator.                                       |
-| `D_M`       | Dimensional Metric channel | Future operator.                                       |
+| Operator    | Name                               | Current status              |
+| ----------- | ---------------------------------- | --------------------------- |
+| `G_M`       | Generalized Metric                 | Completed for this version. |
+| `S_M`       | Syndrome Metric                    | Completed for this version. |
+| `T_S`       | Temporal Stress Metric             | Completed for this version. |
+| `F_M`       | Fractal / Frequency / Field Metric | Completed for this version. |
+| `I_M.local` | Local Interaction channel          | Future operator.            |
+| `I_M.field` | Field Interaction channel          | Future operator.            |
+| `D_M`       | Dimensional Metric channel         | Future operator.            |
 
-The current repo contains finished `G_M`, `S_M`, and `T_S` packages. The remaining channels are roadmap items unless and until they receive the same package structure, benchmark controls, and bounded claim discipline.
+The current repo contains finished `G_M`, `S_M`, `T_S`, and `F_M` packages. The remaining channels are roadmap items unless and until they receive the same package structure, benchmark controls, and bounded claim discipline.
 
 ---
 
@@ -161,19 +168,38 @@ GHOST_ORACLE_SUITE/
 │   │   ├── s_m_gpu_generate.py
 │   │   └── s_m_qpu_generate.py
 │   │
-│   └── T_S/
+│   ├── T_S/
+│   │   ├── data/
+│   │   ├── docs/
+│   │   │   ├── architecture.md
+│   │   │   ├── known_issues.md
+│   │   │   └── math.md
+│   │   ├── kernels/
+│   │   │   └── ts_geo_kernel.cu
+│   │   ├── probes/
+│   │   ├── README.md
+│   │   ├── t_s_benchmark.py
+│   │   ├── t_s_gpu_generate.py
+│   │   └── t_s_qpu_generate.py
+│   │
+│   └── F_M/
 │       ├── data/
+│       │   ├── latest_fm_qpu_data.json
+│       │   ├── latest_fm_gpu_data.json
+│       │   ├── fm_job_<JOB_ID>.npz
+│       │   └── fm_gpu_data_<...>.npz
 │       ├── docs/
 │       │   ├── architecture.md
 │       │   ├── known_issues.md
 │       │   └── math.md
+│       ├── examples/
 │       ├── kernels/
-│       │   └── ts_geo_kernel.cu
+│       │   └── fm_projector_kernel.cu
 │       ├── probes/
 │       ├── README.md
-│       ├── t_s_benchmark.py
-│       ├── t_s_gpu_generate.py
-│       └── t_s_qpu_generate.py
+│       ├── F_M_final_benchmark.py
+│       ├── f_m_gpu_generate.py
+│       └── f_m_qpu_generate.py
 │
 ├── CONTRIBUTING.md
 ├── LICENSE
@@ -210,12 +236,19 @@ Run the current `T_S` benchmark:
 python ghost_oracle/T_S/t_s_benchmark.py
 ```
 
-Run full benchmark modes:
+Run the current `F_M` benchmark:
+
+```bash
+python ghost_oracle/F_M/F_M_final_benchmark.py
+```
+
+Run full benchmark / probe modes where available:
 
 ```bash
 python ghost_oracle/G_M/g_m_benchmark.py --sweep ALL --probe
 python ghost_oracle/S_M/s_m_benchmark.py --sweep ALL --probe
 python ghost_oracle/T_S/t_s_benchmark.py
+python ghost_oracle/F_M/F_M_final_benchmark.py --geo-profile wide --max-candidates 1000000 --reps 100
 ```
 
 ---
@@ -696,13 +729,231 @@ ghost_oracle/T_S/docs/known_issues.md
 
 ---
 
+## `F_M` — Fractal / Frequency / Field Metric
+
+`F_M` is the Ghost Oracle Suite paired-path differential wave operator family: **Fractal / Frequency / Field Metric**.
+
+`F_M` treats paired delayed channel measurements not as separate raw path outputs, but as a differential wave field. The useful object is the relationship between the `g` path, the `em` path, their differential fields, and the delay-ordered response curve that survives destructive controls.
+
+Current framing:
+
+```text
+F_M = substrate-linked paired-path differential wave operator
+```
+
+The core fields are:
+
+```text
+delta     = em - g
+xor_delta = em XOR g
+```
+
+The primary locked signature is:
+
+```text
+xor_delta / bit_diff / delay
+```
+
+where:
+
+```text
+bit_diff = mean(bit1) - mean(bit0)
+```
+
+`F_M` is implemented across three substrates:
+
+```text
+geo      optimized analytic metadata-to-curve path
+gproj    GPU-generated paired-path base
+qproj    real QPU paired-path data from IBM Runtime
+```
+
+The core claim is not that `F_M` proves literal gravity/electromagnetic cavities in hardware.
+
+The core claim is that a paired-delay QPU circuit produced a stable differential wave signature, that a compatible GPU base can reproduce the signature family, and that an optimized GEO path can compute the signature directly.
+
+### F_M package
+
+```text
+ghost_oracle/F_M/
+├── README.md
+├── F_M_final_benchmark.py
+├── f_m_gpu_generate.py
+├── f_m_qpu_generate.py
+├── data/
+├── docs/
+├── examples/
+├── kernels/
+│   └── fm_projector_kernel.cu
+└── probes/
+```
+
+### F_M quick path
+
+```bash
+python ghost_oracle/F_M/F_M_final_benchmark.py
+```
+
+Fast debugging pass:
+
+```bash
+python ghost_oracle/F_M/F_M_final_benchmark.py --skip-sweep --reps 20
+```
+
+Bigger capstone run:
+
+```bash
+python ghost_oracle/F_M/F_M_final_benchmark.py --geo-profile wide --max-candidates 1000000 --reps 100
+```
+
+Base generation:
+
+```bash
+python ghost_oracle/F_M/f_m_gpu_generate.py
+python ghost_oracle/F_M/f_m_qpu_generate.py submit
+python ghost_oracle/F_M/f_m_qpu_generate.py dump <JOB_ID>
+```
+
+Useful probe/finalizer paths:
+
+```bash
+python ghost_oracle/F_M/probes/f_m_probe04_qproj_kernel_finalizer.py --file ghost_oracle/F_M/data/fm_job_<JOB_ID>.npz
+python ghost_oracle/F_M/probes/f_m_probe06_geo_cuda_finalizer.py --profile default --max-candidates 250000
+```
+
+### F_M current benchmark result
+
+Current representative benchmark configuration:
+
+```text
+substates     = QPROJ, GPROJ, GEO
+primary field = xor_delta
+primary resp  = bit_diff
+primary order = delay
+tiles         = 7
+shots         = 4096 for qproj/gproj bases
+CUDA kernel   = yes
+GPU           = RTX 3090 in current run
+```
+
+Current primary signature:
+
+```text
+QPROJ:
+  xor_delta / bit_diff / delay
+  score = 0.6571
+  peak  = 0.769
+  R2    = 0.819
+  freq  = 1.30
+  amp   = 0.05800
+
+GPROJ:
+  xor_delta / bit_diff / delay
+  score = 0.6796
+  peak  = 0.772
+  R2    = 0.986
+  freq  = 0.90
+  amp   = 0.03837
+
+GEO:
+  xor_delta / bit_diff / delay
+  score = 0.7356
+  peak  = 0.812
+  R2    = 0.988
+  freq  = 1.10
+  amp   = 0.04813
+```
+
+Current speed comparison:
+
+```text
+QPROJ response + metric : 1.045625 ms
+GPROJ response + metric : 1.059980 ms
+GEO curve + metric      : 0.382735 ms
+GEO 250k sweep          : 290.061 ms
+```
+
+Adjacent classical readers on the primary curve:
+
+```text
+FFT_GPU:
+  score = 0.7688
+  time  = 0.459 ms
+
+DCT_GPU:
+  score = 0.6047
+  time  = 0.477 ms
+
+AUTOCORR_GPU:
+  score = 0.4519
+  time  = 1.010 ms
+
+SINFIT_GPU:
+  score = 0.8193
+  time  = 44.191 ms
+```
+
+The important F_M operator signature is:
+
+```text
+QPROJ discovers the paired-path differential wave signature.
+GPROJ reproduces the signature family in a compatible generated base.
+GEO computes the signature directly as an optimized analytic path.
+Path-pair breaking weakens the signal.
+Delay shuffling weakens the signal.
+```
+
+FFT and SinFit are strong readers of the already-built primary curve. They are not qproj/gproj/geo substrate paths.
+
+### F_M benchmark claim
+
+The current bounded claim is:
+
+```text
+F_M is a substrate-linked paired-path differential wave operator.
+```
+
+The benchmark evidence supports:
+
+```text
+1. The QPU record contains a stable xor_delta / bit_diff / delay signature.
+2. The GPU-generated base reproduces the same signature family.
+3. The GEO path computes the signature directly from metadata.
+4. Path-pair structure is load-bearing.
+5. Delay order is load-bearing.
+6. GEO is faster than record-based qproj/gproj projector evaluation.
+7. FFT and SinFit are useful adjacent readers of the primary curve, not full substrate paths.
+```
+
+The non-claims are:
+
+```text
+F_M is not a proof of literal hardware gravity/electromagnetic cavities.
+F_M is not a quantum advantage claim.
+F_M is not a universal FFT or sinusoid-fit replacement.
+F_M does not claim qproj/gproj/geo are numerically identical.
+F_M does not claim a universal frequency/amplitude across all future QPU jobs.
+```
+
+See:
+
+```text
+ghost_oracle/F_M/README.md
+ghost_oracle/F_M/docs/math.md
+ghost_oracle/F_M/docs/architecture.md
+ghost_oracle/F_M/docs/known_issues.md
+```
+
+---
+
 ## Current completed operators
 
-| Package | Operator                 | Main benchmark     | GPU path              | QPU path              | Kernel                    |
-| ------- | ------------------------ | ------------------ | --------------------- | --------------------- | ------------------------- |
-| `G_M/`  | Generalized Metric       | `g_m_benchmark.py` | `g_m_gpu_generate.py` | `g_m_qpu_generate.py` | `kernels/`                |
-| `S_M/`  | Syndrome Metric          | `s_m_benchmark.py` | `s_m_gpu_generate.py` | `s_m_qpu_generate.py` | `kernels/sm_kernel.cu`    |
-| `T_S/`  | Temporal Stress Metric   | `t_s_benchmark.py` | `t_s_gpu_generate.py` | `t_s_qpu_generate.py` | `kernels/ts_geo_kernel.cu` |
+| Package | Operator                           | Main benchmark           | GPU path              | QPU path              | Kernel                           |
+| ------- | ---------------------------------- | ------------------------ | --------------------- | --------------------- | -------------------------------- |
+| `G_M/`  | Generalized Metric                 | `g_m_benchmark.py`       | `g_m_gpu_generate.py` | `g_m_qpu_generate.py` | `kernels/`                       |
+| `S_M/`  | Syndrome Metric                    | `s_m_benchmark.py`       | `s_m_gpu_generate.py` | `s_m_qpu_generate.py` | `kernels/sm_kernel.cu`           |
+| `T_S/`  | Temporal Stress Metric             | `t_s_benchmark.py`       | `t_s_gpu_generate.py` | `t_s_qpu_generate.py` | `kernels/ts_geo_kernel.cu`       |
+| `F_M/`  | Fractal / Frequency / Field Metric | `F_M_final_benchmark.py` | `f_m_gpu_generate.py` | `f_m_qpu_generate.py` | `kernels/fm_projector_kernel.cu` |
 
 ---
 
@@ -738,9 +989,9 @@ Current operator mapping:
 | `G_M`       | metric projection component  | Bounded similarity, retrieval structure, ranking behavior. |
 | `S_M`       | syndrome field component     | Syndrome-spacetime fields and agreement structure.         |
 | `T_S`       | temporal stress component    | Delay/round/edge stress tensors and route scaffold damage. |
+| `F_M`       | differential wave component  | Paired-path differential fields and delay-ordered waves.   |
 | `I_M.local` | local interaction component  | Future pointwise interaction channel.                      |
 | `I_M.field` | field interaction component  | Future nonlocal deformation channel.                       |
-| `F_M`       | fractal expansion component  | Future multi-scale expansion channel.                      |
 | `D_M`       | dimensional metric component | Future dimensional/rank/spectral channel.                  |
 
 The goal is not one-off backend claims. The goal is a repeatable benchmark architecture where every operator gets:
@@ -762,6 +1013,7 @@ Each operator package has its own local `data/` directory.
 ghost_oracle/G_M/data/
 ghost_oracle/S_M/data/
 ghost_oracle/T_S/data/
+ghost_oracle/F_M/data/
 ```
 
 Generated files are usually large and should not be committed unless intentionally shipped as small reproducibility fixtures.
@@ -771,15 +1023,23 @@ Recommended ignore patterns:
 ```gitignore
 ghost_oracle/G_M/data/job_*.npz
 ghost_oracle/G_M/data/ghost_oracle_gpu_*.npz
+
 ghost_oracle/S_M/data/sm_data_*.npz
 ghost_oracle/S_M/data/sm_gpu_data_*.npz
 ghost_oracle/S_M/data/sm_job_*.json
 ghost_oracle/S_M/data/sm_gpu_job_*.json
+
 ghost_oracle/T_S/data/ts_data_*.npz
 ghost_oracle/T_S/data/ts_gpu_data_*.npz
 ghost_oracle/T_S/data/ts_job_*.json
 ghost_oracle/T_S/data/ts_gpu_job_*.json
+
+ghost_oracle/F_M/data/fm_job_*.npz
+ghost_oracle/F_M/data/fm_gpu_data_*.npz
+ghost_oracle/F_M/data/latest_fm_*.json
+
 ghost_oracle/*/analysis/
+ghost_oracle/*/probes/analysis/
 *_report.json
 ```
 
@@ -797,6 +1057,7 @@ Each operator package has its own docs:
 ghost_oracle/G_M/docs/
 ghost_oracle/S_M/docs/
 ghost_oracle/T_S/docs/
+ghost_oracle/F_M/docs/
 ```
 
 Typical docs:
@@ -843,6 +1104,7 @@ small reproducibility fixtures
 clearer null models
 backend comparison runs
 CUDA/kernel cleanup
+additional qproj/gproj/geo comparisons
 ```
 
 A valid operator contribution should preserve the package discipline:

@@ -1,0 +1,11 @@
+{
+  "schema": "ghost_oracle.fm.latest_pointer.v1",
+  "operator": "F_M",
+  "substrate": "gproj",
+  "job_id": "fm_gpu_seed142985762",
+  "backend": "gpu",
+  "path": "C:\\Ghost_Oracle_Suite\\ghost_oracle\\F_M\\data\\fm_gpu_data_4096shots_seed142985762.npz",
+  "shots": 4096,
+  "num_tiles": 6,
+  "seed": 142985762
+}

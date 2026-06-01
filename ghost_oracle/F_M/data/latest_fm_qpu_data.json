@@ -1,0 +1,10 @@
+{
+  "schema": "ghost_oracle.fm.latest_pointer.v1",
+  "operator": "F_M",
+  "substrate": "qproj",
+  "job_id": "d8eu8bjo3njc73evdd8g",
+  "backend": "ibm_marrakesh",
+  "path": "C:\\Ghost_Oracle_Suite\\ghost_oracle\\F_M\\data\\fm_job_d8eu8bjo3njc73evdd8g.npz",
+  "shots": 4096,
+  "num_tiles": 7
+}
