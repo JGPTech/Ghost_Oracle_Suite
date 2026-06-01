@@ -50,7 +50,7 @@ RTX3090_BLOCK = (32, 8)
 
 HERE = Path(__file__).resolve().parent
 DATA_DIR = HERE.parent / "data"
-KERNEL_PATH = HERE.parent / "ghost_oracle" / "kernels" / "ghost_kernel.cu"
+KERNEL_PATH = HERE.parent / "kernels" / "ghost_kernel.cu"
 
 # =============================================================================
 # CORE UTILITIES (Shared with projection_benchmark.py)

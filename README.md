@@ -17,6 +17,7 @@ The current completed packages are:
 ```text
 G_M    Generalized Metric
 S_M    Syndrome Metric
+T_S    Temporal Stress Metric
 ```
 
 The larger roadmap frames these operators as parts of a transformer-adjacent **Converger**: a system that does not replace transformers, humans, or existing tools, but measures structure around them.
@@ -37,12 +38,13 @@ A ghost channel is considered load-bearing only when destroying that channel des
 
 ## Current status
 
-The repo now has two main operator packages:
+The repo now has three main operator packages:
 
 ```text
 ghost_oracle/
 ├── G_M/
-└── S_M/
+├── S_M/
+└── T_S/
 ```
 
 Both packages use the same high-level structure:
@@ -72,6 +74,11 @@ S_M/
 ├── s_m_benchmark.py
 ├── s_m_gpu_generate.py
 └── s_m_qpu_generate.py
+
+T_S/
+├── t_s_benchmark.py
+├── t_s_gpu_generate.py
+└── t_s_qpu_generate.py
 ```
 
 The active architecture is no longer a loose collection of probes. It is a repeatable ghost-channel benchmark platform.
@@ -86,13 +93,13 @@ The long-term Converger roadmap contains seven ghost-channel operators:
 | ----------- | -------------------------- | ------------------------------------------------------ |
 | `G_M`       | Generalized Metric         | Completed for this version.                            |
 | `S_M`       | Syndrome Metric            | Completed for this version.                            |
-| `T_S`       | Stress channel             | Future/sibling operator derived from S_M-style fields. |
+| `T_S`       | Temporal Stress Metric     | Completed for this version.                            |
 | `I_M.local` | Local Interaction channel  | Future operator.                                       |
 | `I_M.field` | Field Interaction channel  | Future operator.                                       |
 | `F_M`       | Fractal Expansion channel  | Future operator.                                       |
 | `D_M`       | Dimensional Metric channel | Future operator.                                       |
 
-The current repo contains finished `G_M` and `S_M` packages. The other channels are roadmap items unless and until they receive the same package structure, benchmark controls, and bounded claim discipline.
+The current repo contains finished `G_M`, `S_M`, and `T_S` packages. The remaining channels are roadmap items unless and until they receive the same package structure, benchmark controls, and bounded claim discipline.
 
 ---
 
@@ -139,20 +146,34 @@ GHOST_ORACLE_SUITE/
 │   │   ├── g_m_gpu_generate.py
 │   │   └── g_m_qpu_generate.py
 │   │
-│   └── S_M/
+│   ├── S_M/
+│   │   ├── data/
+│   │   ├── docs/
+│   │   │   ├── architecture.md
+│   │   │   ├── known_issues.md
+│   │   │   └── math.md
+│   │   ├── examples/
+│   │   ├── kernels/
+│   │   │   └── sm_kernel.cu
+│   │   ├── probes/
+│   │   ├── README.md
+│   │   ├── s_m_benchmark.py
+│   │   ├── s_m_gpu_generate.py
+│   │   └── s_m_qpu_generate.py
+│   │
+│   └── T_S/
 │       ├── data/
 │       ├── docs/
 │       │   ├── architecture.md
 │       │   ├── known_issues.md
 │       │   └── math.md
-│       ├── examples/
 │       ├── kernels/
-│       │   └── sm_kernel.cu
+│       │   └── ts_geo_kernel.cu
 │       ├── probes/
 │       ├── README.md
-│       ├── s_m_benchmark.py
-│       ├── s_m_gpu_generate.py
-│       └── s_m_qpu_generate.py
+│       ├── t_s_benchmark.py
+│       ├── t_s_gpu_generate.py
+│       └── t_s_qpu_generate.py
 │
 ├── CONTRIBUTING.md
 ├── LICENSE
@@ -183,11 +204,18 @@ Run the current `S_M` benchmark:
 python ghost_oracle/S_M/s_m_benchmark.py
 ```
 
+Run the current `T_S` benchmark:
+
+```bash
+python ghost_oracle/T_S/t_s_benchmark.py
+```
+
 Run full benchmark modes:
 
 ```bash
 python ghost_oracle/G_M/g_m_benchmark.py --sweep ALL --probe
 python ghost_oracle/S_M/s_m_benchmark.py --sweep ALL --probe
+python ghost_oracle/T_S/t_s_benchmark.py
 ```
 
 ---
@@ -447,12 +475,234 @@ ghost_oracle/S_M/docs/known_issues.md
 
 ---
 
+## `T_S` — Temporal Stress Metric
+
+`T_S` is the Ghost Oracle Suite temporal-stress operator family: **Temporal Stress Metric**.
+
+`T_S` treats repeated delayed channel measurements not as a scalar error statistic, but as a temporal edge field. The useful object is the relationship between delay structure, repeated interaction rounds, channel-edge structure, and the raw geo route that survives destructive controls.
+
+Current framing:
+
+```text
+T_S = temporal-stress field operator
+```
+
+The core field is:
+
+```text
+T_S = {Phi[delay, shot, round, edge], T_munu, raw_geo_route, raw_damage}
+```
+
+where:
+
+```text
+Phi[delay, shot, round, edge]
+    = temporal edge-channel field
+
+d_tau
+    = delay gradient of Phi
+
+d_round
+    = round / repeated-interaction gradient of Phi
+
+d_edge
+    = channel-edge gradient of Phi
+
+T_munu
+    = stress tensor components derived from d_tau, d_round, d_edge
+
+raw_geo_route
+    = monotonic route through the stress grid
+
+raw_damage
+    = route damage under edge / round / round-edge ablation
+```
+
+`T_S` is implemented across three paths:
+
+```text
+geo      raw arithmetic route path derived from a T_S field
+gproj    GPU-generated temporal-stress base
+qproj    real QPU temporal-stress data from IBM Runtime
+```
+
+The core claim is not that `T_S` proves quantum advantage.
+
+The core claim is that QPU-derived and GPU-generated temporal fields can be represented under one schema, converted into stress tensors, routed with the raw geo operator, destructively scrambled, and compared against classical route/profile baselines under one benchmark harness.
+
+### T_S package
+
+```text
+ghost_oracle/T_S/
+├── README.md
+├── t_s_benchmark.py
+├── t_s_gpu_generate.py
+├── t_s_qpu_generate.py
+├── data/
+├── docs/
+├── kernels/
+│   └── ts_geo_kernel.cu
+└── probes/
+```
+
+### T_S quick path
+
+```bash
+python ghost_oracle/T_S/t_s_benchmark.py
+```
+
+Base generation:
+
+```bash
+python ghost_oracle/T_S/t_s_gpu_generate.py --verify
+python ghost_oracle/T_S/t_s_qpu_generate.py submit
+python ghost_oracle/T_S/t_s_qpu_generate.py dump <JOB_ID>
+```
+
+Useful benchmark options:
+
+```bash
+python ghost_oracle/T_S/t_s_benchmark.py --files data/file1.npz data/file2.npz
+python ghost_oracle/T_S/t_s_benchmark.py --qpu-only
+python ghost_oracle/T_S/t_s_benchmark.py --gpu-only
+python ghost_oracle/T_S/t_s_benchmark.py --cpu-only
+python ghost_oracle/T_S/t_s_benchmark.py --include-networkx
+```
+
+### T_S current benchmark result
+
+Current representative benchmark configuration:
+
+```text
+substates    = QPROJ, GPROJ
+geo methods  = geo_cuda, geo_cpu_dp, scipy_dijkstra
+profile refs = scalar_rate, field_profile_l1, stress_profile_l1
+shots        = 4096 per mode/site/delay/base
+rounds       = 6
+channels     = 8
+delays       = [0, 1, 2, 4, 8, 16] dt
+CUDA kernel  = yes
+GPU          = RTX 3090 in current run
+```
+
+Current QPROJ scaffold:
+
+```text
+top edge        = edge 5
+top round       = round 2
+top round-edge  = round 2, edge 3
+```
+
+Current GPROJ scaffold:
+
+```text
+top round       = round 2
+top round-edge  = round 2, edge 3
+```
+
+Current QPROJ/GPROJ alignment:
+
+```text
+edge:
+  top1     = 0.000
+  top5     = 1.000
+  Spearman ≈ 0.357
+
+round:
+  top1     = 1.000
+  Spearman ≈ 0.600
+
+round_edge:
+  top1     = 1.000
+  top5     = 0.600
+
+coarse controls:
+  Spearman ≈ 0.976
+```
+
+Current method comparison:
+
+```text
+geo_cuda:
+  round_edge_top1_mean     = 1.000
+  round_edge_spearman_mean = 1.0000
+  faster than scipy_dijkstra on the current structured-grid workload
+
+geo_cpu_dp:
+  round_edge_top1_mean     = 1.000
+  round_edge_spearman_mean = 1.0000
+
+scipy_dijkstra:
+  round_edge_top1_mean     = 1.000
+  round_edge_spearman_mean = 1.0000
+
+stress_profile_l1:
+  partial scaffold signal
+
+field_profile_l1 / scalar_rate:
+  weak scaffold signal
+```
+
+The important T_S operator signature is:
+
+```text
+geo_cuda / geo_cpu_dp / scipy_dijkstra agree on the route-optimal scaffold
+scalar_rate / field_profile_l1 / stress_profile_l1 do not recover the same scaffold
+qproj and gproj agree on the main round and round-edge structure
+qproj has sharper edge localization than the current gproj generator
+```
+
+That split is evidence that `T_S` is reading stress-derived route structure rather than only scalar field density.
+
+### T_S benchmark claim
+
+The current bounded claim is:
+
+```text
+T_S is a field-structured, stress-derived, route-tested temporal metric.
+```
+
+The benchmark evidence supports:
+
+```text
+1. The benchmark loads qproj and gproj T_S records under one shared task harness.
+2. Stress tensor components are derived from delay/round/edge gradients.
+3. Raw geo routes identify load-bearing edge/round scaffold components.
+4. QPROJ and GPROJ agree on the main round and round-edge structure in the current run.
+5. QPROJ and GPROJ agree strongly on coarse destructive-control ranking.
+6. GEO CUDA matches CPU DP and SciPy Dijkstra on the current route task.
+7. GEO CUDA is faster than SciPy Dijkstra on the current structured-grid workload.
+8. Generic scalar/profile baselines do not recover the same round-edge scaffold.
+```
+
+The non-claims are:
+
+```text
+T_S is not a quantum advantage claim.
+T_S is not a QPU speedup claim.
+T_S is not a universal shortest-path algorithm.
+T_S is not a QPU simulator.
+T_S does not fully match qproj edge localization with gproj yet.
+```
+
+See:
+
+```text
+ghost_oracle/T_S/README.md
+ghost_oracle/T_S/docs/math.md
+ghost_oracle/T_S/docs/architecture.md
+ghost_oracle/T_S/docs/known_issues.md
+```
+
+---
+
 ## Current completed operators
 
-| Package | Operator           | Main benchmark     | GPU path              | QPU path              | Kernel                 |
-| ------- | ------------------ | ------------------ | --------------------- | --------------------- | ---------------------- |
-| `G_M/`  | Generalized Metric | `g_m_benchmark.py` | `g_m_gpu_generate.py` | `g_m_qpu_generate.py` | `kernels/`             |
-| `S_M/`  | Syndrome Metric    | `s_m_benchmark.py` | `s_m_gpu_generate.py` | `s_m_qpu_generate.py` | `kernels/sm_kernel.cu` |
+| Package | Operator                 | Main benchmark     | GPU path              | QPU path              | Kernel                    |
+| ------- | ------------------------ | ------------------ | --------------------- | --------------------- | ------------------------- |
+| `G_M/`  | Generalized Metric       | `g_m_benchmark.py` | `g_m_gpu_generate.py` | `g_m_qpu_generate.py` | `kernels/`                |
+| `S_M/`  | Syndrome Metric          | `s_m_benchmark.py` | `s_m_gpu_generate.py` | `s_m_qpu_generate.py` | `kernels/sm_kernel.cu`    |
+| `T_S/`  | Temporal Stress Metric   | `t_s_benchmark.py` | `t_s_gpu_generate.py` | `t_s_qpu_generate.py` | `kernels/ts_geo_kernel.cu` |
 
 ---
 
@@ -487,7 +737,7 @@ Current operator mapping:
 | ----------- | ---------------------------- | ---------------------------------------------------------- |
 | `G_M`       | metric projection component  | Bounded similarity, retrieval structure, ranking behavior. |
 | `S_M`       | syndrome field component     | Syndrome-spacetime fields and agreement structure.         |
-| `T_S`       | stress tensor component      | Future stress/anisotropy/coupling channel.                 |
+| `T_S`       | temporal stress component    | Delay/round/edge stress tensors and route scaffold damage. |
 | `I_M.local` | local interaction component  | Future pointwise interaction channel.                      |
 | `I_M.field` | field interaction component  | Future nonlocal deformation channel.                       |
 | `F_M`       | fractal expansion component  | Future multi-scale expansion channel.                      |
@@ -511,6 +761,7 @@ Each operator package has its own local `data/` directory.
 ```text
 ghost_oracle/G_M/data/
 ghost_oracle/S_M/data/
+ghost_oracle/T_S/data/
 ```
 
 Generated files are usually large and should not be committed unless intentionally shipped as small reproducibility fixtures.
@@ -524,6 +775,10 @@ ghost_oracle/S_M/data/sm_data_*.npz
 ghost_oracle/S_M/data/sm_gpu_data_*.npz
 ghost_oracle/S_M/data/sm_job_*.json
 ghost_oracle/S_M/data/sm_gpu_job_*.json
+ghost_oracle/T_S/data/ts_data_*.npz
+ghost_oracle/T_S/data/ts_gpu_data_*.npz
+ghost_oracle/T_S/data/ts_job_*.json
+ghost_oracle/T_S/data/ts_gpu_job_*.json
 ghost_oracle/*/analysis/
 *_report.json
 ```
@@ -541,6 +796,7 @@ Each operator package has its own docs:
 ```text
 ghost_oracle/G_M/docs/
 ghost_oracle/S_M/docs/
+ghost_oracle/T_S/docs/
 ```
 
 Typical docs:

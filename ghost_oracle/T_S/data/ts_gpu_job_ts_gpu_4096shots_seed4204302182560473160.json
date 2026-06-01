@@ -1,0 +1,156 @@
+{
+  "schema": "ts_gpu_synthetic_base",
+  "qpu_schema_compat": "ts_temporal_stress_metric",
+  "job_id": "ts_gpu_4096shots_seed4204302182560473160",
+  "created_utc": "2026-05-31T23:17:16.300330+00:00",
+  "generator": "t_s_gpu_generate.py",
+  "generation_backend": "cupy_gpu",
+  "device": "NVIDIA GeForce RTX 3090",
+  "source": "gpu",
+  "shots": 4096,
+  "rounds": 6,
+  "channels": 8,
+  "edges": 7,
+  "modes": [
+    "clean",
+    "phase_shear",
+    "local_shock"
+  ],
+  "delay_sites": [
+    "pre_coupling",
+    "post_coupling",
+    "post_perturb"
+  ],
+  "delays": [
+    0,
+    1,
+    2,
+    4,
+    8,
+    16
+  ],
+  "delay_unit": "dt",
+  "field_shape": [
+    3,
+    3,
+    6,
+    4096,
+    6,
+    7
+  ],
+  "final_shape": [
+    3,
+    3,
+    6,
+    4096,
+    8
+  ],
+  "seed": 4204302182560473160,
+  "model": {
+    "p_base": 0.165,
+    "p_readout": 0.018,
+    "edge_memory": 0.78,
+    "round_memory": 0.68,
+    "delay_gain": 0.02,
+    "site_gain": 0.01,
+    "phase_shear": 0.045,
+    "local_shock": 0.105,
+    "edge_scaffold": 0.065,
+    "round_scaffold": 0.055,
+    "p_burst": 0.0,
+    "burst_width": 2
+  },
+  "diagnostics": [
+    {
+      "mode": "clean",
+      "delay_site": "pre_coupling",
+      "field_rate": 0.19846598307291666,
+      "delay_cv": 0.03347813091687365,
+      "round_cv": 0.014981500038557135,
+      "edge_cv": 0.059952871108225454,
+      "final_mean": 0.4992472330729167,
+      "terminal_mismatch": 0.03452845982142857
+    },
+    {
+      "mode": "clean",
+      "delay_site": "post_coupling",
+      "field_rate": 0.20812213231646826,
+      "delay_cv": 0.033433429267038337,
+      "round_cv": 0.01267749339928628,
+      "edge_cv": 0.06001621645635952,
+      "final_mean": 0.5010121663411459,
+      "terminal_mismatch": 0.03728376116071429
+    },
+    {
+      "mode": "clean",
+      "delay_site": "post_perturb",
+      "field_rate": 0.21733553447420634,
+      "delay_cv": 0.034513986215822516,
+      "round_cv": 0.010236721363135078,
+      "edge_cv": 0.0585954775102188,
+      "final_mean": 0.4971110026041667,
+      "terminal_mismatch": 0.031494140625
+    },
+    {
+      "mode": "phase_shear",
+      "delay_site": "pre_coupling",
+      "field_rate": 0.2073848663814484,
+      "delay_cv": 0.04176117329639844,
+      "round_cv": 0.020638057315831706,
+      "edge_cv": 0.07008013665414327,
+      "final_mean": 0.5003865559895834,
+      "terminal_mismatch": 0.03571428571428571
+    },
+    {
+      "mode": "phase_shear",
+      "delay_site": "post_coupling",
+      "field_rate": 0.21707879929315477,
+      "delay_cv": 0.037573661356771926,
+      "round_cv": 0.01992913633069116,
+      "edge_cv": 0.06559188866033908,
+      "final_mean": 0.4995218912760417,
+      "terminal_mismatch": 0.034458705357142856
+    },
+    {
+      "mode": "phase_shear",
+      "delay_site": "post_perturb",
+      "field_rate": 0.22858828590029762,
+      "delay_cv": 0.03633457539327516,
+      "round_cv": 0.020056234957873134,
+      "edge_cv": 0.05965039406882695,
+      "final_mean": 0.5014190673828125,
+      "terminal_mismatch": 0.03505161830357143
+    },
+    {
+      "mode": "local_shock",
+      "delay_site": "pre_coupling",
+      "field_rate": 0.20681714254712302,
+      "delay_cv": 0.03980659087075746,
+      "round_cv": 0.04267903466529923,
+      "edge_cv": 0.07542927945005226,
+      "final_mean": 0.5004628499348959,
+      "terminal_mismatch": 0.036830357142857144
+    },
+    {
+      "mode": "local_shock",
+      "delay_site": "post_coupling",
+      "field_rate": 0.21505688864087302,
+      "delay_cv": 0.0405028640800283,
+      "round_cv": 0.04017884665560342,
+      "edge_cv": 0.07088752153905648,
+      "final_mean": 0.5015818277994791,
+      "terminal_mismatch": 0.03553989955357143
+    },
+    {
+      "mode": "local_shock",
+      "delay_site": "post_perturb",
+      "field_rate": 0.2257206023685516,
+      "delay_cv": 0.03489205457348902,
+      "round_cv": 0.041410423898259746,
+      "edge_cv": 0.07162355826444863,
+      "final_mean": 0.5006256103515625,
+      "terminal_mismatch": 0.034214564732142856
+    }
+  ],
+  "notes": "Controlled T_S temporal-stress generator. This is not a QPU simulation claim. It writes the same analysis-facing field/final arrays as a T_S QPU dump so probes can consume GPU and QPU files interchangeably."
+}
