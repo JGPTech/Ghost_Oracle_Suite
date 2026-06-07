@@ -19,6 +19,7 @@ G_M    Generalized Metric
 S_M    Syndrome Metric
 T_S    Temporal Stress Metric
 F_M    Fractal / Frequency / Field Metric
+D_M    Dimensional Entanglement Projection
 ```
 
 The larger roadmap frames these operators as parts of a transformer-adjacent **Converger**: a system that does not replace transformers, humans, or existing tools, but measures structure around them.
@@ -39,14 +40,15 @@ A ghost channel is considered load-bearing only when destroying that channel des
 
 ## Current status
 
-The repo now has four main operator packages:
+The repo now has five main completed operator packages:
 
 ```text
 ghost_oracle/
 ├── G_M/
 ├── S_M/
 ├── T_S/
-└── F_M/
+├── F_M/
+└── D_M/
 ```
 
 All completed packages use the same high-level structure:
@@ -86,6 +88,11 @@ F_M/
 ├── F_M_final_benchmark.py
 ├── f_m_gpu_generate.py
 └── f_m_qpu_generate.py
+
+D_M/
+├── d_m_benchmark.py
+├── d_m_gpu_generate.py
+└── d_m_qpu_generate.py
 ```
 
 The active architecture is no longer a loose collection of probes. It is a repeatable ghost-channel benchmark platform.
@@ -96,17 +103,17 @@ The active architecture is no longer a loose collection of probes. It is a repea
 
 The long-term Converger roadmap contains seven ghost-channel operators:
 
-| Operator    | Name                               | Current status              |
-| ----------- | ---------------------------------- | --------------------------- |
-| `G_M`       | Generalized Metric                 | Completed for this version. |
-| `S_M`       | Syndrome Metric                    | Completed for this version. |
-| `T_S`       | Temporal Stress Metric             | Completed for this version. |
-| `F_M`       | Fractal / Frequency / Field Metric | Completed for this version. |
-| `I_M.local` | Local Interaction channel          | Future operator.            |
-| `I_M.field` | Field Interaction channel          | Future operator.            |
-| `D_M`       | Dimensional Metric channel         | Future operator.            |
+| Operator | Name | Current status |
+|---|---|---|
+| `G_M` | Generalized Metric | Completed for this version. |
+| `S_M` | Syndrome Metric | Completed for this version. |
+| `T_S` | Temporal Stress Metric | Completed for this version. |
+| `F_M` | Fractal / Frequency / Field Metric | Completed for this version. |
+| `D_M` | Dimensional Entanglement Projection | Completed for this version. |
+| `I_M.local` | Local Interaction channel | Future operator. |
+| `I_M.field` | Field Interaction channel | Future operator. |
 
-The current repo contains finished `G_M`, `S_M`, `T_S`, and `F_M` packages. The remaining channels are roadmap items unless and until they receive the same package structure, benchmark controls, and bounded claim discipline.
+The current repo contains finished `G_M`, `S_M`, `T_S`, `F_M`, and `D_M` packages. The remaining channels are roadmap items unless and until they receive the same package structure, benchmark controls, and bounded claim discipline.
 
 ---
 
@@ -182,24 +189,44 @@ GHOST_ORACLE_SUITE/
 │   │   ├── t_s_gpu_generate.py
 │   │   └── t_s_qpu_generate.py
 │   │
-│   └── F_M/
+│   ├── F_M/
+│   │   ├── data/
+│   │   │   ├── latest_fm_qpu_data.json
+│   │   │   ├── latest_fm_gpu_data.json
+│   │   │   ├── fm_job_<JOB_ID>.npz
+│   │   │   └── fm_gpu_data_<...>.npz
+│   │   ├── docs/
+│   │   │   ├── architecture.md
+│   │   │   ├── known_issues.md
+│   │   │   └── math.md
+│   │   ├── examples/
+│   │   ├── kernels/
+│   │   │   └── fm_projector_kernel.cu
+│   │   ├── probes/
+│   │   ├── README.md
+│   │   ├── F_M_final_benchmark.py
+│   │   ├── f_m_gpu_generate.py
+│   │   └── f_m_qpu_generate.py
+│   │
+│   └── D_M/
 │       ├── data/
-│       │   ├── latest_fm_qpu_data.json
-│       │   ├── latest_fm_gpu_data.json
-│       │   ├── fm_job_<JOB_ID>.npz
-│       │   └── fm_gpu_data_<...>.npz
 │       ├── docs/
 │       │   ├── architecture.md
-│       │   ├── known_issues.md
 │       │   └── math.md
 │       ├── examples/
 │       ├── kernels/
-│       │   └── fm_projector_kernel.cu
+│       │   └── dm_projector_kernel.cu
 │       ├── probes/
+│       │   ├── analysis/
+│       │   ├── 00_dm_probe_prune.py
+│       │   ├── ...
+│       │   ├── 25_dm_probe_geo_precision_reference.py
+│       │   └── D_M_probe_process_record.md
 │       ├── README.md
-│       ├── F_M_final_benchmark.py
-│       ├── f_m_gpu_generate.py
-│       └── f_m_qpu_generate.py
+│       ├── PROCESS_RECORD.md
+│       ├── d_m_benchmark.py
+│       ├── d_m_gpu_generate.py
+│       └── d_m_qpu_generate.py
 │
 ├── CONTRIBUTING.md
 ├── LICENSE
@@ -242,6 +269,12 @@ Run the current `F_M` benchmark:
 python ghost_oracle/F_M/F_M_final_benchmark.py
 ```
 
+Run the current `D_M` benchmark:
+
+```bash
+python ghost_oracle/D_M/d_m_benchmark.py
+```
+
 Run full benchmark / probe modes where available:
 
 ```bash
@@ -249,6 +282,7 @@ python ghost_oracle/G_M/g_m_benchmark.py --sweep ALL --probe
 python ghost_oracle/S_M/s_m_benchmark.py --sweep ALL --probe
 python ghost_oracle/T_S/t_s_benchmark.py
 python ghost_oracle/F_M/F_M_final_benchmark.py --geo-profile wide --max-candidates 1000000 --reps 100
+python ghost_oracle/D_M/d_m_benchmark.py --repair-metadata
 ```
 
 ---
@@ -946,14 +980,229 @@ ghost_oracle/F_M/docs/known_issues.md
 
 ---
 
+## `D_M` — Dimensional Entanglement Projection
+
+`D_M` is the Ghost Oracle Suite dimensional witness-manifold operator family: **Dimensional Entanglement Projection**.
+
+`D_M` began as a dimensional-compression experiment. That initial framing failed across the first six probes: D_M did not beat PCA or random projection baselines under fair compression tests. The useful pivot was to stop forcing the record into a dimensionality-reduction story and ask what the QPU listener record actually contained.
+
+Current framing:
+
+```text
+D_M = dimensional Bell-witness manifold listener
+```
+
+The locked coordinate frame is:
+
+```text
+YZ-primary / ZY-reciprocal dimensional witness manifold
+```
+
+The core rung coordinates are:
+
+```text
+Y   = connected(YZ)
+R   = -connected(ZY)
+E   = sqrt(Y^2 + R^2)
+S   = E - sqrt(XY^2 + YX^2)
+phi = atan2(R, Y) mod pi
+```
+
+where:
+
+```text
+connected(PQ) = <P0 P1> - <P0><P1>
+```
+
+`D_M` is implemented across three substrates:
+
+```text
+geo      exact closed-form classical reference
+gproj    GPU-generated controlled Bell-witness base
+qproj    real QPU Bell-listener data from IBM Runtime
+```
+
+The core claim is not that `D_M` certifies Bell nonlocality.
+
+The core claim is that a bare two-qubit QPU listener record contains a dimensional witness manifold; active delay/offset conditions separate from null; same-shot pairing, reciprocal structure, and delay order are load-bearing; and compound corruptions cross a measurable collapse boundary.
+
+### D_M package
+
+```text
+ghost_oracle/D_M/
+├── README.md
+├── PROCESS_RECORD.md
+├── d_m_benchmark.py
+├── d_m_gpu_generate.py
+├── d_m_qpu_generate.py
+├── data/
+├── docs/
+│   ├── architecture.md
+│   └── math.md
+├── examples/
+├── kernels/
+│   └── dm_projector_kernel.cu
+└── probes/
+    ├── 00_dm_probe_prune.py
+    ├── ...
+    ├── 25_dm_probe_geo_precision_reference.py
+    └── D_M_probe_process_record.md
+```
+
+### D_M quick path
+
+```bash
+python ghost_oracle/D_M/d_m_benchmark.py
+```
+
+Metadata repair run:
+
+```bash
+python ghost_oracle/D_M/d_m_benchmark.py --repair-metadata
+```
+
+Fast debugging pass:
+
+```bash
+python ghost_oracle/D_M/d_m_benchmark.py --reps 20
+```
+
+Base generation:
+
+```bash
+python ghost_oracle/D_M/d_m_gpu_generate.py
+python ghost_oracle/D_M/d_m_qpu_generate.py submit
+python ghost_oracle/D_M/d_m_qpu_generate.py dump <JOB_ID>
+```
+
+Useful probe paths:
+
+```bash
+python ghost_oracle/D_M/probes/23_dm_probe_dimensional_invariance_controls.py
+python ghost_oracle/D_M/probes/24_dm_probe_corruption_boundary.py --auto --window 4096 --trials-per-depth 500 --save-trials
+python ghost_oracle/D_M/probes/25_dm_probe_geo_precision_reference.py
+```
+
+### D_M current benchmark result
+
+Current representative benchmark configuration:
+
+```text
+substates    = QPROJ, GPROJ, exact GEO
+conditions   = null, base_only, offset_on
+shots        = 4096 for qproj/gproj bases
+rungs        = 5
+CUDA kernel  = yes
+GPU          = RTX 3090 in current run
+```
+
+Current final capstone projection summary:
+
+```text
+QPROJ:
+  null       projection = 0.012762
+  base_only  projection = 0.220018
+  offset_on  projection = 0.208717
+
+GPROJ:
+  null       projection = 0.010326
+  base_only  projection = 0.295522
+  offset_on  projection = 0.298216
+
+GEO:
+  null       projection = 0.000000
+  base_only  projection = 0.693827
+  offset_on  projection = 0.650525
+```
+
+Current same-shot bit-shuffle control collapse:
+
+```text
+QPROJ base_only:
+  0.220018 -> 0.083027
+  drop = 62.26%
+
+QPROJ offset_on:
+  0.208717 -> 0.100915
+  drop = 51.65%
+
+GPROJ base_only:
+  0.295522 -> 0.089097
+  drop = 69.85%
+
+GPROJ offset_on:
+  0.298216 -> 0.055686
+  drop = 81.33%
+```
+
+The important D_M operator signature is:
+
+```text
+QPROJ active conditions separate from QPROJ null.
+GPROJ active conditions separate from GPROJ null.
+GEO active conditions separate from exact GEO null.
+Same-shot bit shuffling collapses active qproj/gproj records.
+Allowed channel re-descriptions can preserve the manifold.
+Single faults often repair.
+Compound corruptions cross a collapse boundary around k=2 to k=3.
+```
+
+### D_M benchmark claim
+
+The current bounded claim is:
+
+```text
+D_M is a dimensional witness-manifold projection operator.
+```
+
+The benchmark evidence supports:
+
+```text
+1. Active qproj/gproj conditions separate from null.
+2. Exact GEO computes an active manifold and exact zero null reference.
+3. Same-shot pairing is load-bearing.
+4. Reciprocal structure is load-bearing.
+5. Delay order is load-bearing.
+6. Allowed channel re-descriptions preserve the dimensional manifold.
+7. Single structural faults often repair.
+8. Compound faults cross a measurable collapse boundary.
+9. Retrieval/utility claims are not part of the default final claim.
+```
+
+The non-claims are:
+
+```text
+D_M does not certify Bell nonlocality.
+D_M does not reconstruct density matrices.
+D_M does not prove prepared Bell states.
+D_M is not a QPU speedup or quantum-advantage claim.
+GPROJ is not an IBM hardware simulator.
+GEO is a closed-form reference, not a hardware simulator.
+GPT-2 is not a D_M input.
+D_M is not a dimensional-compression benchmark.
+```
+
+See:
+
+```text
+ghost_oracle/D_M/README.md
+ghost_oracle/D_M/docs/math.md
+ghost_oracle/D_M/docs/architecture.md
+ghost_oracle/D_M/PROCESS_RECORD.md
+ghost_oracle/D_M/probes/D_M_probe_process_record.md
+```
+
+---
+
 ## Current completed operators
 
-| Package | Operator                           | Main benchmark           | GPU path              | QPU path              | Kernel                           |
-| ------- | ---------------------------------- | ------------------------ | --------------------- | --------------------- | -------------------------------- |
-| `G_M/`  | Generalized Metric                 | `g_m_benchmark.py`       | `g_m_gpu_generate.py` | `g_m_qpu_generate.py` | `kernels/`                       |
-| `S_M/`  | Syndrome Metric                    | `s_m_benchmark.py`       | `s_m_gpu_generate.py` | `s_m_qpu_generate.py` | `kernels/sm_kernel.cu`           |
-| `T_S/`  | Temporal Stress Metric             | `t_s_benchmark.py`       | `t_s_gpu_generate.py` | `t_s_qpu_generate.py` | `kernels/ts_geo_kernel.cu`       |
-| `F_M/`  | Fractal / Frequency / Field Metric | `F_M_final_benchmark.py` | `f_m_gpu_generate.py` | `f_m_qpu_generate.py` | `kernels/fm_projector_kernel.cu` |
+| Package | Operator | Main benchmark | GPU path | QPU path | Kernel |
+|---|---|---|---|---|---|
+| `G_M/` | Generalized Metric | `g_m_benchmark.py` | `g_m_gpu_generate.py` | `g_m_qpu_generate.py` | `kernels/` |
+| `S_M/` | Syndrome Metric | `s_m_benchmark.py` | `s_m_gpu_generate.py` | `s_m_qpu_generate.py` | `kernels/sm_kernel.cu` |
+| `T_S/` | Temporal Stress Metric | `t_s_benchmark.py` | `t_s_gpu_generate.py` | `t_s_qpu_generate.py` | `kernels/ts_geo_kernel.cu` |
+| `F_M/` | Fractal / Frequency / Field Metric | `F_M_final_benchmark.py` | `f_m_gpu_generate.py` | `f_m_qpu_generate.py` | `kernels/fm_projector_kernel.cu` |
+| `D_M/` | Dimensional Entanglement Projection | `d_m_benchmark.py` | `d_m_gpu_generate.py` | `d_m_qpu_generate.py` | `kernels/dm_projector_kernel.cu` |
 
 ---
 
@@ -984,15 +1233,15 @@ operator survives or fails
 
 Current operator mapping:
 
-| Operator    | Converger component          | Role                                                       |
-| ----------- | ---------------------------- | ---------------------------------------------------------- |
-| `G_M`       | metric projection component  | Bounded similarity, retrieval structure, ranking behavior. |
-| `S_M`       | syndrome field component     | Syndrome-spacetime fields and agreement structure.         |
-| `T_S`       | temporal stress component    | Delay/round/edge stress tensors and route scaffold damage. |
-| `F_M`       | differential wave component  | Paired-path differential fields and delay-ordered waves.   |
-| `I_M.local` | local interaction component  | Future pointwise interaction channel.                      |
-| `I_M.field` | field interaction component  | Future nonlocal deformation channel.                       |
-| `D_M`       | dimensional metric component | Future dimensional/rank/spectral channel.                  |
+| Operator | Converger component | Role |
+|---|---|---|
+| `G_M` | metric projection component | Bounded similarity, retrieval structure, ranking behavior. |
+| `S_M` | syndrome field component | Syndrome-spacetime fields and agreement structure. |
+| `T_S` | temporal stress component | Delay/round/edge stress tensors and route scaffold damage. |
+| `F_M` | differential wave component | Paired-path differential fields and delay-ordered waves. |
+| `D_M` | dimensional witness component | Bell-witness manifolds, reciprocal channels, and corruption boundaries. |
+| `I_M.local` | local interaction component | Future pointwise interaction channel. |
+| `I_M.field` | field interaction component | Future nonlocal deformation channel. |
 
 The goal is not one-off backend claims. The goal is a repeatable benchmark architecture where every operator gets:
 
@@ -1014,6 +1263,7 @@ ghost_oracle/G_M/data/
 ghost_oracle/S_M/data/
 ghost_oracle/T_S/data/
 ghost_oracle/F_M/data/
+ghost_oracle/D_M/data/
 ```
 
 Generated files are usually large and should not be committed unless intentionally shipped as small reproducibility fixtures.
@@ -1038,6 +1288,10 @@ ghost_oracle/F_M/data/fm_job_*.npz
 ghost_oracle/F_M/data/fm_gpu_data_*.npz
 ghost_oracle/F_M/data/latest_fm_*.json
 
+ghost_oracle/D_M/data/dm_data_bell_listener_cavity_offset_*.npz
+ghost_oracle/D_M/data/dm_gpu_data_*.npz
+ghost_oracle/D_M/data/latest_dm_*.json
+
 ghost_oracle/*/analysis/
 ghost_oracle/*/probes/analysis/
 *_report.json
@@ -1058,6 +1312,7 @@ ghost_oracle/G_M/docs/
 ghost_oracle/S_M/docs/
 ghost_oracle/T_S/docs/
 ghost_oracle/F_M/docs/
+ghost_oracle/D_M/docs/
 ```
 
 Typical docs:
@@ -1066,6 +1321,13 @@ Typical docs:
 architecture.md
 math.md
 known_issues.md
+```
+
+`D_M` additionally carries process records at:
+
+```text
+ghost_oracle/D_M/PROCESS_RECORD.md
+ghost_oracle/D_M/probes/D_M_probe_process_record.md
 ```
 
 Root-level project files:

@@ -1,0 +1,13 @@
+{
+  "schema": "ghost_oracle.dm.latest_pointer.v1",
+  "operator": "D_M",
+  "substrate": "gproj",
+  "source": "gpu",
+  "condition": "base_delay",
+  "job_id": "dm_gpu_base_delay_4096shots_seed2669559634056472362",
+  "npz": "C:\\D_M\\data\\dm_gpu_data_base_delay_4096shots_seed2669559634056472362.npz",
+  "path": "C:\\D_M\\data\\dm_gpu_data_base_delay_4096shots_seed2669559634056472362.npz",
+  "meta": "C:\\D_M\\data\\dm_gpu_job_dm_gpu_base_delay_4096shots_seed2669559634056472362.json",
+  "shots": 4096,
+  "num_tiles": 20
+}

@@ -1,0 +1,11 @@
+{
+  "job_id": "d8fm4ihvjngc73aq3ccg",
+  "npz": "C:\\D_M\\data\\dm_data_bell_listener_cavity_offset_d8fm4ihvjngc73aq3ccg.npz",
+  "meta": "C:\\D_M\\data\\dm_job_d8fm4ihvjngc73aq3ccg.json",
+  "operator": "D_M",
+  "substrate": "qproj",
+  "schema": "dm_bell_listener_qproj_v2",
+  "path": "C:\\D_M\\data\\dm_data_bell_listener_cavity_offset_d8fm4ihvjngc73aq3ccg.npz",
+  "shots": 4096,
+  "num_tiles": 20
+}

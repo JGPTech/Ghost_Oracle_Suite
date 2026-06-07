@@ -1,0 +1,13 @@
+{
+  "schema": "ghost_oracle.dm.latest_pointer.v1",
+  "operator": "D_M",
+  "substrate": "gproj",
+  "source": "gpu",
+  "condition": "offset_deformed",
+  "job_id": "dm_gpu_offset_deformed_4096shots_seed6727069190982977623",
+  "npz": "C:\\Ghost_Oracle_Suite\\ghost_oracle\\D_M\\probes\\data\\dm_gpu_data_offset_deformed_4096shots_seed6727069190982977623.npz",
+  "path": "C:\\Ghost_Oracle_Suite\\ghost_oracle\\D_M\\probes\\data\\dm_gpu_data_offset_deformed_4096shots_seed6727069190982977623.npz",
+  "meta": "C:\\Ghost_Oracle_Suite\\ghost_oracle\\D_M\\probes\\data\\dm_gpu_job_dm_gpu_offset_deformed_4096shots_seed6727069190982977623.json",
+  "shots": 4096,
+  "num_tiles": 20
+}

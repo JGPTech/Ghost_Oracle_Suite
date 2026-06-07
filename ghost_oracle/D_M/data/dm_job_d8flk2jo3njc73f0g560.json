@@ -1,0 +1,1076 @@
+{
+  "schema": "ghost_oracle.dm.submit_meta.v2",
+  "suite": "Ghost Oracle Suite",
+  "operator": "D_M",
+  "substrate": "qproj",
+  "circuit_family": "bell_listener_cavity_offset_v1",
+  "job_id": "d8flk2jo3njc73f0g560",
+  "backend": "ibm_marrakesh",
+  "shots": 4096,
+  "qubits_per_tile": 2,
+  "num_tiles": 20,
+  "clusters": [
+    [
+      7,
+      6
+    ],
+    [
+      12,
+      13
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      149,
+      148
+    ],
+    [
+      146,
+      145
+    ],
+    [
+      75,
+      59
+    ],
+    [
+      109,
+      110
+    ],
+    [
+      94,
+      95
+    ],
+    [
+      54,
+      53
+    ],
+    [
+      155,
+      139
+    ],
+    [
+      34,
+      33
+    ],
+    [
+      141,
+      142
+    ],
+    [
+      47,
+      46
+    ],
+    [
+      126,
+      125
+    ],
+    [
+      134,
+      133
+    ],
+    [
+      151,
+      150
+    ],
+    [
+      5,
+      4
+    ],
+    [
+      92,
+      91
+    ],
+    [
+      112,
+      111
+    ],
+    [
+      97,
+      107
+    ]
+  ],
+  "global_layout": [
+    7,
+    6,
+    12,
+    13,
+    1,
+    2,
+    149,
+    148,
+    146,
+    145,
+    75,
+    59,
+    109,
+    110,
+    94,
+    95,
+    54,
+    53,
+    155,
+    139,
+    34,
+    33,
+    141,
+    142,
+    47,
+    46,
+    126,
+    125,
+    134,
+    133,
+    151,
+    150,
+    5,
+    4,
+    92,
+    91,
+    112,
+    111,
+    97,
+    107
+  ],
+  "base_delays_dt": [
+    0,
+    256,
+    1024,
+    4096,
+    16384
+  ],
+  "offset_dt": 0,
+  "witness_pairs": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      1,
+      0
+    ]
+  ],
+  "witness_labels": [
+    "XY",
+    "YZ",
+    "ZY",
+    "YX"
+  ],
+  "basis_labels": [
+    "X",
+    "Y",
+    "Z"
+  ],
+  "dd_enabled": false,
+  "reserve_neighbors": false,
+  "optimization_level": 0,
+  "circuits": [
+    {
+      "pub_index": 0,
+      "num_tiles": 20,
+      "creg_names": {
+        "pair_registers": [
+          "dm_pair_tile0",
+          "dm_pair_tile1",
+          "dm_pair_tile2",
+          "dm_pair_tile3",
+          "dm_pair_tile4",
+          "dm_pair_tile5",
+          "dm_pair_tile6",
+          "dm_pair_tile7",
+          "dm_pair_tile8",
+          "dm_pair_tile9",
+          "dm_pair_tile10",
+          "dm_pair_tile11",
+          "dm_pair_tile12",
+          "dm_pair_tile13",
+          "dm_pair_tile14",
+          "dm_pair_tile15",
+          "dm_pair_tile16",
+          "dm_pair_tile17",
+          "dm_pair_tile18",
+          "dm_pair_tile19"
+        ]
+      },
+      "tile_plan": [
+        {
+          "tile": 0,
+          "rung_index": 0,
+          "witness_index": 0,
+          "base_delay_dt": 0,
+          "offset_dt": 0,
+          "total_delay_dt": 0,
+          "basis_q0": 0,
+          "basis_q1": 1,
+          "witness_label": "XY",
+          "physical_q0": 7,
+          "physical_q1": 6,
+          "role": "rung0_base0_off0_XY"
+        },
+        {
+          "tile": 1,
+          "rung_index": 0,
+          "witness_index": 1,
+          "base_delay_dt": 0,
+          "offset_dt": 0,
+          "total_delay_dt": 0,
+          "basis_q0": 1,
+          "basis_q1": 2,
+          "witness_label": "YZ",
+          "physical_q0": 12,
+          "physical_q1": 13,
+          "role": "rung0_base0_off0_YZ"
+        },
+        {
+          "tile": 2,
+          "rung_index": 0,
+          "witness_index": 2,
+          "base_delay_dt": 0,
+          "offset_dt": 0,
+          "total_delay_dt": 0,
+          "basis_q0": 2,
+          "basis_q1": 1,
+          "witness_label": "ZY",
+          "physical_q0": 1,
+          "physical_q1": 2,
+          "role": "rung0_base0_off0_ZY"
+        },
+        {
+          "tile": 3,
+          "rung_index": 0,
+          "witness_index": 3,
+          "base_delay_dt": 0,
+          "offset_dt": 0,
+          "total_delay_dt": 0,
+          "basis_q0": 1,
+          "basis_q1": 0,
+          "witness_label": "YX",
+          "physical_q0": 149,
+          "physical_q1": 148,
+          "role": "rung0_base0_off0_YX"
+        },
+        {
+          "tile": 4,
+          "rung_index": 1,
+          "witness_index": 0,
+          "base_delay_dt": 256,
+          "offset_dt": 0,
+          "total_delay_dt": 256,
+          "basis_q0": 0,
+          "basis_q1": 1,
+          "witness_label": "XY",
+          "physical_q0": 146,
+          "physical_q1": 145,
+          "role": "rung1_base256_off0_XY"
+        },
+        {
+          "tile": 5,
+          "rung_index": 1,
+          "witness_index": 1,
+          "base_delay_dt": 256,
+          "offset_dt": 0,
+          "total_delay_dt": 256,
+          "basis_q0": 1,
+          "basis_q1": 2,
+          "witness_label": "YZ",
+          "physical_q0": 75,
+          "physical_q1": 59,
+          "role": "rung1_base256_off0_YZ"
+        },
+        {
+          "tile": 6,
+          "rung_index": 1,
+          "witness_index": 2,
+          "base_delay_dt": 256,
+          "offset_dt": 0,
+          "total_delay_dt": 256,
+          "basis_q0": 2,
+          "basis_q1": 1,
+          "witness_label": "ZY",
+          "physical_q0": 109,
+          "physical_q1": 110,
+          "role": "rung1_base256_off0_ZY"
+        },
+        {
+          "tile": 7,
+          "rung_index": 1,
+          "witness_index": 3,
+          "base_delay_dt": 256,
+          "offset_dt": 0,
+          "total_delay_dt": 256,
+          "basis_q0": 1,
+          "basis_q1": 0,
+          "witness_label": "YX",
+          "physical_q0": 94,
+          "physical_q1": 95,
+          "role": "rung1_base256_off0_YX"
+        },
+        {
+          "tile": 8,
+          "rung_index": 2,
+          "witness_index": 0,
+          "base_delay_dt": 1024,
+          "offset_dt": 0,
+          "total_delay_dt": 1024,
+          "basis_q0": 0,
+          "basis_q1": 1,
+          "witness_label": "XY",
+          "physical_q0": 54,
+          "physical_q1": 53,
+          "role": "rung2_base1024_off0_XY"
+        },
+        {
+          "tile": 9,
+          "rung_index": 2,
+          "witness_index": 1,
+          "base_delay_dt": 1024,
+          "offset_dt": 0,
+          "total_delay_dt": 1024,
+          "basis_q0": 1,
+          "basis_q1": 2,
+          "witness_label": "YZ",
+          "physical_q0": 155,
+          "physical_q1": 139,
+          "role": "rung2_base1024_off0_YZ"
+        },
+        {
+          "tile": 10,
+          "rung_index": 2,
+          "witness_index": 2,
+          "base_delay_dt": 1024,
+          "offset_dt": 0,
+          "total_delay_dt": 1024,
+          "basis_q0": 2,
+          "basis_q1": 1,
+          "witness_label": "ZY",
+          "physical_q0": 34,
+          "physical_q1": 33,
+          "role": "rung2_base1024_off0_ZY"
+        },
+        {
+          "tile": 11,
+          "rung_index": 2,
+          "witness_index": 3,
+          "base_delay_dt": 1024,
+          "offset_dt": 0,
+          "total_delay_dt": 1024,
+          "basis_q0": 1,
+          "basis_q1": 0,
+          "witness_label": "YX",
+          "physical_q0": 141,
+          "physical_q1": 142,
+          "role": "rung2_base1024_off0_YX"
+        },
+        {
+          "tile": 12,
+          "rung_index": 3,
+          "witness_index": 0,
+          "base_delay_dt": 4096,
+          "offset_dt": 0,
+          "total_delay_dt": 4096,
+          "basis_q0": 0,
+          "basis_q1": 1,
+          "witness_label": "XY",
+          "physical_q0": 47,
+          "physical_q1": 46,
+          "role": "rung3_base4096_off0_XY"
+        },
+        {
+          "tile": 13,
+          "rung_index": 3,
+          "witness_index": 1,
+          "base_delay_dt": 4096,
+          "offset_dt": 0,
+          "total_delay_dt": 4096,
+          "basis_q0": 1,
+          "basis_q1": 2,
+          "witness_label": "YZ",
+          "physical_q0": 126,
+          "physical_q1": 125,
+          "role": "rung3_base4096_off0_YZ"
+        },
+        {
+          "tile": 14,
+          "rung_index": 3,
+          "witness_index": 2,
+          "base_delay_dt": 4096,
+          "offset_dt": 0,
+          "total_delay_dt": 4096,
+          "basis_q0": 2,
+          "basis_q1": 1,
+          "witness_label": "ZY",
+          "physical_q0": 134,
+          "physical_q1": 133,
+          "role": "rung3_base4096_off0_ZY"
+        },
+        {
+          "tile": 15,
+          "rung_index": 3,
+          "witness_index": 3,
+          "base_delay_dt": 4096,
+          "offset_dt": 0,
+          "total_delay_dt": 4096,
+          "basis_q0": 1,
+          "basis_q1": 0,
+          "witness_label": "YX",
+          "physical_q0": 151,
+          "physical_q1": 150,
+          "role": "rung3_base4096_off0_YX"
+        },
+        {
+          "tile": 16,
+          "rung_index": 4,
+          "witness_index": 0,
+          "base_delay_dt": 16384,
+          "offset_dt": 0,
+          "total_delay_dt": 16384,
+          "basis_q0": 0,
+          "basis_q1": 1,
+          "witness_label": "XY",
+          "physical_q0": 5,
+          "physical_q1": 4,
+          "role": "rung4_base16384_off0_XY"
+        },
+        {
+          "tile": 17,
+          "rung_index": 4,
+          "witness_index": 1,
+          "base_delay_dt": 16384,
+          "offset_dt": 0,
+          "total_delay_dt": 16384,
+          "basis_q0": 1,
+          "basis_q1": 2,
+          "witness_label": "YZ",
+          "physical_q0": 92,
+          "physical_q1": 91,
+          "role": "rung4_base16384_off0_YZ"
+        },
+        {
+          "tile": 18,
+          "rung_index": 4,
+          "witness_index": 2,
+          "base_delay_dt": 16384,
+          "offset_dt": 0,
+          "total_delay_dt": 16384,
+          "basis_q0": 2,
+          "basis_q1": 1,
+          "witness_label": "ZY",
+          "physical_q0": 112,
+          "physical_q1": 111,
+          "role": "rung4_base16384_off0_ZY"
+        },
+        {
+          "tile": 19,
+          "rung_index": 4,
+          "witness_index": 3,
+          "base_delay_dt": 16384,
+          "offset_dt": 0,
+          "total_delay_dt": 16384,
+          "basis_q0": 1,
+          "basis_q1": 0,
+          "witness_label": "YX",
+          "physical_q0": 97,
+          "physical_q1": 107,
+          "role": "rung4_base16384_off0_YX"
+        }
+      ],
+      "depth_pre_transpile": 5,
+      "depth_isa": 9,
+      "size_isa": 302,
+      "width_isa": 196,
+      "num_clbits_isa": 40
+    }
+  ],
+  "tile_plan": [
+    {
+      "tile": 0,
+      "rung_index": 0,
+      "witness_index": 0,
+      "base_delay_dt": 0,
+      "offset_dt": 0,
+      "total_delay_dt": 0,
+      "basis_q0": 0,
+      "basis_q1": 1,
+      "witness_label": "XY",
+      "physical_q0": 7,
+      "physical_q1": 6,
+      "role": "rung0_base0_off0_XY"
+    },
+    {
+      "tile": 1,
+      "rung_index": 0,
+      "witness_index": 1,
+      "base_delay_dt": 0,
+      "offset_dt": 0,
+      "total_delay_dt": 0,
+      "basis_q0": 1,
+      "basis_q1": 2,
+      "witness_label": "YZ",
+      "physical_q0": 12,
+      "physical_q1": 13,
+      "role": "rung0_base0_off0_YZ"
+    },
+    {
+      "tile": 2,
+      "rung_index": 0,
+      "witness_index": 2,
+      "base_delay_dt": 0,
+      "offset_dt": 0,
+      "total_delay_dt": 0,
+      "basis_q0": 2,
+      "basis_q1": 1,
+      "witness_label": "ZY",
+      "physical_q0": 1,
+      "physical_q1": 2,
+      "role": "rung0_base0_off0_ZY"
+    },
+    {
+      "tile": 3,
+      "rung_index": 0,
+      "witness_index": 3,
+      "base_delay_dt": 0,
+      "offset_dt": 0,
+      "total_delay_dt": 0,
+      "basis_q0": 1,
+      "basis_q1": 0,
+      "witness_label": "YX",
+      "physical_q0": 149,
+      "physical_q1": 148,
+      "role": "rung0_base0_off0_YX"
+    },
+    {
+      "tile": 4,
+      "rung_index": 1,
+      "witness_index": 0,
+      "base_delay_dt": 256,
+      "offset_dt": 0,
+      "total_delay_dt": 256,
+      "basis_q0": 0,
+      "basis_q1": 1,
+      "witness_label": "XY",
+      "physical_q0": 146,
+      "physical_q1": 145,
+      "role": "rung1_base256_off0_XY"
+    },
+    {
+      "tile": 5,
+      "rung_index": 1,
+      "witness_index": 1,
+      "base_delay_dt": 256,
+      "offset_dt": 0,
+      "total_delay_dt": 256,
+      "basis_q0": 1,
+      "basis_q1": 2,
+      "witness_label": "YZ",
+      "physical_q0": 75,
+      "physical_q1": 59,
+      "role": "rung1_base256_off0_YZ"
+    },
+    {
+      "tile": 6,
+      "rung_index": 1,
+      "witness_index": 2,
+      "base_delay_dt": 256,
+      "offset_dt": 0,
+      "total_delay_dt": 256,
+      "basis_q0": 2,
+      "basis_q1": 1,
+      "witness_label": "ZY",
+      "physical_q0": 109,
+      "physical_q1": 110,
+      "role": "rung1_base256_off0_ZY"
+    },
+    {
+      "tile": 7,
+      "rung_index": 1,
+      "witness_index": 3,
+      "base_delay_dt": 256,
+      "offset_dt": 0,
+      "total_delay_dt": 256,
+      "basis_q0": 1,
+      "basis_q1": 0,
+      "witness_label": "YX",
+      "physical_q0": 94,
+      "physical_q1": 95,
+      "role": "rung1_base256_off0_YX"
+    },
+    {
+      "tile": 8,
+      "rung_index": 2,
+      "witness_index": 0,
+      "base_delay_dt": 1024,
+      "offset_dt": 0,
+      "total_delay_dt": 1024,
+      "basis_q0": 0,
+      "basis_q1": 1,
+      "witness_label": "XY",
+      "physical_q0": 54,
+      "physical_q1": 53,
+      "role": "rung2_base1024_off0_XY"
+    },
+    {
+      "tile": 9,
+      "rung_index": 2,
+      "witness_index": 1,
+      "base_delay_dt": 1024,
+      "offset_dt": 0,
+      "total_delay_dt": 1024,
+      "basis_q0": 1,
+      "basis_q1": 2,
+      "witness_label": "YZ",
+      "physical_q0": 155,
+      "physical_q1": 139,
+      "role": "rung2_base1024_off0_YZ"
+    },
+    {
+      "tile": 10,
+      "rung_index": 2,
+      "witness_index": 2,
+      "base_delay_dt": 1024,
+      "offset_dt": 0,
+      "total_delay_dt": 1024,
+      "basis_q0": 2,
+      "basis_q1": 1,
+      "witness_label": "ZY",
+      "physical_q0": 34,
+      "physical_q1": 33,
+      "role": "rung2_base1024_off0_ZY"
+    },
+    {
+      "tile": 11,
+      "rung_index": 2,
+      "witness_index": 3,
+      "base_delay_dt": 1024,
+      "offset_dt": 0,
+      "total_delay_dt": 1024,
+      "basis_q0": 1,
+      "basis_q1": 0,
+      "witness_label": "YX",
+      "physical_q0": 141,
+      "physical_q1": 142,
+      "role": "rung2_base1024_off0_YX"
+    },
+    {
+      "tile": 12,
+      "rung_index": 3,
+      "witness_index": 0,
+      "base_delay_dt": 4096,
+      "offset_dt": 0,
+      "total_delay_dt": 4096,
+      "basis_q0": 0,
+      "basis_q1": 1,
+      "witness_label": "XY",
+      "physical_q0": 47,
+      "physical_q1": 46,
+      "role": "rung3_base4096_off0_XY"
+    },
+    {
+      "tile": 13,
+      "rung_index": 3,
+      "witness_index": 1,
+      "base_delay_dt": 4096,
+      "offset_dt": 0,
+      "total_delay_dt": 4096,
+      "basis_q0": 1,
+      "basis_q1": 2,
+      "witness_label": "YZ",
+      "physical_q0": 126,
+      "physical_q1": 125,
+      "role": "rung3_base4096_off0_YZ"
+    },
+    {
+      "tile": 14,
+      "rung_index": 3,
+      "witness_index": 2,
+      "base_delay_dt": 4096,
+      "offset_dt": 0,
+      "total_delay_dt": 4096,
+      "basis_q0": 2,
+      "basis_q1": 1,
+      "witness_label": "ZY",
+      "physical_q0": 134,
+      "physical_q1": 133,
+      "role": "rung3_base4096_off0_ZY"
+    },
+    {
+      "tile": 15,
+      "rung_index": 3,
+      "witness_index": 3,
+      "base_delay_dt": 4096,
+      "offset_dt": 0,
+      "total_delay_dt": 4096,
+      "basis_q0": 1,
+      "basis_q1": 0,
+      "witness_label": "YX",
+      "physical_q0": 151,
+      "physical_q1": 150,
+      "role": "rung3_base4096_off0_YX"
+    },
+    {
+      "tile": 16,
+      "rung_index": 4,
+      "witness_index": 0,
+      "base_delay_dt": 16384,
+      "offset_dt": 0,
+      "total_delay_dt": 16384,
+      "basis_q0": 0,
+      "basis_q1": 1,
+      "witness_label": "XY",
+      "physical_q0": 5,
+      "physical_q1": 4,
+      "role": "rung4_base16384_off0_XY"
+    },
+    {
+      "tile": 17,
+      "rung_index": 4,
+      "witness_index": 1,
+      "base_delay_dt": 16384,
+      "offset_dt": 0,
+      "total_delay_dt": 16384,
+      "basis_q0": 1,
+      "basis_q1": 2,
+      "witness_label": "YZ",
+      "physical_q0": 92,
+      "physical_q1": 91,
+      "role": "rung4_base16384_off0_YZ"
+    },
+    {
+      "tile": 18,
+      "rung_index": 4,
+      "witness_index": 2,
+      "base_delay_dt": 16384,
+      "offset_dt": 0,
+      "total_delay_dt": 16384,
+      "basis_q0": 2,
+      "basis_q1": 1,
+      "witness_label": "ZY",
+      "physical_q0": 112,
+      "physical_q1": 111,
+      "role": "rung4_base16384_off0_ZY"
+    },
+    {
+      "tile": 19,
+      "rung_index": 4,
+      "witness_index": 3,
+      "base_delay_dt": 16384,
+      "offset_dt": 0,
+      "total_delay_dt": 16384,
+      "basis_q0": 1,
+      "basis_q1": 0,
+      "witness_label": "YX",
+      "physical_q0": 97,
+      "physical_q1": 107,
+      "role": "rung4_base16384_off0_YX"
+    }
+  ],
+  "calibration": {
+    "single_qubit": {
+      "1": 0.00034277712731628973,
+      "2": 0.00016221659226279558,
+      "4": 0.00030631668034611923,
+      "5": 0.0003908408656643454,
+      "6": 0.00037109485507442845,
+      "7": 0.0001444858966314346,
+      "12": 0.0002802993597785728,
+      "13": 0.00025497311910706625,
+      "33": 0.0001748016896250919,
+      "34": 0.0004602179638263374,
+      "46": 0.00045138188725979346,
+      "47": 0.0001159634024550203,
+      "53": 0.00013290348067644157,
+      "54": 0.00033941411517531396,
+      "59": 0.0003417527129289027,
+      "75": 0.00017223500743070134,
+      "91": 0.0005148321563044853,
+      "92": 0.00039537682731585836,
+      "94": 0.00014803005088420208,
+      "95": 0.0007438811742691602,
+      "97": 0.00022921874195857306,
+      "107": 0.00038516149853498605,
+      "109": 0.00019181578479612055,
+      "110": 0.00034174541797532505,
+      "111": 0.00028437779609250446,
+      "112": 0.0003100668224711233,
+      "125": 0.000359610212565648,
+      "126": 0.00047171390374401866,
+      "133": 0.00028692088840268066,
+      "134": 0.0005513361344264696,
+      "139": 0.00021656684815796336,
+      "141": 0.0005936720845577204,
+      "142": 0.0003142866975199866,
+      "145": 0.00026304142984724205,
+      "146": 0.0002595010687924819,
+      "148": 0.0002743912615842689,
+      "149": 0.00026611112916306655,
+      "150": 0.0002941990257602425,
+      "151": 0.0003450186128552491,
+      "155": 0.0003102347304036501
+    },
+    "readout": {
+      "1": 0.0040283203125,
+      "2": 0.00830078125,
+      "4": 0.009033203125,
+      "5": 0.0054931640625,
+      "6": 0.0047607421875,
+      "7": 0.0032958984375,
+      "12": 0.00341796875,
+      "13": 0.0079345703125,
+      "33": 0.0106201171875,
+      "34": 0.0048828125,
+      "46": 0.0091552734375,
+      "47": 0.005126953125,
+      "53": 0.0081787109375,
+      "54": 0.004638671875,
+      "59": 0.012451171875,
+      "75": 0.00439453125,
+      "91": 0.017578125,
+      "92": 0.0057373046875,
+      "94": 0.0045166015625,
+      "95": 0.0123291015625,
+      "97": 0.0064697265625,
+      "107": 0.0081787109375,
+      "109": 0.00439453125,
+      "110": 0.0103759765625,
+      "111": 0.0106201171875,
+      "112": 0.005859375,
+      "125": 0.0128173828125,
+      "126": 0.005126953125,
+      "133": 0.0078125,
+      "134": 0.005126953125,
+      "139": 0.006591796875,
+      "141": 0.0048828125,
+      "142": 0.005126953125,
+      "145": 0.018798828125,
+      "146": 0.0042724609375,
+      "148": 0.0084228515625,
+      "149": 0.0040283203125,
+      "150": 0.01416015625,
+      "151": 0.005126953125,
+      "155": 0.0047607421875
+    },
+    "idling": {
+      "1": {
+        "t1": 0.00014143553274388536,
+        "t2": 0.00012043228627011703
+      },
+      "2": {
+        "t1": 0.0002849657990492261,
+        "t2": 6.590962921470086e-05
+      },
+      "4": {
+        "t1": 0.00019458624955227886,
+        "t2": 0.0001201756132117073
+      },
+      "5": {
+        "t1": 0.00012610605878031036,
+        "t2": 9.348322240380658e-05
+      },
+      "6": {
+        "t1": 0.00019502468254129274,
+        "t2": 0.00015843617487900407
+      },
+      "7": {
+        "t1": 0.0003094841067310234,
+        "t2": 9.882661134545614e-05
+      },
+      "12": {
+        "t1": 2.5078395320214158e-05,
+        "t2": 1.623645845612794e-05
+      },
+      "13": {
+        "t1": 0.00016875011084439975,
+        "t2": 0.00019040725564194847
+      },
+      "33": {
+        "t1": 0.0001421714631872158,
+        "t2": 0.00012847652485549547
+      },
+      "34": {
+        "t1": 0.00015856747571178447,
+        "t2": 0.0001346968030280541
+      },
+      "46": {
+        "t1": 0.00023261902634584273,
+        "t2": 7.003545861723507e-05
+      },
+      "47": {
+        "t1": 0.00015894267299561317,
+        "t2": 0.00011050214407172058
+      },
+      "53": {
+        "t1": 0.00023379049633975155,
+        "t2": 0.00022854727298881586
+      },
+      "54": {
+        "t1": 0.00025736300733658634,
+        "t2": 0.0002681559567417491
+      },
+      "59": {
+        "t1": 0.00017688979200706289,
+        "t2": 0.0001478140212831987
+      },
+      "75": {
+        "t1": 0.0003077424671068003,
+        "t2": 0.0003549009190330182
+      },
+      "91": {
+        "t1": 0.00011481611417115953,
+        "t2": 0.00015597448015766864
+      },
+      "92": {
+        "t1": 0.00028385433543482753,
+        "t2": 0.00022520717904337504
+      },
+      "94": {
+        "t1": 0.0002459243850071411,
+        "t2": 0.0002496124066609962
+      },
+      "95": {
+        "t1": 0.0002884246447721066,
+        "t2": 0.00037355975815748827
+      },
+      "97": {
+        "t1": 0.00025937998016305604,
+        "t2": 7.77296125528005e-05
+      },
+      "107": {
+        "t1": 0.00030436889923735896,
+        "t2": 0.00020287496003704495
+      },
+      "109": {
+        "t1": 0.00028911297918022503,
+        "t2": 0.00014347363907166465
+      },
+      "110": {
+        "t1": 0.00031066099014090187,
+        "t2": 0.00024219284788248415
+      },
+      "111": {
+        "t1": 0.000181786969659848,
+        "t2": 9.049397322227764e-05
+      },
+      "112": {
+        "t1": 0.00026469280395811874,
+        "t2": 0.0001718271244005339
+      },
+      "125": {
+        "t1": 0.00017368286105254034,
+        "t2": 6.064637711184325e-05
+      },
+      "126": {
+        "t1": 0.00016277260192317517,
+        "t2": 3.2933835348999653e-05
+      },
+      "133": {
+        "t1": 0.00036247738911507403,
+        "t2": 0.00023891427640665604
+      },
+      "134": {
+        "t1": 0.0002381202258421216,
+        "t2": 0.0001240707208478186
+      },
+      "139": {
+        "t1": 0.00017471003940240353,
+        "t2": 0.00019900565881975812
+      },
+      "141": {
+        "t1": 0.00017511495486902576,
+        "t2": 0.00011088346874279752
+      },
+      "142": {
+        "t1": 0.00011692474678842263,
+        "t2": 8.416351810700763e-05
+      },
+      "145": {
+        "t1": 0.00016736411974377753,
+        "t2": 4.040279027153082e-05
+      },
+      "146": {
+        "t1": 0.00016766905331701957,
+        "t2": 6.091468732827938e-05
+      },
+      "148": {
+        "t1": 0.00027931672344546764,
+        "t2": 0.00014844154989325807
+      },
+      "149": {
+        "t1": 0.00018879609250866232,
+        "t2": 0.00010723954406688518
+      },
+      "150": {
+        "t1": 0.00014220101529273607,
+        "t2": 0.00010818645570864516
+      },
+      "151": {
+        "t1": 0.00017663440841646994,
+        "t2": 6.674052353301402e-05
+      },
+      "155": {
+        "t1": 0.00032525478828352263,
+        "t2": 0.00014362685044792538
+      }
+    },
+    "two_qubit": {
+      "1_2": 0.005332424686389947,
+      "2_1": 0.005332424686389947,
+      "4_5": 0.002529991746510113,
+      "5_4": 0.002529991746510113,
+      "5_6": 0.0017560619133011324,
+      "6_5": 0.0017560619133011324,
+      "6_7": 0.0013251212181780991,
+      "7_6": 0.0013251212181780991,
+      "12_13": 0.0014864822708074155,
+      "13_12": 0.0014864822708074155,
+      "33_34": 0.001705303057009916,
+      "34_33": 0.001705303057009916,
+      "46_47": 0.0023046919913338737,
+      "47_46": 0.0023046919913338737,
+      "53_54": 0.0017617966420485076,
+      "54_53": 0.0017617966420485076,
+      "59_75": 0.0013934822572800598,
+      "75_59": 0.0013934822572800598,
+      "91_92": 0.002408772407801324,
+      "92_91": 0.002408772407801324,
+      "94_95": 0.0134232305227458,
+      "95_94": 0.0134232305227458,
+      "97_107": 0.00234101046526472,
+      "107_97": 0.00234101046526472,
+      "109_110": 0.0017390889638990992,
+      "110_109": 0.0017390889638990992,
+      "110_111": 0.0019466520129152176,
+      "111_110": 0.0019466520129152176,
+      "111_112": 0.0014625089596537744,
+      "112_111": 0.0014625089596537744,
+      "125_126": 0.005499090759950559,
+      "126_125": 0.005499090759950559,
+      "133_134": 0.0063171818828211546,
+      "134_133": 0.0063171818828211546,
+      "139_155": 0.0019397396156091706,
+      "141_142": 0.0016540813456803194,
+      "142_141": 0.0016540813456803194,
+      "145_146": 0.002600694899493994,
+      "146_145": 0.002600694899493994,
+      "148_149": 0.002286444595870407,
+      "149_148": 0.002286444595870407,
+      "149_150": 0.004127240227528528,
+      "150_149": 0.004127240227528528,
+      "150_151": 0.0033413493642710512,
+      "151_150": 0.0033413493642710512,
+      "155_139": 0.0019397396156091706
+    },
+    "meta": {
+      "captured_from": "ibm_marrakesh"
+    }
+  },
+  "protocol": "D_M Bell-listener cavity-offset ghost-channel probe",
+  "notes": "No ancilla, no forced Bell prep, no entangling gate, no DD. Default neighbor reservation is off because shared chip space is the signal path."
+}

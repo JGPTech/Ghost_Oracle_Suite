@@ -1,0 +1,2130 @@
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/00_dm_probe_prune.py
+
+========================================================================================
+  GHOST ORACLE SUITE — D_M PROBE 00: PRUNE FAILED ASSUMPTIONS
+========================================================================================
+  Input   : C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fm4ihvjngc73aq3ccg.npz
+  Job ID  : d8fm4ihvjngc73aq3ccg
+  Backend : ibm_marrakesh
+  Tiles   : 20
+  Out dir : C:\D_M\probes\analyze\dm_probe_00_prune_d8fm4ihvjngc73aq3ccg_20260606_102848
+
+[SCORE] Tile-level assumption scoring...
+  tile 00 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 2.006 z=5214.44 pop=1.000 b=0.511 p=1.000
+  tile 01 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 3.993 z=2245.89 pop=1.000 b=0.486 p=1.000
+  tile 02 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 3.997 z=2243.08 pop=1.000 b=0.493 p=1.000
+  tile 03 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 2.005 z=5217.92 pop=1.000 b=0.516 p=1.000
+  tile 04 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 2.026 z=5154.42 pop=1.000 b=0.495 p=1.000
+  tile 05 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 3.996 z=2243.48 pop=1.000 b=0.506 p=1.000
+  tile 06 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 3.999 z=2241.16 pop=1.000 b=0.504 p=1.000
+  tile 07 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 2.022 z=5168.12 pop=1.000 b=0.500 p=1.000
+  tile 08 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 2.001 z=5228.11 pop=1.000 b=0.479 p=1.000
+  tile 09 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 3.992 z=2246.79 pop=1.000 b=0.491 p=1.000
+  tile 10 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 3.994 z=2245.34 pop=1.000 b=0.508 p=1.000
+  tile 11 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 2.030 z=5142.88 pop=1.000 b=0.494 p=1.000
+  tile 12 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 2.030 z=5143.40 pop=1.000 b=0.493 p=1.000
+  tile 13 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 3.994 z=2245.48 pop=1.000 b=0.503 p=1.000
+  tile 14 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 3.999 z=2241.54 pop=1.000 b=0.505 p=1.000
+  tile 15 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 2.375 z=4288.12 pop=1.000 b=0.488 p=1.000
+  tile 16 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 2.005 z=5216.01 pop=1.000 b=0.487 p=1.000
+  tile 17 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 3.993 z=2245.83 pop=1.000 b=0.485 p=1.000
+  tile 18 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 4.000 z=2241.07 pop=1.000 b=0.501 p=1.000
+  tile 19 mode=unknown          vote=MUTATED  class=UNKNOWN_STRONG_STRUCTURE           eff= 2.008 z=5209.46 pop=1.000 b=0.495 p=1.000
+
+[PRUNE] Mode decisions:
+  unknown          -> KEEP_AS_MUTATION repeat=inconsistent       eff_mean=3.023 z_mean=3671.13
+
+========================================================================================
+  D_M PROBE 00 COMPLETE
+========================================================================================
+  Report      : C:\D_M\probes\analyze\dm_probe_00_prune_d8fm4ihvjngc73aq3ccg_20260606_102848\dm_probe_00_report.md
+  Tile CSV    : C:\D_M\probes\analyze\dm_probe_00_prune_d8fm4ihvjngc73aq3ccg_20260606_102848\dm_probe_00_tile_metrics.csv
+  Mode CSV    : C:\D_M\probes\analyze\dm_probe_00_prune_d8fm4ihvjngc73aq3ccg_20260606_102848\dm_probe_00_mode_summary.csv
+  Pruned JSON : C:\D_M\probes\analyze\dm_probe_00_prune_d8fm4ihvjngc73aq3ccg_20260606_102848\dm_probe_00_pruned_assumptions.json
+========================================================================================
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/01_dm_probe_channel_extract.py
+
+========================================================================================
+  GHOST ORACLE SUITE — D_M PROBE 01: CHANNEL EXTRACTION
+========================================================================================
+  Input      : C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fm4ihvjngc73aq3ccg.npz
+  Prune JSON : C:\D_M\probes\analyze\dm_probe_00_prune_d8fm4ihvjngc73aq3ccg_20260606_102848\dm_probe_00_pruned_assumptions.json
+  Job ID     : d8fm4ihvjngc73aq3ccg
+  Backend    : ibm_marrakesh
+  Out dir    : C:\D_M\probes\analyze\dm_probe_01_channel_extract_d8fm4ihvjngc73aq3ccg_20260606_102909
+
+[SCOPE]
+  Self-contained D_M only.
+  No cross-operator interaction.
+  No benchmark comparison yet.
+
+[CHANNELS]
+  local_order_channel          class=EMPTY                            carry=0 tiles=         eff=16.000 entropy= 4.000 maxp= 0.062
+  collapse_channel             class=EMPTY                            carry=0 tiles=         eff=16.000 entropy= 4.000 maxp= 0.062
+  mutation_channel             class=EMPTY                            carry=0 tiles=         eff=16.000 entropy= 4.000 maxp= 0.062
+  symmetry_boundary_channel    class=EMPTY                            carry=0 tiles=         eff=16.000 entropy= 4.000 maxp= 0.062
+  rank_spread_channel          class=EMPTY                            carry=0 tiles=         eff=16.000 entropy= 4.000 maxp= 0.062
+  composite_dm_channel         class=COMPOSITE_CANDIDATE              carry=1 tiles=0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19 eff= 3.577 entropy= 1.910 maxp= 0.370
+
+========================================================================================
+  D_M PROBE 01 COMPLETE
+========================================================================================
+  Report       : C:\D_M\probes\analyze\dm_probe_01_channel_extract_d8fm4ihvjngc73aq3ccg_20260606_102909\dm_probe_01_report.md
+  Channel JSON : C:\D_M\probes\analyze\dm_probe_01_channel_extract_d8fm4ihvjngc73aq3ccg_20260606_102909\dm_probe_01_channels.json
+  Channel NPZ  : C:\D_M\probes\analyze\dm_probe_01_channel_extract_d8fm4ihvjngc73aq3ccg_20260606_102909\dm_probe_01_channels.npz
+  Summary CSV  : C:\D_M\probes\analyze\dm_probe_01_channel_extract_d8fm4ihvjngc73aq3ccg_20260606_102909\dm_probe_01_channel_summary.csv
+  Tile CSV     : C:\D_M\probes\analyze\dm_probe_01_channel_extract_d8fm4ihvjngc73aq3ccg_20260606_102909\dm_probe_01_tile_channel_inputs.csv
+========================================================================================
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/02_dm_probe_synthetic_maps.py
+
+========================================================================================
+  GHOST ORACLE SUITE — D_M PROBE 02: SYNTHETIC MAPS
+========================================================================================
+  Channels  : C:\D_M\probes\analyze\dm_probe_01_channel_extract_d8fm4ihvjngc73aq3ccg_20260606_102909\dm_probe_01_channels.npz
+  Out dir   : C:\D_M\probes\analyze\dm_probe_02_synthetic_maps_20260606_102926
+  Datasets  : ['blobs', 'rings', 'swiss_roll_like', 's_curve_like', 'sparse_binary']
+  n         : 5000
+  input_dim : 64
+  output_dim: 4
+  k         : 10
+  seed      : 12345
+
+[SCOPE]
+  Self-contained D_M only.
+  Synthetic rehearsal only.
+  No final benchmark claim.
+
+[DATASET] blobs
+  pca_projection                         overlap= 0.8150 trust= 0.9998 purity= 0.9985 rankcorr= 1.0000
+  random_projection                      overlap= 0.2068 trust= 0.9822 purity= 0.9975 rankcorr= 0.7422
+  dm_local_order_channel                 overlap= 0.1924 trust= 0.9859 purity= 0.9975 rankcorr= 0.9775
+  dm_collapse_channel                    overlap= 0.1924 trust= 0.9859 purity= 0.9975 rankcorr= 0.9766
+  dm_mutation_channel                    overlap= 0.1924 trust= 0.9859 purity= 0.9975 rankcorr= 0.9767
+  dm_symmetry_boundary_channel           overlap= 0.1924 trust= 0.9859 purity= 0.9975 rankcorr= 0.9770
+  dm_rank_spread_channel                 overlap= 0.1924 trust= 0.9859 purity= 0.9975 rankcorr= 0.9771
+  dm_composite_dm_channel                overlap= 0.1600 trust= 0.9813 purity= 0.9965 rankcorr= 0.9646
+
+[DATASET] rings
+  pca_projection                         overlap= 0.7402 trust= 0.9995 purity= 1.0000 rankcorr= 1.0000
+  dm_local_order_channel                 overlap= 0.3044 trust= 0.9954 purity= 1.0000 rankcorr= 0.9758
+  dm_collapse_channel                    overlap= 0.3044 trust= 0.9954 purity= 1.0000 rankcorr= 0.9761
+  dm_mutation_channel                    overlap= 0.3044 trust= 0.9954 purity= 1.0000 rankcorr= 0.9756
+  dm_symmetry_boundary_channel           overlap= 0.3044 trust= 0.9954 purity= 1.0000 rankcorr= 0.9759
+  dm_rank_spread_channel                 overlap= 0.3044 trust= 0.9954 purity= 1.0000 rankcorr= 0.9755
+  dm_composite_dm_channel                overlap= 0.2697 trust= 0.9944 purity= 0.9984 rankcorr= 0.9461
+  random_projection                      overlap= 0.2474 trust= 0.9934 purity= 0.9974 rankcorr= 0.8850
+
+[DATASET] swiss_roll_like
+  pca_projection                         overlap= 0.9798 trust= 1.0000 purity= 0.9744 rankcorr= 1.0000
+  dm_composite_dm_channel                overlap= 0.7518 trust= 0.9996 purity= 0.9670 rankcorr= 0.8441
+  dm_local_order_channel                 overlap= 0.6241 trust= 0.9964 purity= 0.9329 rankcorr= 0.7508
+  dm_collapse_channel                    overlap= 0.6241 trust= 0.9964 purity= 0.9329 rankcorr= 0.7457
+  dm_mutation_channel                    overlap= 0.6241 trust= 0.9964 purity= 0.9329 rankcorr= 0.7481
+  dm_symmetry_boundary_channel           overlap= 0.6241 trust= 0.9964 purity= 0.9329 rankcorr= 0.7519
+  dm_rank_spread_channel                 overlap= 0.6241 trust= 0.9964 purity= 0.9329 rankcorr= 0.7466
+  random_projection                      overlap= 0.5826 trust= 0.9982 purity= 0.9439 rankcorr= 0.6557
+
+[DATASET] s_curve_like
+  pca_projection                         overlap= 0.9672 trust= 1.0000 purity= 0.9706 rankcorr= 1.0000
+  dm_composite_dm_channel                overlap= 0.7269 trust= 0.9996 purity= 0.9726 rankcorr= 0.9356
+  dm_local_order_channel                 overlap= 0.7201 trust= 0.9996 purity= 0.9717 rankcorr= 0.9602
+  dm_collapse_channel                    overlap= 0.7201 trust= 0.9996 purity= 0.9717 rankcorr= 0.9607
+  dm_mutation_channel                    overlap= 0.7201 trust= 0.9996 purity= 0.9717 rankcorr= 0.9599
+  dm_symmetry_boundary_channel           overlap= 0.7201 trust= 0.9996 purity= 0.9717 rankcorr= 0.9599
+  dm_rank_spread_channel                 overlap= 0.7201 trust= 0.9996 purity= 0.9717 rankcorr= 0.9598
+  random_projection                      overlap= 0.6956 trust= 0.9956 purity= 0.9572 rankcorr= 0.6924
+
+[DATASET] sparse_binary
+  random_projection                      overlap= 0.0709 trust= 0.8589 purity= 0.8177 rankcorr= 0.4794
+  dm_composite_dm_channel                overlap= 0.0500 trust= 0.7831 purity= 0.6615 rankcorr= 0.3651
+  dm_local_order_channel                 overlap= 0.0471 trust= 0.8075 purity= 0.7352 rankcorr= 0.3180
+  dm_collapse_channel                    overlap= 0.0471 trust= 0.8075 purity= 0.7352 rankcorr= 0.3250
+  dm_mutation_channel                    overlap= 0.0471 trust= 0.8075 purity= 0.7352 rankcorr= 0.3260
+  dm_symmetry_boundary_channel           overlap= 0.0471 trust= 0.8075 purity= 0.7352 rankcorr= 0.3219
+  dm_rank_spread_channel                 overlap= 0.0471 trust= 0.8075 purity= 0.7352 rankcorr= 0.3317
+  pca_projection                         overlap= 0.0371 trust= 0.9321 purity= 0.9999 rankcorr= 0.7396
+
+[OVERALL RANKING]
+  01. pca_projection                         overlap= 0.7079 trust= 0.9863 purity= 0.9887 rankcorr= 0.9479
+  02. dm_composite_dm_channel                overlap= 0.3917 trust= 0.9516 purity= 0.9192 rankcorr= 0.8111
+  03. dm_collapse_channel                    overlap= 0.3776 trust= 0.9569 purity= 0.9275 rankcorr= 0.7968
+  04. dm_local_order_channel                 overlap= 0.3776 trust= 0.9569 purity= 0.9275 rankcorr= 0.7965
+  05. dm_mutation_channel                    overlap= 0.3776 trust= 0.9569 purity= 0.9275 rankcorr= 0.7973
+  06. dm_rank_spread_channel                 overlap= 0.3776 trust= 0.9569 purity= 0.9275 rankcorr= 0.7981
+  07. dm_symmetry_boundary_channel           overlap= 0.3776 trust= 0.9569 purity= 0.9275 rankcorr= 0.7973
+  08. random_projection                      overlap= 0.3607 trust= 0.9657 purity= 0.9428 rankcorr= 0.6909
+
+========================================================================================
+  D_M PROBE 02 COMPLETE
+========================================================================================
+  Report      : C:\D_M\probes\analyze\dm_probe_02_synthetic_maps_20260606_102926\dm_probe_02_report.md
+  Results CSV : C:\D_M\probes\analyze\dm_probe_02_synthetic_maps_20260606_102926\dm_probe_02_results.csv
+  Summary CSV : C:\D_M\probes\analyze\dm_probe_02_synthetic_maps_20260606_102926\dm_probe_02_method_summary.csv
+  Config JSON : C:\D_M\probes\analyze\dm_probe_02_synthetic_maps_20260606_102926\dm_probe_02_config.json
+========================================================================================
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/03_dm_probe_linear_scheduler.py
+
+========================================================================================
+  GHOST ORACLE SUITE — D_M PROBE 03: LINEAR-ACTIVATED CHANNEL SCHEDULER
+========================================================================================
+  Channels      : C:\D_M\probes\analyze\dm_probe_01_channel_extract_d8fm4ihvjngc73aq3ccg_20260606_102909\dm_probe_01_channels.npz
+  Out dir       : C:\D_M\probes\analyze\dm_probe_03_linear_scheduler_20260606_103135
+  Datasets      : ['blobs', 'rings', 'swiss_roll_like', 's_curve_like', 'sparse_binary']
+  n             : 5000
+  input_dim     : 64
+  output_dim    : 4
+  k             : 10
+  timesteps     : 20
+  random_trials : 128
+  master_seed   : 195644791405446234870609373431489720518
+  seed_source   : secrets.randbits(128)
+
+[SCOPE]
+  Self-contained D_M only.
+  Linear is internal channel 0.
+  Hardened random-control suite enabled.
+  No cross-operator interaction.
+  Synthetic rehearsal only.
+
+[DATASET] blobs
+  random_orthogonal_best_128                     overlap= 0.4327 trust= 0.9971 purity= 0.9990 rankcorr= 0.9760
+  random_sparse_achlioptas_best_128              overlap= 0.4260 trust= 0.9971 purity= 0.9990 rankcorr= 0.9622
+  random_gaussian_best_128                       overlap= 0.4015 trust= 0.9963 purity= 0.9986 rankcorr= 0.9768
+  random_shuffle_crop                            overlap= 0.3584 trust= 0.9961 purity= 0.9987 rankcorr= 0.9773
+  random_sign_flip_crop                          overlap= 0.3008 trust= 0.9942 purity= 0.9987 rankcorr= 0.9762
+  random_sparse_achlioptas_mean_128              overlap= 0.2374 trust= 0.9867 purity= 0.9974 rankcorr= 0.9136
+  dm7_soft_scheduler                             overlap= 0.2293 trust= 0.9900 purity= 0.9984 rankcorr= 0.9509
+  dm_static_local_order_channel                  overlap= 0.2293 trust= 0.9900 purity= 0.9984 rankcorr= 0.9495
+  dm_static_collapse_channel                     overlap= 0.2293 trust= 0.9900 purity= 0.9984 rankcorr= 0.9498
+  dm_static_mutation_channel                     overlap= 0.2293 trust= 0.9900 purity= 0.9984 rankcorr= 0.9521
+  dm_static_symmetry_boundary_channel            overlap= 0.2293 trust= 0.9900 purity= 0.9984 rankcorr= 0.9499
+  dm_static_rank_spread_channel                  overlap= 0.2293 trust= 0.9900 purity= 0.9984 rankcorr= 0.9508
+  random_orthogonal_mean_128                     overlap= 0.2185 trust= 0.9851 purity= 0.9971 rankcorr= 0.9108
+  random_gaussian_mean_128                       overlap= 0.2172 trust= 0.9849 purity= 0.9971 rankcorr= 0.9079
+  dm_static_composite_dm_channel                 overlap= 0.1921 trust= 0.9888 purity= 0.9983 rankcorr= 0.9175
+  random_sparse_achlioptas_worst_128             overlap= 0.0779 trust= 0.9633 purity= 0.9960 rankcorr= 0.7867
+  pca_projection                                 overlap= 0.0745 trust= 0.9630 purity= 0.9965 rankcorr= 0.6727
+  dm7_hard_scheduler                             overlap= 0.0745 trust= 0.9630 purity= 0.9965 rankcorr= 0.6717
+  dm7_residual_scheduler                         overlap= 0.0674 trust= 0.9384 purity= 0.9824 rankcorr= 0.8208
+  random_gaussian_worst_128                      overlap= 0.0636 trust= 0.9489 purity= 0.9914 rankcorr= 0.8220
+  random_orthogonal_worst_128                    overlap= 0.0587 trust= 0.9373 purity= 0.9757 rankcorr= 0.8456
+
+[DATASET] rings
+  random_sparse_achlioptas_best_128              overlap= 0.5008 trust= 0.9983 purity= 1.0000 rankcorr= 0.9731
+  random_gaussian_best_128                       overlap= 0.4702 trust= 0.9979 purity= 1.0000 rankcorr= 0.9608
+  random_orthogonal_best_128                     overlap= 0.4696 trust= 0.9977 purity= 0.9997 rankcorr= 0.8247
+  random_shuffle_crop                            overlap= 0.3502 trust= 0.9951 purity= 1.0000 rankcorr= 0.9818
+  random_sign_flip_crop                          overlap= 0.3257 trust= 0.9949 purity= 1.0000 rankcorr= 0.9805
+  random_gaussian_mean_128                       overlap= 0.2811 trust= 0.9905 purity= 0.9721 rankcorr= 0.9022
+  dm_static_composite_dm_channel                 overlap= 0.2807 trust= 0.9907 purity= 0.9655 rankcorr= 0.8852
+  random_sparse_achlioptas_mean_128              overlap= 0.2756 trust= 0.9889 purity= 0.9695 rankcorr= 0.8964
+  random_orthogonal_mean_128                     overlap= 0.2737 trust= 0.9878 purity= 0.9646 rankcorr= 0.8944
+  dm_static_local_order_channel                  overlap= 0.2684 trust= 0.9925 purity= 0.9853 rankcorr= 0.9302
+  dm_static_collapse_channel                     overlap= 0.2684 trust= 0.9925 purity= 0.9853 rankcorr= 0.9306
+  dm_static_mutation_channel                     overlap= 0.2684 trust= 0.9925 purity= 0.9853 rankcorr= 0.9306
+  dm_static_symmetry_boundary_channel            overlap= 0.2684 trust= 0.9925 purity= 0.9853 rankcorr= 0.9277
+  dm_static_rank_spread_channel                  overlap= 0.2684 trust= 0.9925 purity= 0.9853 rankcorr= 0.9304
+  dm7_soft_scheduler                             overlap= 0.2683 trust= 0.9925 purity= 0.9848 rankcorr= 0.9288
+  pca_projection                                 overlap= 0.2621 trust= 0.9923 purity= 0.9877 rankcorr= 0.7725
+  dm7_hard_scheduler                             overlap= 0.2621 trust= 0.9923 purity= 0.9877 rankcorr= 0.7724
+  dm7_residual_scheduler                         overlap= 0.2230 trust= 0.9903 purity= 0.9810 rankcorr= 0.9231
+  random_sparse_achlioptas_worst_128             overlap= 0.1314 trust= 0.8508 purity= 0.6550 rankcorr= 0.6496
+  random_orthogonal_worst_128                    overlap= 0.1163 trust= 0.8259 purity= 0.6218 rankcorr= 0.6528
+  random_gaussian_worst_128                      overlap= 0.1103 trust= 0.9589 purity= 0.8004 rankcorr= 0.6811
+
+[DATASET] swiss_roll_like
+  random_sparse_achlioptas_best_128              overlap= 0.8179 trust= 0.9998 purity= 0.9715 rankcorr= 0.9864
+  random_gaussian_best_128                       overlap= 0.7865 trust= 0.9998 purity= 0.9738 rankcorr= 0.8943
+  random_orthogonal_best_128                     overlap= 0.7788 trust= 0.9998 purity= 0.9735 rankcorr= 0.9339
+  random_sign_flip_crop                          overlap= 0.6714 trust= 0.9994 purity= 0.9710 rankcorr= 0.9101
+  random_shuffle_crop                            overlap= 0.6253 trust= 0.9971 purity= 0.9310 rankcorr= 0.7433
+  random_orthogonal_mean_128                     overlap= 0.6038 trust= 0.9973 purity= 0.9549 rankcorr= 0.8243
+  random_sparse_achlioptas_mean_128              overlap= 0.5953 trust= 0.9948 purity= 0.9471 rankcorr= 0.8177
+  random_gaussian_mean_128                       overlap= 0.5948 trust= 0.9952 purity= 0.9498 rankcorr= 0.8210
+  dm_static_composite_dm_channel                 overlap= 0.5869 trust= 0.9986 purity= 0.9509 rankcorr= 0.7977
+  dm7_soft_scheduler                             overlap= 0.5868 trust= 0.9986 purity= 0.9509 rankcorr= 0.8008
+  dm7_residual_scheduler                         overlap= 0.5288 trust= 0.9974 purity= 0.9473 rankcorr= 0.7867
+  pca_projection                                 overlap= 0.5171 trust= 0.9991 purity= 0.9637 rankcorr= 0.8896
+  dm7_hard_scheduler                             overlap= 0.5171 trust= 0.9991 purity= 0.9637 rankcorr= 0.8906
+  dm_static_local_order_channel                  overlap= 0.4264 trust= 0.9242 purity= 0.6990 rankcorr= 0.8111
+  dm_static_collapse_channel                     overlap= 0.4264 trust= 0.9242 purity= 0.6990 rankcorr= 0.8083
+  dm_static_mutation_channel                     overlap= 0.4264 trust= 0.9242 purity= 0.6990 rankcorr= 0.8079
+  dm_static_symmetry_boundary_channel            overlap= 0.4264 trust= 0.9242 purity= 0.6990 rankcorr= 0.8095
+  dm_static_rank_spread_channel                  overlap= 0.4264 trust= 0.9242 purity= 0.6990 rankcorr= 0.8037
+  random_orthogonal_worst_128                    overlap= 0.3737 trust= 0.9484 purity= 0.7670 rankcorr= 0.6781
+  random_gaussian_worst_128                      overlap= 0.3375 trust= 0.8715 purity= 0.6188 rankcorr= 0.8115
+  random_sparse_achlioptas_worst_128             overlap= 0.3058 trust= 0.9116 purity= 0.6530 rankcorr= 0.6080
+
+[DATASET] s_curve_like
+  random_orthogonal_best_128                     overlap= 0.8109 trust= 0.9998 purity= 0.9693 rankcorr= 0.8939
+  random_sign_flip_crop                          overlap= 0.7980 trust= 0.9997 purity= 0.9706 rankcorr= 0.8370
+  random_gaussian_best_128                       overlap= 0.7828 trust= 0.9998 purity= 0.9697 rankcorr= 0.9525
+  random_sparse_achlioptas_best_128              overlap= 0.7603 trust= 0.9997 purity= 0.9682 rankcorr= 0.8443
+  dm_static_local_order_channel                  overlap= 0.6998 trust= 0.9993 purity= 0.9701 rankcorr= 0.9423
+  dm_static_collapse_channel                     overlap= 0.6998 trust= 0.9993 purity= 0.9701 rankcorr= 0.9443
+  dm_static_mutation_channel                     overlap= 0.6998 trust= 0.9993 purity= 0.9701 rankcorr= 0.9433
+  dm_static_symmetry_boundary_channel            overlap= 0.6998 trust= 0.9993 purity= 0.9701 rankcorr= 0.9429
+  dm_static_rank_spread_channel                  overlap= 0.6998 trust= 0.9993 purity= 0.9701 rankcorr= 0.9416
+  dm7_hard_scheduler                             overlap= 0.6998 trust= 0.9993 purity= 0.9701 rankcorr= 0.9429
+  dm7_soft_scheduler                             overlap= 0.6998 trust= 0.9993 purity= 0.9701 rankcorr= 0.9431
+  dm_static_composite_dm_channel                 overlap= 0.6806 trust= 0.9992 purity= 0.9692 rankcorr= 0.9283
+  random_shuffle_crop                            overlap= 0.6746 trust= 0.9994 purity= 0.9761 rankcorr= 0.8047
+  random_orthogonal_mean_128                     overlap= 0.5662 trust= 0.9956 purity= 0.9470 rankcorr= 0.8311
+  random_sparse_achlioptas_mean_128              overlap= 0.5632 trust= 0.9951 purity= 0.9471 rankcorr= 0.8152
+  random_gaussian_mean_128                       overlap= 0.5544 trust= 0.9947 purity= 0.9480 rankcorr= 0.8132
+  dm7_residual_scheduler                         overlap= 0.3338 trust= 0.9929 purity= 0.9239 rankcorr= 0.8456
+  random_sparse_achlioptas_worst_128             overlap= 0.3174 trust= 0.9697 purity= 0.7971 rankcorr= 0.8137
+  random_gaussian_worst_128                      overlap= 0.2662 trust= 0.9724 purity= 0.8038 rankcorr= 0.7340
+  random_orthogonal_worst_128                    overlap= 0.2646 trust= 0.9157 purity= 0.7016 rankcorr= 0.8157
+  pca_projection                                 overlap= 0.2431 trust= 0.9952 purity= 0.9331 rankcorr= 0.8407
+
+[DATASET] sparse_binary
+  random_gaussian_best_128                       overlap= 0.0796 trust= 0.8797 purity= 0.8777 rankcorr= 0.4731
+  random_orthogonal_best_128                     overlap= 0.0754 trust= 0.8847 purity= 0.8829 rankcorr= 0.5325
+  random_sparse_achlioptas_best_128              overlap= 0.0671 trust= 0.8904 purity= 0.8878 rankcorr= 0.5267
+  random_orthogonal_mean_128                     overlap= 0.0662 trust= 0.8115 purity= 0.7230 rankcorr= 0.4056
+  random_gaussian_mean_128                       overlap= 0.0655 trust= 0.8084 purity= 0.7159 rankcorr= 0.3969
+  random_gaussian_worst_128                      overlap= 0.0646 trust= 0.7255 purity= 0.5462 rankcorr= 0.2905
+  random_sparse_achlioptas_mean_128              overlap= 0.0618 trust= 0.8127 purity= 0.7209 rankcorr= 0.4056
+  random_orthogonal_worst_128                    overlap= 0.0532 trust= 0.7053 purity= 0.5343 rankcorr= 0.2094
+  dm_static_composite_dm_channel                 overlap= 0.0517 trust= 0.7884 purity= 0.6701 rankcorr= 0.3475
+  dm7_residual_scheduler                         overlap= 0.0509 trust= 0.8319 purity= 0.7580 rankcorr= 0.4009
+  dm_static_local_order_channel                  overlap= 0.0475 trust= 0.8160 purity= 0.7490 rankcorr= 0.3248
+  dm_static_collapse_channel                     overlap= 0.0475 trust= 0.8160 purity= 0.7490 rankcorr= 0.3156
+  dm_static_mutation_channel                     overlap= 0.0475 trust= 0.8160 purity= 0.7490 rankcorr= 0.3269
+  dm_static_symmetry_boundary_channel            overlap= 0.0475 trust= 0.8160 purity= 0.7490 rankcorr= 0.3269
+  dm_static_rank_spread_channel                  overlap= 0.0475 trust= 0.8160 purity= 0.7490 rankcorr= 0.3081
+  random_sparse_achlioptas_worst_128             overlap= 0.0461 trust= 0.7016 purity= 0.4701 rankcorr= 0.3217
+  dm7_soft_scheduler                             overlap= 0.0404 trust= 0.9320 purity= 0.9995 rankcorr= 0.7285
+  pca_projection                                 overlap= 0.0404 trust= 0.9320 purity= 0.9995 rankcorr= 0.7261
+  dm7_hard_scheduler                             overlap= 0.0404 trust= 0.9320 purity= 0.9995 rankcorr= 0.7224
+  random_sign_flip_crop                          overlap= 0.0152 trust= 0.7296 purity= 0.5261 rankcorr= 0.3899
+  random_shuffle_crop                            overlap= 0.0109 trust= 0.7242 purity= 0.5546 rankcorr= 0.3135
+
+[OVERALL RANKING]
+  01. random_sparse_achlioptas_best_128              overlap= 0.5144 trust= 0.9771 purity= 0.9653 rankcorr= 0.8586
+  02. random_orthogonal_best_128                     overlap= 0.5135 trust= 0.9758 purity= 0.9649 rankcorr= 0.8322
+  03. random_gaussian_best_128                       overlap= 0.5041 trust= 0.9747 purity= 0.9640 rankcorr= 0.8515
+  04. random_sign_flip_crop                          overlap= 0.4222 trust= 0.9436 purity= 0.8933 rankcorr= 0.8187
+  05. random_shuffle_crop                            overlap= 0.4039 trust= 0.9424 purity= 0.8921 rankcorr= 0.7641
+  06. dm7_soft_scheduler                             overlap= 0.3649 trust= 0.9825 purity= 0.9808 rankcorr= 0.8704
+  07. dm_static_composite_dm_channel                 overlap= 0.3584 trust= 0.9531 purity= 0.9108 rankcorr= 0.7753
+  08. random_sparse_achlioptas_mean_128              overlap= 0.3467 trust= 0.9556 purity= 0.9164 rankcorr= 0.7697
+  09. random_orthogonal_mean_128                     overlap= 0.3457 trust= 0.9555 purity= 0.9173 rankcorr= 0.7733
+  10. random_gaussian_mean_128                       overlap= 0.3426 trust= 0.9547 purity= 0.9166 rankcorr= 0.7682
+  11. dm_static_collapse_channel                     overlap= 0.3343 trust= 0.9444 purity= 0.8804 rankcorr= 0.7897
+  12. dm_static_local_order_channel                  overlap= 0.3343 trust= 0.9444 purity= 0.8804 rankcorr= 0.7916
+  13. dm_static_mutation_channel                     overlap= 0.3343 trust= 0.9444 purity= 0.8804 rankcorr= 0.7921
+  14. dm_static_rank_spread_channel                  overlap= 0.3343 trust= 0.9444 purity= 0.8804 rankcorr= 0.7869
+  15. dm_static_symmetry_boundary_channel            overlap= 0.3343 trust= 0.9444 purity= 0.8804 rankcorr= 0.7914
+  16. dm7_hard_scheduler                             overlap= 0.3188 trust= 0.9772 purity= 0.9835 rankcorr= 0.8000
+  17. dm7_residual_scheduler                         overlap= 0.2408 trust= 0.9502 purity= 0.9185 rankcorr= 0.7554
+  18. pca_projection                                 overlap= 0.2274 trust= 0.9763 purity= 0.9761 rankcorr= 0.7803
+  19. random_sparse_achlioptas_worst_128             overlap= 0.1757 trust= 0.8794 purity= 0.7143 rankcorr= 0.6359
+  20. random_orthogonal_worst_128                    overlap= 0.1733 trust= 0.8665 purity= 0.7201 rankcorr= 0.6403
+  21. random_gaussian_worst_128                      overlap= 0.1684 trust= 0.8955 purity= 0.7521 rankcorr= 0.6678
+
+========================================================================================
+  D_M PROBE 03 COMPLETE
+========================================================================================
+  Report        : C:\D_M\probes\analyze\dm_probe_03_linear_scheduler_20260606_103135\dm_probe_03_report.md
+  Results CSV   : C:\D_M\probes\analyze\dm_probe_03_linear_scheduler_20260606_103135\dm_probe_03_results.csv
+  Random trials : C:\D_M\probes\analyze\dm_probe_03_linear_scheduler_20260606_103135\dm_probe_03_random_trials.csv
+  Summary CSV   : C:\D_M\probes\analyze\dm_probe_03_linear_scheduler_20260606_103135\dm_probe_03_method_summary.csv
+  Trace CSV     : C:\D_M\probes\analyze\dm_probe_03_linear_scheduler_20260606_103135\dm_probe_03_scheduler_trace.csv
+  Config JSON   : C:\D_M\probes\analyze\dm_probe_03_linear_scheduler_20260606_103135\dm_probe_03_config.json
+========================================================================================
+
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/04_dm_probe_calibrated_seed_projection.py
+
+============================================================================================
+  GHOST ORACLE SUITE — D_M PROBE 04: CALIBRATED SEED PROJECTION
+============================================================================================
+  QPU base         : C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fm4ihvjngc73aq3ccg.npz
+  Channels         : C:\D_M\probes\analyze\dm_probe_01_channel_extract_d8fm4ihvjngc73aq3ccg_20260606_102909\dm_probe_01_channels.npz
+  Out dir          : C:\D_M\probes\analyze\dm_probe_04_calibrated_seed_20260606_125803
+  Job ID           : d8fm4ihvjngc73aq3ccg
+  Backend          : ibm_marrakesh
+  Calibration seed : 32274166277777559846932034100232260685
+  Datasets         : ['blobs', 'rings', 'swiss_roll_like', 's_curve_like', 'sparse_binary']
+  n                : 5000
+  input_dim        : 64
+  output_dim       : 4
+  k                : 10
+  random_trials    : 128
+  seed_family_size : 32
+  master_seed      : 118908667716318388019880770260880502459
+  seed_source      : secrets.randbits(128)
+
+[SCOPE]
+  Self-contained D_M only.
+  Seed is internal calibrated dimensional channel.
+  PCA remains baseline only.
+  No cross-operator interaction.
+  Synthetic rehearsal only.
+
+[DATASET] blobs
+  random_sparse_achlioptas_best_128                overlap= 0.4937 trust= 0.9980 purity= 0.9986 rankcorr= 0.9860 score= 0.7700
+  random_gaussian_best_128                         overlap= 0.4295 trust= 0.9972 purity= 0.9983 rankcorr= 0.9362 score= 0.7358
+  random_orthogonal_best_128                       overlap= 0.4175 trust= 0.9968 purity= 0.9985 rankcorr= 0.9611 score= 0.7329
+  qpu_calibrated_seed_family_best_32               overlap= 0.3962 trust= 0.9965 purity= 0.9987 rankcorr= 0.9740 score= 0.7246
+  random_shuffle_crop                              overlap= 0.3420 trust= 0.9958 purity= 0.9982 rankcorr= 0.9498 score= 0.6975
+  qpu_calibrated_seed_scheduler                    overlap= 0.3114 trust= 0.9938 purity= 0.9983 rankcorr= 0.9500 score= 0.6832
+  dm_static_symmetry_boundary_channel              overlap= 0.3114 trust= 0.9938 purity= 0.9983 rankcorr= 0.9488 score= 0.6831
+  dm_static_mutation_channel                       overlap= 0.3114 trust= 0.9938 purity= 0.9983 rankcorr= 0.9485 score= 0.6831
+  dm_static_collapse_channel                       overlap= 0.3114 trust= 0.9938 purity= 0.9983 rankcorr= 0.9483 score= 0.6831
+  dm_static_rank_spread_channel                    overlap= 0.3114 trust= 0.9938 purity= 0.9983 rankcorr= 0.9481 score= 0.6830
+  dm_static_local_order_channel                    overlap= 0.3114 trust= 0.9938 purity= 0.9983 rankcorr= 0.9477 score= 0.6830
+  random_sign_flip_crop                            overlap= 0.3021 trust= 0.9929 purity= 0.9975 rankcorr= 0.9193 score= 0.6756
+  dm_static_composite_dm_channel                   overlap= 0.2559 trust= 0.9920 purity= 0.9979 rankcorr= 0.9455 score= 0.6573
+  random_gaussian_mean_128                         overlap= 0.2314 trust= 0.9863 purity= 0.9962 rankcorr= 0.9075 score= 0.6407
+  random_orthogonal_mean_128                       overlap= 0.2263 trust= 0.9854 purity= 0.9956 rankcorr= 0.9032 score= 0.6376
+  qpu_calibrated_seed_family_mean_32               overlap= 0.2239 trust= 0.9855 purity= 0.9965 rankcorr= 0.8989 score= 0.6363
+  random_sparse_achlioptas_mean_128                overlap= 0.2178 trust= 0.9863 purity= 0.9969 rankcorr= 0.9096 score= 0.6349
+  secret_seed_single                               overlap= 0.1617 trust= 0.9787 purity= 0.9972 rankcorr= 0.7862 score= 0.5955
+  qpu_calibrated_seed_single                       overlap= 0.1518 trust= 0.9804 purity= 0.9953 rankcorr= 0.9372 score= 0.6062
+  qpu_calibrated_seed_family_worst_32              overlap= 0.0972 trust= 0.9509 purity= 0.9815 rankcorr= 0.7080 score= 0.5486
+  pca_projection                                   overlap= 0.0954 trust= 0.9762 purity= 0.9959 rankcorr= 0.6951 score= 0.5557
+  random_sparse_achlioptas_worst_128               overlap= 0.0890 trust= 0.9545 purity= 0.9768 rankcorr= 0.7605 score= 0.5501
+  random_gaussian_worst_128                        overlap= 0.0867 trust= 0.9103 purity= 0.8927 rankcorr= 0.5271 score= 0.4978
+  random_orthogonal_worst_128                      overlap= 0.0750 trust= 0.9039 purity= 0.8480 rankcorr= 0.7344 score= 0.5028
+
+[DATASET] rings
+  random_orthogonal_best_128                       overlap= 0.5892 trust= 0.9991 purity= 1.0000 rankcorr= 0.9680 score= 0.8117
+  qpu_calibrated_seed_family_best_32               overlap= 0.5679 trust= 0.9990 purity= 1.0000 rankcorr= 0.9920 score= 0.8045
+  random_gaussian_best_128                         overlap= 0.5408 trust= 0.9988 purity= 1.0000 rankcorr= 0.9806 score= 0.7911
+  random_sparse_achlioptas_best_128                overlap= 0.5041 trust= 0.9985 purity= 1.0000 rankcorr= 0.9842 score= 0.7749
+  random_sign_flip_crop                            overlap= 0.4789 trust= 0.9982 purity= 1.0000 rankcorr= 0.9339 score= 0.7584
+  random_shuffle_crop                              overlap= 0.4378 trust= 0.9980 purity= 1.0000 rankcorr= 0.9690 score= 0.7434
+  qpu_calibrated_seed_single                       overlap= 0.4143 trust= 0.9975 purity= 0.9999 rankcorr= 0.9890 score= 0.7347
+  dm_static_composite_dm_channel                   overlap= 0.3939 trust= 0.9971 purity= 1.0000 rankcorr= 0.9548 score= 0.7220
+  qpu_calibrated_seed_family_mean_32               overlap= 0.3362 trust= 0.9955 purity= 0.9971 rankcorr= 0.9203 score= 0.6916
+  random_gaussian_mean_128                         overlap= 0.3250 trust= 0.9951 purity= 0.9951 rankcorr= 0.9260 score= 0.6867
+  random_orthogonal_mean_128                       overlap= 0.3149 trust= 0.9951 purity= 0.9963 rankcorr= 0.9244 score= 0.6822
+  secret_seed_single                               overlap= 0.3142 trust= 0.9959 purity= 0.9999 rankcorr= 0.8822 score= 0.6786
+  random_sparse_achlioptas_mean_128                overlap= 0.3006 trust= 0.9935 purity= 0.9889 rankcorr= 0.9116 score= 0.6726
+  qpu_calibrated_seed_scheduler                    overlap= 0.2614 trust= 0.9944 purity= 0.9978 rankcorr= 0.9568 score= 0.6615
+  dm_static_rank_spread_channel                    overlap= 0.2395 trust= 0.9929 purity= 0.9859 rankcorr= 0.9264 score= 0.6458
+  dm_static_collapse_channel                       overlap= 0.2395 trust= 0.9929 purity= 0.9859 rankcorr= 0.9262 score= 0.6458
+  dm_static_symmetry_boundary_channel              overlap= 0.2395 trust= 0.9929 purity= 0.9859 rankcorr= 0.9261 score= 0.6458
+  dm_static_mutation_channel                       overlap= 0.2395 trust= 0.9929 purity= 0.9859 rankcorr= 0.9254 score= 0.6457
+  dm_static_local_order_channel                    overlap= 0.2395 trust= 0.9929 purity= 0.9859 rankcorr= 0.9241 score= 0.6456
+  random_gaussian_worst_128                        overlap= 0.2173 trust= 0.9721 purity= 0.8212 rankcorr= 0.7514 score= 0.5802
+  qpu_calibrated_seed_family_worst_32              overlap= 0.1923 trust= 0.9924 purity= 0.9969 rankcorr= 0.9460 score= 0.6286
+  random_orthogonal_worst_128                      overlap= 0.1719 trust= 0.9758 purity= 0.8948 rankcorr= 0.6264 score= 0.5629
+  random_sparse_achlioptas_worst_128               overlap= 0.1477 trust= 0.9401 purity= 0.7493 rankcorr= 0.5873 score= 0.5101
+  pca_projection                                   overlap= 0.1167 trust= 0.9839 purity= 0.9762 rankcorr= 0.7055 score= 0.5643
+
+[DATASET] swiss_roll_like
+  random_sparse_achlioptas_best_128                overlap= 0.8292 trust= 0.9998 purity= 0.9739 rankcorr= 0.9300 score= 0.9109
+  random_gaussian_best_128                         overlap= 0.8285 trust= 0.9999 purity= 0.9758 rankcorr= 0.9591 score= 0.9139
+  qpu_calibrated_seed_family_best_32               overlap= 0.8091 trust= 0.9998 purity= 0.9735 rankcorr= 0.9106 score= 0.8998
+  random_orthogonal_best_128                       overlap= 0.8074 trust= 0.9998 purity= 0.9731 rankcorr= 0.9815 score= 0.9060
+  dm_static_composite_dm_channel                   overlap= 0.7667 trust= 0.9997 purity= 0.9647 rankcorr= 0.8483 score= 0.8727
+  random_shuffle_crop                              overlap= 0.7530 trust= 0.9994 purity= 0.9710 rankcorr= 0.7767 score= 0.8606
+  qpu_calibrated_seed_scheduler                    overlap= 0.7487 trust= 0.9995 purity= 0.9614 rankcorr= 0.8203 score= 0.8611
+  dm_static_mutation_channel                       overlap= 0.7382 trust= 0.9993 purity= 0.9570 rankcorr= 0.8086 score= 0.8543
+  dm_static_rank_spread_channel                    overlap= 0.7382 trust= 0.9993 purity= 0.9570 rankcorr= 0.8074 score= 0.8542
+  dm_static_local_order_channel                    overlap= 0.7382 trust= 0.9993 purity= 0.9570 rankcorr= 0.8012 score= 0.8535
+  dm_static_symmetry_boundary_channel              overlap= 0.7382 trust= 0.9993 purity= 0.9570 rankcorr= 0.8010 score= 0.8535
+  dm_static_collapse_channel                       overlap= 0.7382 trust= 0.9993 purity= 0.9570 rankcorr= 0.7988 score= 0.8533
+  random_sign_flip_crop                            overlap= 0.7041 trust= 0.9995 purity= 0.9775 rankcorr= 0.8148 score= 0.8437
+  random_orthogonal_mean_128                       overlap= 0.6738 trust= 0.9970 purity= 0.9559 rankcorr= 0.8302 score= 0.8267
+  random_gaussian_mean_128                         overlap= 0.6725 trust= 0.9972 purity= 0.9551 rankcorr= 0.8304 score= 0.8260
+  random_sparse_achlioptas_mean_128                overlap= 0.6578 trust= 0.9962 purity= 0.9529 rankcorr= 0.8229 score= 0.8179
+  qpu_calibrated_seed_family_mean_32               overlap= 0.6494 trust= 0.9942 purity= 0.9495 rankcorr= 0.8260 score= 0.8133
+  secret_seed_single                               overlap= 0.6203 trust= 0.9992 purity= 0.9670 rankcorr= 0.9222 score= 0.8145
+  pca_projection                                   overlap= 0.4961 trust= 0.9990 purity= 0.9634 rankcorr= 0.8755 score= 0.7532
+  qpu_calibrated_seed_single                       overlap= 0.4661 trust= 0.9795 purity= 0.9542 rankcorr= 0.7186 score= 0.7173
+  random_sparse_achlioptas_worst_128               overlap= 0.4655 trust= 0.9385 purity= 0.7291 rankcorr= 0.7626 score= 0.6662
+  random_gaussian_worst_128                        overlap= 0.4176 trust= 0.9553 purity= 0.7684 rankcorr= 0.7833 score= 0.6588
+  random_orthogonal_worst_128                      overlap= 0.4015 trust= 0.8623 purity= 0.5796 rankcorr= 0.7853 score= 0.5907
+  qpu_calibrated_seed_family_worst_32              overlap= 0.3009 trust= 0.8749 purity= 0.5948 rankcorr= 0.6086 score= 0.5340
+
+[DATASET] s_curve_like
+  random_orthogonal_best_128                       overlap= 0.8046 trust= 0.9998 purity= 0.9722 rankcorr= 0.9019 score= 0.8966
+  random_gaussian_best_128                         overlap= 0.8034 trust= 0.9998 purity= 0.9692 rankcorr= 0.9239 score= 0.8977
+  random_sparse_achlioptas_best_128                overlap= 0.7791 trust= 0.9997 purity= 0.9714 rankcorr= 0.8994 score= 0.8848
+  qpu_calibrated_seed_family_best_32               overlap= 0.7522 trust= 0.9997 purity= 0.9676 rankcorr= 0.9496 score= 0.8769
+  dm_static_composite_dm_channel                   overlap= 0.6838 trust= 0.9991 purity= 0.9637 rankcorr= 0.8105 score= 0.8313
+  qpu_calibrated_seed_single                       overlap= 0.6724 trust= 0.9994 purity= 0.9734 rankcorr= 0.8821 score= 0.8353
+  dm_static_symmetry_boundary_channel              overlap= 0.6561 trust= 0.9978 purity= 0.9509 rankcorr= 0.7728 score= 0.8122
+  dm_static_rank_spread_channel                    overlap= 0.6561 trust= 0.9978 purity= 0.9509 rankcorr= 0.7726 score= 0.8122
+  dm_static_local_order_channel                    overlap= 0.6561 trust= 0.9978 purity= 0.9509 rankcorr= 0.7725 score= 0.8121
+  dm_static_mutation_channel                       overlap= 0.6561 trust= 0.9978 purity= 0.9509 rankcorr= 0.7665 score= 0.8115
+  dm_static_collapse_channel                       overlap= 0.6561 trust= 0.9978 purity= 0.9509 rankcorr= 0.7663 score= 0.8115
+  random_sign_flip_crop                            overlap= 0.6476 trust= 0.9992 purity= 0.9537 rankcorr= 0.7418 score= 0.8062
+  random_sparse_achlioptas_mean_128                overlap= 0.6059 trust= 0.9978 purity= 0.9591 rankcorr= 0.8281 score= 0.7967
+  random_gaussian_mean_128                         overlap= 0.5988 trust= 0.9967 purity= 0.9567 rankcorr= 0.8274 score= 0.7927
+  random_orthogonal_mean_128                       overlap= 0.5975 trust= 0.9973 purity= 0.9553 rankcorr= 0.8117 score= 0.7905
+  random_shuffle_crop                              overlap= 0.5938 trust= 0.9986 purity= 0.9580 rankcorr= 0.7498 score= 0.7834
+  qpu_calibrated_seed_family_mean_32               overlap= 0.5859 trust= 0.9965 purity= 0.9602 rankcorr= 0.8454 score= 0.7894
+  qpu_calibrated_seed_scheduler                    overlap= 0.5396 trust= 0.9976 purity= 0.9351 rankcorr= 0.7849 score= 0.7578
+  secret_seed_single                               overlap= 0.5355 trust= 0.9915 purity= 0.9363 rankcorr= 0.7172 score= 0.7478
+  pca_projection                                   overlap= 0.4439 trust= 0.9987 purity= 0.9563 rankcorr= 0.8463 score= 0.7253
+  qpu_calibrated_seed_family_worst_32              overlap= 0.3985 trust= 0.9391 purity= 0.8363 rankcorr= 0.6307 score= 0.6444
+  random_orthogonal_worst_128                      overlap= 0.3064 trust= 0.9531 purity= 0.8591 rankcorr= 0.6955 score= 0.6176
+  random_sparse_achlioptas_worst_128               overlap= 0.2887 trust= 0.9922 purity= 0.9534 rankcorr= 0.8498 score= 0.6537
+  random_gaussian_worst_128                        overlap= 0.2859 trust= 0.9912 purity= 0.9550 rankcorr= 0.6524 score= 0.6327
+
+[DATASET] sparse_binary
+  qpu_calibrated_seed_family_best_32               overlap= 0.0823 trust= 0.8836 purity= 0.8726 rankcorr= 0.4772 score= 0.4802
+  random_orthogonal_best_128                       overlap= 0.0794 trust= 0.8856 purity= 0.8736 rankcorr= 0.5159 score= 0.4834
+  qpu_calibrated_seed_single                       overlap= 0.0742 trust= 0.8441 purity= 0.8008 rankcorr= 0.4087 score= 0.4454
+  random_gaussian_best_128                         overlap= 0.0728 trust= 0.8871 purity= 0.8786 rankcorr= 0.5658 score= 0.4868
+  qpu_calibrated_seed_family_mean_32               overlap= 0.0725 trust= 0.8228 purity= 0.7452 rankcorr= 0.4226 score= 0.4296
+  random_orthogonal_mean_128                       overlap= 0.0669 trust= 0.8118 purity= 0.7215 rankcorr= 0.4096 score= 0.4183
+  random_sparse_achlioptas_best_128                overlap= 0.0661 trust= 0.9085 purity= 0.9352 rankcorr= 0.5151 score= 0.4954
+  random_gaussian_mean_128                         overlap= 0.0661 trust= 0.8092 purity= 0.7184 rankcorr= 0.4043 score= 0.4161
+  secret_seed_single                               overlap= 0.0627 trust= 0.8172 purity= 0.7427 rankcorr= 0.4016 score= 0.4212
+  random_sparse_achlioptas_mean_128                overlap= 0.0617 trust= 0.8178 purity= 0.7324 rankcorr= 0.4106 score= 0.4198
+  qpu_calibrated_seed_scheduler                    overlap= 0.0600 trust= 0.7852 purity= 0.6941 rankcorr= 0.3098 score= 0.3931
+  qpu_calibrated_seed_family_worst_32              overlap= 0.0600 trust= 0.7709 purity= 0.6593 rankcorr= 0.3269 score= 0.3843
+  random_gaussian_worst_128                        overlap= 0.0525 trust= 0.7232 purity= 0.5510 rankcorr= 0.2663 score= 0.3412
+  random_orthogonal_worst_128                      overlap= 0.0522 trust= 0.7109 purity= 0.4874 rankcorr= 0.3302 score= 0.3317
+  dm_static_composite_dm_channel                   overlap= 0.0501 trust= 0.7770 purity= 0.6544 rankcorr= 0.3449 score= 0.3822
+  random_sparse_achlioptas_worst_128               overlap= 0.0490 trust= 0.7324 purity= 0.5241 rankcorr= 0.2938 score= 0.3393
+  dm_static_local_order_channel                    overlap= 0.0464 trust= 0.8076 purity= 0.7392 rankcorr= 0.3160 score= 0.4022
+  dm_static_symmetry_boundary_channel              overlap= 0.0464 trust= 0.8076 purity= 0.7392 rankcorr= 0.3126 score= 0.4019
+  dm_static_collapse_channel                       overlap= 0.0464 trust= 0.8076 purity= 0.7392 rankcorr= 0.3122 score= 0.4018
+  dm_static_rank_spread_channel                    overlap= 0.0464 trust= 0.8076 purity= 0.7392 rankcorr= 0.3090 score= 0.4015
+  dm_static_mutation_channel                       overlap= 0.0464 trust= 0.8076 purity= 0.7392 rankcorr= 0.3068 score= 0.4013
+  pca_projection                                   overlap= 0.0428 trust= 0.9326 purity= 0.9997 rankcorr= 0.7359 score= 0.5259
+  random_sign_flip_crop                            overlap= 0.0120 trust= 0.7381 purity= 0.5410 rankcorr= 0.4003 score= 0.3381
+  random_shuffle_crop                              overlap= 0.0110 trust= 0.7489 purity= 0.5641 rankcorr= 0.4171 score= 0.3467
+
+[OVERALL RANKING]
+  01. random_orthogonal_best_128                       overlap= 0.5396 trust= 0.9762 purity= 0.9635 rankcorr= 0.8657 score= 0.7661
+  02. random_gaussian_best_128                         overlap= 0.5350 trust= 0.9766 purity= 0.9644 rankcorr= 0.8731 score= 0.7651
+  03. random_sparse_achlioptas_best_128                overlap= 0.5344 trust= 0.9809 purity= 0.9758 rankcorr= 0.8629 score= 0.7672
+  04. qpu_calibrated_seed_family_best_32               overlap= 0.5216 trust= 0.9757 purity= 0.9625 rankcorr= 0.8607 score= 0.7572
+  05. dm_static_composite_dm_channel                   overlap= 0.4301 trust= 0.9530 purity= 0.9161 rankcorr= 0.7808 score= 0.6931
+  06. random_sign_flip_crop                            overlap= 0.4289 trust= 0.9456 purity= 0.8939 rankcorr= 0.7620 score= 0.6844
+  07. random_shuffle_crop                              overlap= 0.4275 trust= 0.9482 purity= 0.8983 rankcorr= 0.7725 score= 0.6863
+  08. dm_static_rank_spread_channel                    overlap= 0.3983 trust= 0.9583 purity= 0.9263 rankcorr= 0.7527 score= 0.6793
+  09. dm_static_local_order_channel                    overlap= 0.3983 trust= 0.9583 purity= 0.9263 rankcorr= 0.7523 score= 0.6793
+  10. dm_static_symmetry_boundary_channel              overlap= 0.3983 trust= 0.9583 purity= 0.9263 rankcorr= 0.7523 score= 0.6793
+  11. dm_static_mutation_channel                       overlap= 0.3983 trust= 0.9583 purity= 0.9263 rankcorr= 0.7511 score= 0.6792
+  12. dm_static_collapse_channel                       overlap= 0.3983 trust= 0.9583 purity= 0.9263 rankcorr= 0.7504 score= 0.6791
+  13. qpu_calibrated_seed_scheduler                    overlap= 0.3842 trust= 0.9541 purity= 0.9173 rankcorr= 0.7644 score= 0.6713
+  14. random_gaussian_mean_128                         overlap= 0.3788 trust= 0.9569 purity= 0.9243 rankcorr= 0.7791 score= 0.6724
+  15. random_orthogonal_mean_128                       overlap= 0.3759 trust= 0.9573 purity= 0.9249 rankcorr= 0.7758 score= 0.6711
+  16. qpu_calibrated_seed_family_mean_32               overlap= 0.3736 trust= 0.9589 purity= 0.9297 rankcorr= 0.7826 score= 0.6720
+  17. random_sparse_achlioptas_mean_128                overlap= 0.3688 trust= 0.9583 purity= 0.9260 rankcorr= 0.7766 score= 0.6684
+  18. qpu_calibrated_seed_single                       overlap= 0.3558 trust= 0.9602 purity= 0.9447 rankcorr= 0.7871 score= 0.6678
+  19. secret_seed_single                               overlap= 0.3389 trust= 0.9565 purity= 0.9286 rankcorr= 0.7419 score= 0.6515
+  20. pca_projection                                   overlap= 0.2390 trust= 0.9781 purity= 0.9783 rankcorr= 0.7717 score= 0.6249
+  21. random_gaussian_worst_128                        overlap= 0.2120 trust= 0.9104 purity= 0.7977 rankcorr= 0.5961 score= 0.5421
+  22. qpu_calibrated_seed_family_worst_32              overlap= 0.2098 trust= 0.9056 purity= 0.8138 rankcorr= 0.6440 score= 0.5480
+  23. random_sparse_achlioptas_worst_128               overlap= 0.2080 trust= 0.9116 purity= 0.7865 rankcorr= 0.6508 score= 0.5439
+  24. random_orthogonal_worst_128                      overlap= 0.2014 trust= 0.8812 purity= 0.7338 rankcorr= 0.6344 score= 0.5211
+
+============================================================================================
+  D_M PROBE 04 COMPLETE
+============================================================================================
+  Report       : C:\D_M\probes\analyze\dm_probe_04_calibrated_seed_20260606_125803\dm_probe_04_report.md
+  Results CSV  : C:\D_M\probes\analyze\dm_probe_04_calibrated_seed_20260606_125803\dm_probe_04_results.csv
+  Summary CSV  : C:\D_M\probes\analyze\dm_probe_04_calibrated_seed_20260606_125803\dm_probe_04_method_summary.csv
+  Seed trace   : C:\D_M\probes\analyze\dm_probe_04_calibrated_seed_20260606_125803\dm_probe_04_seed_trace.csv
+  Config JSON  : C:\D_M\probes\analyze\dm_probe_04_calibrated_seed_20260606_125803\dm_probe_04_config.json
+  Calibration  : C:\D_M\probes\analyze\dm_probe_04_calibrated_seed_20260606_125803\dm_probe_04_calibration_profile.json
+============================================================================================
+
+
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/05_dm_probe_base10_state_selector.py
+
+================================================================================================
+  GHOST ORACLE SUITE — D_M PROBE 05: BASE-10 CALIBRATED STATE SELECTOR
+================================================================================================
+  QPU base          : C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fm4ihvjngc73aq3ccg.npz
+  Channels          : C:\D_M\probes\analyze\dm_probe_01_channel_extract_d8fm4ihvjngc73aq3ccg_20260606_102909\dm_probe_01_channels.npz
+  Out dir           : C:\D_M\probes\analyze\dm_probe_05_base10_state_selector_20260606_135723
+  Job ID            : d8fm4ihvjngc73aq3ccg
+  Backend           : ibm_marrakesh
+  Calibration seed  : 110018863149636860849214235024631216674
+  Datasets          : ['blobs', 'rings', 'swiss_roll_like', 's_curve_like', 'sparse_binary']
+  n                 : 5000
+  input_dim         : 64
+  output_dim        : 4
+  k                 : 10
+  random_trials     : 128
+  alpha_family_size : 128
+  master_seed       : 98163065465266796589322393357088054633
+  seed_source       : secrets.randbits(128)
+
+[SCOPE]
+  Self-contained D_M only.
+  QPU calibration passes through base-10 alpha/state selector.
+  PCA/random remain baselines only.
+  Synthetic rehearsal only.
+
+[DATASET] blobs
+  base10_qpu_calibrated_probability_family_best_128        overlap= 0.5474 trust= 0.9982 purity= 0.9990 rankcorr= 0.9595 score= 0.7916
+  base10_uncalibrated_dominant_family_best_128             overlap= 0.5441 trust= 0.9983 purity= 0.9988 rankcorr= 0.9370 score= 0.7879
+  base10_qpu_calibrated_dominant_family_best_128           overlap= 0.5130 trust= 0.9977 purity= 0.9988 rankcorr= 0.9857 score= 0.7786
+  random_gaussian_best_128                                 overlap= 0.5088 trust= 0.9981 purity= 0.9992 rankcorr= 0.9857 score= 0.7769
+  random_sparse_achlioptas_best_128                        overlap= 0.5084 trust= 0.9979 purity= 0.9988 rankcorr= 0.9891 score= 0.7769
+  base10_uncalibrated_probability_family_best_128          overlap= 0.4804 trust= 0.9973 purity= 0.9991 rankcorr= 0.9748 score= 0.7628
+  random_orthogonal_best_128                               overlap= 0.4765 trust= 0.9972 purity= 0.9986 rankcorr= 0.9759 score= 0.7610
+  dm_static_composite_dm_channel                           overlap= 0.4023 trust= 0.9956 purity= 0.9982 rankcorr= 0.8239 score= 0.7120
+  random_shuffle_crop                                      overlap= 0.3988 trust= 0.9961 purity= 0.9987 rankcorr= 0.8826 score= 0.7165
+  base10_qpu_calibrated_dominant_single                    overlap= 0.3953 trust= 0.9946 purity= 0.9984 rankcorr= 0.8772 score= 0.7140
+  secret_seed_single                                       overlap= 0.3620 trust= 0.9932 purity= 0.9982 rankcorr= 0.9521 score= 0.7061
+  base10_qpu_state_scheduler                               overlap= 0.3597 trust= 0.9920 purity= 0.9988 rankcorr= 0.9754 score= 0.7072
+  random_sign_flip_crop                                    overlap= 0.3380 trust= 0.9888 purity= 0.9987 rankcorr= 0.8948 score= 0.6885
+  base10_uncalibrated_dominant_single                      overlap= 0.3313 trust= 0.9887 purity= 0.9989 rankcorr= 0.9725 score= 0.6933
+  dm_static_mutation_channel                               overlap= 0.2954 trust= 0.9897 purity= 0.9969 rankcorr= 0.7946 score= 0.6592
+  dm_static_collapse_channel                               overlap= 0.2954 trust= 0.9897 purity= 0.9969 rankcorr= 0.7883 score= 0.6586
+  dm_static_symmetry_boundary_channel                      overlap= 0.2954 trust= 0.9897 purity= 0.9969 rankcorr= 0.7870 score= 0.6585
+  dm_static_local_order_channel                            overlap= 0.2954 trust= 0.9897 purity= 0.9969 rankcorr= 0.7836 score= 0.6581
+  dm_static_rank_spread_channel                            overlap= 0.2954 trust= 0.9897 purity= 0.9969 rankcorr= 0.7804 score= 0.6578
+  base10_uncalibrated_dominant_family_mean_128             overlap= 0.2928 trust= 0.9888 purity= 0.9980 rankcorr= 0.9210 score= 0.6707
+  base10_uncalibrated_probability_family_mean_128          overlap= 0.2866 trust= 0.9860 purity= 0.9951 rankcorr= 0.9089 score= 0.6654
+  random_orthogonal_mean_128                               overlap= 0.2811 trust= 0.9865 purity= 0.9960 rankcorr= 0.8970 score= 0.6620
+  base10_qpu_calibrated_probability_family_mean_128        overlap= 0.2772 trust= 0.9870 purity= 0.9970 rankcorr= 0.8954 score= 0.6604
+  base10_qpu_calibrated_dominant_family_mean_128           overlap= 0.2770 trust= 0.9872 purity= 0.9973 rankcorr= 0.9046 score= 0.6614
+  random_gaussian_mean_128                                 overlap= 0.2696 trust= 0.9854 purity= 0.9958 rankcorr= 0.8944 score= 0.6563
+  random_sparse_achlioptas_mean_128                        overlap= 0.2662 trust= 0.9856 purity= 0.9966 rankcorr= 0.9103 score= 0.6565
+  base10_uncalibrated_probability_single                   overlap= 0.2558 trust= 0.9888 purity= 0.9978 rankcorr= 0.9216 score= 0.6540
+  base10_qpu_calibrated_probability_single                 overlap= 0.1691 trust= 0.9844 purity= 0.9981 rankcorr= 0.9265 score= 0.6145
+  base10_uncalibrated_probability_family_worst_128         overlap= 0.1456 trust= 0.9032 purity= 0.8691 rankcorr= 0.6517 score= 0.5303
+  pca_projection                                           overlap= 0.1231 trust= 0.9729 purity= 0.9975 rankcorr= 0.6825 score= 0.5664
+  base10_qpu_calibrated_probability_family_worst_128       overlap= 0.1201 trust= 0.9400 purity= 0.9306 rankcorr= 0.7710 score= 0.5523
+  random_orthogonal_worst_128                              overlap= 0.1189 trust= 0.9446 purity= 0.9415 rankcorr= 0.6379 score= 0.5418
+  random_gaussian_worst_128                                overlap= 0.1172 trust= 0.9036 purity= 0.8858 rankcorr= 0.6427 score= 0.5200
+  base10_uncalibrated_dominant_family_worst_128            overlap= 0.1060 trust= 0.9542 purity= 0.9844 rankcorr= 0.8584 score= 0.5690
+  base10_qpu_calibrated_dominant_family_worst_128          overlap= 0.0962 trust= 0.9529 purity= 0.9825 rankcorr= 0.7597 score= 0.5540
+  random_sparse_achlioptas_worst_128                       overlap= 0.0746 trust= 0.9566 purity= 0.9926 rankcorr= 0.7567 score= 0.5469
+
+[DATASET] rings
+  random_sparse_achlioptas_best_128                        overlap= 0.5474 trust= 0.9986 purity= 1.0000 rankcorr= 0.9464 score= 0.7906
+  base10_qpu_calibrated_dominant_family_best_128           overlap= 0.5390 trust= 0.9987 purity= 1.0000 rankcorr= 0.9941 score= 0.7917
+  base10_uncalibrated_dominant_family_best_128             overlap= 0.5164 trust= 0.9986 purity= 1.0000 rankcorr= 0.9776 score= 0.7798
+  random_orthogonal_best_128                               overlap= 0.5156 trust= 0.9985 purity= 1.0000 rankcorr= 0.9635 score= 0.7780
+  base10_uncalibrated_probability_family_best_128          overlap= 0.5086 trust= 0.9985 purity= 1.0000 rankcorr= 0.9532 score= 0.7738
+  base10_qpu_calibrated_probability_family_best_128        overlap= 0.4909 trust= 0.9983 purity= 1.0000 rankcorr= 0.9775 score= 0.7682
+  random_gaussian_best_128                                 overlap= 0.4888 trust= 0.9983 purity= 1.0000 rankcorr= 0.9810 score= 0.7676
+  random_sign_flip_crop                                    overlap= 0.4613 trust= 0.9982 purity= 1.0000 rankcorr= 0.9421 score= 0.7513
+  random_shuffle_crop                                      overlap= 0.4333 trust= 0.9979 purity= 1.0000 rankcorr= 0.8383 score= 0.7283
+  base10_uncalibrated_dominant_single                      overlap= 0.3812 trust= 0.9974 purity= 1.0000 rankcorr= 0.9892 score= 0.7198
+  secret_seed_single                                       overlap= 0.3705 trust= 0.9971 purity= 1.0000 rankcorr= 0.8997 score= 0.7060
+  base10_uncalibrated_probability_single                   overlap= 0.3479 trust= 0.9965 purity= 0.9995 rankcorr= 0.9506 score= 0.7006
+  random_gaussian_mean_128                                 overlap= 0.3313 trust= 0.9949 purity= 0.9948 rankcorr= 0.9293 score= 0.6897
+  base10_uncalibrated_dominant_family_mean_128             overlap= 0.3298 trust= 0.9945 purity= 0.9918 rankcorr= 0.9177 score= 0.6872
+  random_sparse_achlioptas_mean_128                        overlap= 0.3289 trust= 0.9948 purity= 0.9937 rankcorr= 0.9199 score= 0.6874
+  base10_uncalibrated_probability_family_mean_128          overlap= 0.3284 trust= 0.9950 purity= 0.9950 rankcorr= 0.9203 score= 0.6876
+  base10_qpu_calibrated_dominant_family_mean_128           overlap= 0.3247 trust= 0.9938 purity= 0.9897 rankcorr= 0.9157 score= 0.6841
+  base10_qpu_calibrated_probability_family_mean_128        overlap= 0.3178 trust= 0.9944 purity= 0.9925 rankcorr= 0.9120 score= 0.6813
+  random_orthogonal_mean_128                               overlap= 0.3164 trust= 0.9940 purity= 0.9909 rankcorr= 0.9165 score= 0.6807
+  base10_qpu_calibrated_dominant_single                    overlap= 0.3108 trust= 0.9960 purity= 1.0000 rankcorr= 0.8604 score= 0.6749
+  dm_static_composite_dm_channel                           overlap= 0.2875 trust= 0.9922 purity= 0.9782 rankcorr= 0.7364 score= 0.6467
+  dm_static_symmetry_boundary_channel                      overlap= 0.2588 trust= 0.9900 purity= 0.9677 rankcorr= 0.8530 score= 0.6428
+  dm_static_local_order_channel                            overlap= 0.2588 trust= 0.9900 purity= 0.9677 rankcorr= 0.8513 score= 0.6426
+  dm_static_mutation_channel                               overlap= 0.2588 trust= 0.9900 purity= 0.9677 rankcorr= 0.8508 score= 0.6426
+  dm_static_collapse_channel                               overlap= 0.2588 trust= 0.9900 purity= 0.9677 rankcorr= 0.8501 score= 0.6425
+  dm_static_rank_spread_channel                            overlap= 0.2588 trust= 0.9900 purity= 0.9677 rankcorr= 0.8500 score= 0.6425
+  base10_qpu_calibrated_probability_single                 overlap= 0.2549 trust= 0.9945 purity= 0.9999 rankcorr= 0.9456 score= 0.6579
+  base10_uncalibrated_dominant_family_worst_128            overlap= 0.1956 trust= 0.9289 purity= 0.7353 rankcorr= 0.6565 score= 0.5330
+  base10_qpu_state_scheduler                               overlap= 0.1935 trust= 0.9902 purity= 0.9907 rankcorr= 0.9007 score= 0.6228
+  base10_uncalibrated_probability_family_worst_128         overlap= 0.1788 trust= 0.9763 purity= 0.9002 rankcorr= 0.7625 score= 0.5808
+  base10_qpu_calibrated_probability_family_worst_128       overlap= 0.1606 trust= 0.9537 purity= 0.8233 rankcorr= 0.8479 score= 0.5601
+  pca_projection                                           overlap= 0.1532 trust= 0.9890 purity= 0.9920 rankcorr= 0.7590 score= 0.5905
+  random_orthogonal_worst_128                              overlap= 0.1438 trust= 0.9573 purity= 0.8322 rankcorr= 0.7526 score= 0.5457
+  random_sparse_achlioptas_worst_128                       overlap= 0.1331 trust= 0.9646 purity= 0.8517 rankcorr= 0.8077 score= 0.5522
+  random_gaussian_worst_128                                overlap= 0.1299 trust= 0.9477 purity= 0.7892 rankcorr= 0.7108 score= 0.5243
+  base10_qpu_calibrated_dominant_family_worst_128          overlap= 0.1290 trust= 0.9391 purity= 0.7344 rankcorr= 0.6647 score= 0.5062
+
+[DATASET] swiss_roll_like
+  random_gaussian_best_128                                 overlap= 0.8707 trust= 0.9999 purity= 0.9760 rankcorr= 0.9801 score= 0.9350
+  random_shuffle_crop                                      overlap= 0.8559 trust= 0.9999 purity= 0.9788 rankcorr= 0.9401 score= 0.9249
+  base10_uncalibrated_dominant_family_best_128             overlap= 0.8482 trust= 0.9999 purity= 0.9759 rankcorr= 0.9638 score= 0.9232
+  base10_uncalibrated_probability_family_best_128          overlap= 0.8456 trust= 0.9999 purity= 0.9769 rankcorr= 0.9862 score= 0.9245
+  random_sparse_achlioptas_best_128                        overlap= 0.8338 trust= 0.9999 purity= 0.9771 rankcorr= 0.9479 score= 0.9154
+  base10_qpu_calibrated_probability_family_best_128        overlap= 0.8281 trust= 0.9999 purity= 0.9773 rankcorr= 0.9561 score= 0.9137
+  random_orthogonal_best_128                               overlap= 0.8267 trust= 0.9999 purity= 0.9790 rankcorr= 0.9344 score= 0.9112
+  base10_qpu_calibrated_dominant_family_best_128           overlap= 0.8175 trust= 0.9998 purity= 0.9770 rankcorr= 0.9575 score= 0.9090
+  random_sign_flip_crop                                    overlap= 0.8144 trust= 0.9998 purity= 0.9767 rankcorr= 0.9190 score= 0.9037
+  base10_uncalibrated_dominant_single                      overlap= 0.7669 trust= 0.9998 purity= 0.9801 rankcorr= 0.8981 score= 0.8809
+  dm_static_composite_dm_channel                           overlap= 0.7395 trust= 0.9996 purity= 0.9705 rankcorr= 0.8726 score= 0.8640
+  base10_qpu_state_scheduler                               overlap= 0.7226 trust= 0.9995 purity= 0.9701 rankcorr= 0.8643 score= 0.8555
+  dm_static_collapse_channel                               overlap= 0.7122 trust= 0.9995 purity= 0.9701 rankcorr= 0.8534 score= 0.8497
+  dm_static_symmetry_boundary_channel                      overlap= 0.7122 trust= 0.9995 purity= 0.9701 rankcorr= 0.8531 score= 0.8497
+  dm_static_local_order_channel                            overlap= 0.7122 trust= 0.9995 purity= 0.9701 rankcorr= 0.8531 score= 0.8497
+  dm_static_mutation_channel                               overlap= 0.7122 trust= 0.9995 purity= 0.9701 rankcorr= 0.8510 score= 0.8495
+  dm_static_rank_spread_channel                            overlap= 0.7122 trust= 0.9995 purity= 0.9701 rankcorr= 0.8501 score= 0.8494
+  base10_qpu_calibrated_probability_single                 overlap= 0.6773 trust= 0.9995 purity= 0.9754 rankcorr= 0.9564 score= 0.8454
+  base10_qpu_calibrated_dominant_single                    overlap= 0.6666 trust= 0.9993 purity= 0.9712 rankcorr= 0.6818 score= 0.8122
+  base10_uncalibrated_dominant_family_mean_128             overlap= 0.6611 trust= 0.9967 purity= 0.9618 rankcorr= 0.8202 score= 0.8211
+  random_sparse_achlioptas_mean_128                        overlap= 0.6609 trust= 0.9976 purity= 0.9625 rankcorr= 0.8272 score= 0.8220
+  base10_uncalibrated_probability_family_mean_128          overlap= 0.6573 trust= 0.9968 purity= 0.9633 rankcorr= 0.8217 score= 0.8198
+  base10_qpu_calibrated_probability_family_mean_128        overlap= 0.6568 trust= 0.9975 purity= 0.9638 rankcorr= 0.8165 score= 0.8193
+  random_orthogonal_mean_128                               overlap= 0.6534 trust= 0.9974 purity= 0.9626 rankcorr= 0.8214 score= 0.8180
+  base10_qpu_calibrated_dominant_family_mean_128           overlap= 0.6489 trust= 0.9960 purity= 0.9555 rankcorr= 0.8180 score= 0.8139
+  random_gaussian_mean_128                                 overlap= 0.6316 trust= 0.9959 purity= 0.9584 rankcorr= 0.8161 score= 0.8065
+  secret_seed_single                                       overlap= 0.6232 trust= 0.9990 purity= 0.9725 rankcorr= 0.8220 score= 0.8069
+  base10_uncalibrated_probability_single                   overlap= 0.6019 trust= 0.9992 purity= 0.9759 rankcorr= 0.9425 score= 0.8101
+  pca_projection                                           overlap= 0.5453 trust= 0.9992 purity= 0.9682 rankcorr= 0.8902 score= 0.7778
+  base10_uncalibrated_dominant_family_worst_128            overlap= 0.4693 trust= 0.8802 purity= 0.6885 rankcorr= 0.7547 score= 0.6444
+  base10_uncalibrated_probability_family_worst_128         overlap= 0.3750 trust= 0.8784 purity= 0.6611 rankcorr= 0.6946 score= 0.5900
+  random_orthogonal_worst_128                              overlap= 0.3666 trust= 0.9201 purity= 0.7538 rankcorr= 0.6526 score= 0.6110
+  random_sparse_achlioptas_worst_128                       overlap= 0.3538 trust= 0.9934 purity= 0.9775 rankcorr= 0.7077 score= 0.6739
+  base10_qpu_calibrated_probability_family_worst_128       overlap= 0.3517 trust= 0.9441 purity= 0.8154 rankcorr= 0.5797 score= 0.6153
+  base10_qpu_calibrated_dominant_family_worst_128          overlap= 0.2724 trust= 0.9915 purity= 0.9540 rankcorr= 0.6288 score= 0.6241
+  random_gaussian_worst_128                                overlap= 0.2571 trust= 0.9137 purity= 0.6703 rankcorr= 0.6569 score= 0.5439
+
+[DATASET] s_curve_like
+  random_sparse_achlioptas_best_128                        overlap= 0.8291 trust= 0.9999 purity= 0.9755 rankcorr= 0.9325 score= 0.9114
+  base10_qpu_calibrated_dominant_family_best_128           overlap= 0.8215 trust= 0.9999 purity= 0.9724 rankcorr= 0.9827 score= 0.9124
+  base10_uncalibrated_probability_family_best_128          overlap= 0.8210 trust= 0.9998 purity= 0.9745 rankcorr= 0.9518 score= 0.9095
+  random_orthogonal_best_128                               overlap= 0.8097 trust= 0.9998 purity= 0.9747 rankcorr= 0.9678 score= 0.9061
+  base10_uncalibrated_dominant_family_best_128             overlap= 0.8056 trust= 0.9998 purity= 0.9741 rankcorr= 0.9367 score= 0.9010
+  base10_qpu_calibrated_probability_family_best_128        overlap= 0.7995 trust= 0.9998 purity= 0.9745 rankcorr= 0.9349 score= 0.8981
+  random_gaussian_best_128                                 overlap= 0.7923 trust= 0.9998 purity= 0.9741 rankcorr= 0.9544 score= 0.8967
+  secret_seed_single                                       overlap= 0.7783 trust= 0.9996 purity= 0.9758 rankcorr= 0.8061 score= 0.8759
+  random_sign_flip_crop                                    overlap= 0.7450 trust= 0.9996 purity= 0.9650 rankcorr= 0.8175 score= 0.8599
+  base10_qpu_calibrated_probability_single                 overlap= 0.7391 trust= 0.9995 purity= 0.9652 rankcorr= 0.8198 score= 0.8575
+  dm_static_mutation_channel                               overlap= 0.7238 trust= 0.9996 purity= 0.9723 rankcorr= 0.9520 score= 0.8653
+  dm_static_rank_spread_channel                            overlap= 0.7238 trust= 0.9996 purity= 0.9723 rankcorr= 0.9516 score= 0.8652
+  base10_qpu_state_scheduler                               overlap= 0.7238 trust= 0.9996 purity= 0.9723 rankcorr= 0.9511 score= 0.8652
+  dm_static_local_order_channel                            overlap= 0.7238 trust= 0.9996 purity= 0.9723 rankcorr= 0.9510 score= 0.8652
+  dm_static_symmetry_boundary_channel                      overlap= 0.7238 trust= 0.9996 purity= 0.9723 rankcorr= 0.9509 score= 0.8652
+  dm_static_collapse_channel                               overlap= 0.7238 trust= 0.9996 purity= 0.9723 rankcorr= 0.9508 score= 0.8652
+  random_shuffle_crop                                      overlap= 0.7163 trust= 0.9995 purity= 0.9756 rankcorr= 0.7776 score= 0.8451
+  base10_uncalibrated_dominant_single                      overlap= 0.6880 trust= 0.9994 purity= 0.9610 rankcorr= 0.8377 score= 0.8354
+  dm_static_composite_dm_channel                           overlap= 0.6447 trust= 0.9993 purity= 0.9745 rankcorr= 0.8630 score= 0.8211
+  base10_uncalibrated_dominant_family_mean_128             overlap= 0.6437 trust= 0.9976 purity= 0.9611 rankcorr= 0.8285 score= 0.8141
+  random_orthogonal_mean_128                               overlap= 0.6354 trust= 0.9968 purity= 0.9594 rankcorr= 0.8328 score= 0.8103
+  base10_qpu_calibrated_dominant_single                    overlap= 0.6346 trust= 0.9991 purity= 0.9576 rankcorr= 0.7769 score= 0.8046
+  base10_uncalibrated_probability_family_mean_128          overlap= 0.6337 trust= 0.9972 purity= 0.9609 rankcorr= 0.8221 score= 0.8089
+  base10_qpu_calibrated_dominant_family_mean_128           overlap= 0.6316 trust= 0.9973 purity= 0.9598 rankcorr= 0.8249 score= 0.8080
+  random_sparse_achlioptas_mean_128                        overlap= 0.6297 trust= 0.9975 purity= 0.9625 rankcorr= 0.8277 score= 0.8080
+  base10_qpu_calibrated_probability_family_mean_128        overlap= 0.6250 trust= 0.9975 purity= 0.9599 rankcorr= 0.8175 score= 0.8044
+  random_gaussian_mean_128                                 overlap= 0.6205 trust= 0.9981 purity= 0.9642 rankcorr= 0.8148 score= 0.8031
+  base10_uncalibrated_probability_single                   overlap= 0.5716 trust= 0.9986 purity= 0.9664 rankcorr= 0.8960 score= 0.7897
+  pca_projection                                           overlap= 0.4395 trust= 0.9986 purity= 0.9584 rankcorr= 0.8206 score= 0.7211
+  base10_qpu_calibrated_dominant_family_worst_128          overlap= 0.4212 trust= 0.9239 purity= 0.7417 rankcorr= 0.7439 score= 0.6432
+  base10_uncalibrated_probability_family_worst_128         overlap= 0.3884 trust= 0.8881 purity= 0.6914 rankcorr= 0.7505 score= 0.6101
+  base10_qpu_calibrated_probability_family_worst_128       overlap= 0.3678 trust= 0.9692 purity= 0.8775 rankcorr= 0.7515 score= 0.6585
+  random_orthogonal_worst_128                              overlap= 0.3496 trust= 0.9303 purity= 0.8077 rankcorr= 0.7013 score= 0.6216
+  base10_uncalibrated_dominant_family_worst_128            overlap= 0.3028 trust= 0.9842 purity= 0.8774 rankcorr= 0.6122 score= 0.6190
+  random_sparse_achlioptas_worst_128                       overlap= 0.2505 trust= 0.9910 purity= 0.9235 rankcorr= 0.8023 score= 0.6254
+  random_gaussian_worst_128                                overlap= 0.2359 trust= 0.9740 purity= 0.9878 rankcorr= 0.8574 score= 0.6329
+
+[DATASET] sparse_binary
+  base10_qpu_calibrated_probability_family_best_128        overlap= 0.0990 trust= 0.9024 purity= 0.9122 rankcorr= 0.5269 score= 0.5053
+  base10_uncalibrated_probability_family_best_128          overlap= 0.0927 trust= 0.8964 purity= 0.8954 rankcorr= 0.5070 score= 0.4956
+  base10_qpu_calibrated_dominant_family_best_128           overlap= 0.0925 trust= 0.8849 purity= 0.8564 rankcorr= 0.5074 score= 0.4849
+  base10_uncalibrated_dominant_single                      overlap= 0.0881 trust= 0.8643 purity= 0.8095 rankcorr= 0.4622 score= 0.4639
+  base10_uncalibrated_dominant_family_best_128             overlap= 0.0866 trust= 0.8954 purity= 0.8916 rankcorr= 0.5516 score= 0.4963
+  base10_qpu_calibrated_dominant_single                    overlap= 0.0848 trust= 0.8089 purity= 0.6932 rankcorr= 0.3974 score= 0.4188
+  base10_uncalibrated_dominant_family_mean_128             overlap= 0.0836 trust= 0.8465 purity= 0.7811 rankcorr= 0.4150 score= 0.4469
+  base10_uncalibrated_probability_single                   overlap= 0.0785 trust= 0.8340 purity= 0.7884 rankcorr= 0.3440 score= 0.4359
+  random_sparse_achlioptas_best_128                        overlap= 0.0778 trust= 0.8748 purity= 0.8464 rankcorr= 0.5112 score= 0.4741
+  base10_qpu_calibrated_dominant_family_mean_128           overlap= 0.0766 trust= 0.8273 purity= 0.7463 rankcorr= 0.3987 score= 0.4304
+  base10_uncalibrated_probability_family_mean_128          overlap= 0.0758 trust= 0.8247 purity= 0.7416 rankcorr= 0.3981 score= 0.4284
+  random_orthogonal_best_128                               overlap= 0.0718 trust= 0.9045 purity= 0.9144 rankcorr= 0.5688 score= 0.4982
+  base10_qpu_calibrated_probability_family_mean_128        overlap= 0.0711 trust= 0.8173 purity= 0.7290 rankcorr= 0.3980 score= 0.4219
+  base10_uncalibrated_dominant_family_worst_128            overlap= 0.0709 trust= 0.7618 purity= 0.6073 rankcorr= 0.3184 score= 0.3757
+  random_gaussian_best_128                                 overlap= 0.0698 trust= 0.8825 purity= 0.8668 rankcorr= 0.5574 score= 0.4811
+  base10_qpu_calibrated_dominant_family_worst_128          overlap= 0.0682 trust= 0.7447 purity= 0.5565 rankcorr= 0.3094 score= 0.3591
+  base10_qpu_calibrated_probability_single                 overlap= 0.0650 trust= 0.7597 purity= 0.6028 rankcorr= 0.3750 score= 0.3772
+  random_orthogonal_mean_128                               overlap= 0.0636 trust= 0.8105 purity= 0.7192 rankcorr= 0.4065 score= 0.4157
+  random_gaussian_mean_128                                 overlap= 0.0627 trust= 0.8075 purity= 0.7132 rankcorr= 0.4004 score= 0.4128
+  base10_qpu_calibrated_probability_family_worst_128       overlap= 0.0608 trust= 0.7348 purity= 0.5504 rankcorr= 0.3191 score= 0.3530
+  random_sparse_achlioptas_mean_128                        overlap= 0.0597 trust= 0.8135 purity= 0.7242 rankcorr= 0.4038 score= 0.4154
+  secret_seed_single                                       overlap= 0.0539 trust= 0.7684 purity= 0.6331 rankcorr= 0.2854 score= 0.3715
+  base10_uncalibrated_probability_family_worst_128         overlap= 0.0528 trust= 0.7252 purity= 0.5563 rankcorr= 0.2787 score= 0.3442
+  random_gaussian_worst_128                                overlap= 0.0511 trust= 0.7023 purity= 0.4921 rankcorr= 0.3021 score= 0.3272
+  base10_qpu_state_scheduler                               overlap= 0.0499 trust= 0.7568 purity= 0.6104 rankcorr= 0.3506 score= 0.3688
+  dm_static_composite_dm_channel                           overlap= 0.0493 trust= 0.7764 purity= 0.6564 rankcorr= 0.3363 score= 0.3812
+  random_orthogonal_worst_128                              overlap= 0.0475 trust= 0.7268 purity= 0.5693 rankcorr= 0.2852 score= 0.3455
+  dm_static_symmetry_boundary_channel                      overlap= 0.0461 trust= 0.8086 purity= 0.7416 rankcorr= 0.3101 score= 0.4022
+  dm_static_collapse_channel                               overlap= 0.0461 trust= 0.8086 purity= 0.7416 rankcorr= 0.3071 score= 0.4020
+  dm_static_local_order_channel                            overlap= 0.0461 trust= 0.8086 purity= 0.7416 rankcorr= 0.3064 score= 0.4019
+  dm_static_rank_spread_channel                            overlap= 0.0461 trust= 0.8086 purity= 0.7416 rankcorr= 0.3060 score= 0.4018
+  dm_static_mutation_channel                               overlap= 0.0461 trust= 0.8086 purity= 0.7416 rankcorr= 0.2998 score= 0.4012
+  random_sparse_achlioptas_worst_128                       overlap= 0.0440 trust= 0.7112 purity= 0.4898 rankcorr= 0.3073 score= 0.3263
+  pca_projection                                           overlap= 0.0415 trust= 0.9326 purity= 1.0000 rankcorr= 0.7343 score= 0.5253
+  random_shuffle_crop                                      overlap= 0.0121 trust= 0.7373 purity= 0.5323 rankcorr= 0.4120 score= 0.3375
+  random_sign_flip_crop                                    overlap= 0.0102 trust= 0.7031 purity= 0.5581 rankcorr= 0.2210 score= 0.3141
+
+[OVERALL RANKING]
+  01. base10_uncalibrated_dominant_family_best_128             overlap= 0.5602 trust= 0.9784 purity= 0.9681 rankcorr= 0.8734 score= 0.7776
+  02. random_sparse_achlioptas_best_128                        overlap= 0.5593 trust= 0.9742 purity= 0.9596 rankcorr= 0.8654 score= 0.7737
+  03. base10_qpu_calibrated_dominant_family_best_128           overlap= 0.5567 trust= 0.9762 purity= 0.9609 rankcorr= 0.8855 score= 0.7753
+  04. base10_qpu_calibrated_probability_family_best_128        overlap= 0.5530 trust= 0.9797 purity= 0.9726 rankcorr= 0.8710 score= 0.7754
+  05. base10_uncalibrated_probability_family_best_128          overlap= 0.5496 trust= 0.9784 purity= 0.9692 rankcorr= 0.8746 score= 0.7732
+  06. random_gaussian_best_128                                 overlap= 0.5461 trust= 0.9757 purity= 0.9632 rankcorr= 0.8917 score= 0.7715
+  07. random_orthogonal_best_128                               overlap= 0.5401 trust= 0.9800 purity= 0.9734 rankcorr= 0.8821 score= 0.7709
+  08. random_shuffle_crop                                      overlap= 0.4833 trust= 0.9461 purity= 0.8971 rankcorr= 0.7701 score= 0.7104
+  09. random_sign_flip_crop                                    overlap= 0.4738 trust= 0.9379 purity= 0.8997 rankcorr= 0.7589 score= 0.7035
+  10. base10_uncalibrated_dominant_single                      overlap= 0.4511 trust= 0.9699 purity= 0.9499 rankcorr= 0.8320 score= 0.7186
+  11. secret_seed_single                                       overlap= 0.4376 trust= 0.9515 purity= 0.9159 rankcorr= 0.7531 score= 0.6933
+  12. dm_static_composite_dm_channel                           overlap= 0.4247 trust= 0.9526 purity= 0.9156 rankcorr= 0.7264 score= 0.6850
+  13. base10_qpu_calibrated_dominant_single                    overlap= 0.4184 trust= 0.9596 purity= 0.9241 rankcorr= 0.7187 score= 0.6849
+  14. base10_qpu_state_scheduler                               overlap= 0.4099 trust= 0.9476 purity= 0.9085 rankcorr= 0.8084 score= 0.6839
+  15. dm_static_symmetry_boundary_channel                      overlap= 0.4073 trust= 0.9575 purity= 0.9297 rankcorr= 0.7508 score= 0.6837
+  16. dm_static_collapse_channel                               overlap= 0.4073 trust= 0.9575 purity= 0.9297 rankcorr= 0.7500 score= 0.6836
+  17. dm_static_mutation_channel                               overlap= 0.4073 trust= 0.9575 purity= 0.9297 rankcorr= 0.7496 score= 0.6836
+  18. dm_static_local_order_channel                            overlap= 0.4073 trust= 0.9575 purity= 0.9297 rankcorr= 0.7491 score= 0.6835
+  19. dm_static_rank_spread_channel                            overlap= 0.4073 trust= 0.9575 purity= 0.9297 rankcorr= 0.7476 score= 0.6834
+  20. base10_uncalibrated_dominant_family_mean_128             overlap= 0.4022 trust= 0.9648 purity= 0.9388 rankcorr= 0.7805 score= 0.6880
+  21. base10_uncalibrated_probability_family_mean_128          overlap= 0.3963 trust= 0.9600 purity= 0.9312 rankcorr= 0.7742 score= 0.6820
+  22. base10_qpu_calibrated_dominant_family_mean_128           overlap= 0.3918 trust= 0.9603 purity= 0.9297 rankcorr= 0.7724 score= 0.6796
+  23. random_orthogonal_mean_128                               overlap= 0.3900 trust= 0.9570 purity= 0.9256 rankcorr= 0.7748 score= 0.6774
+  24. base10_qpu_calibrated_probability_family_mean_128        overlap= 0.3896 trust= 0.9587 purity= 0.9284 rankcorr= 0.7679 score= 0.6775
+  25. random_sparse_achlioptas_mean_128                        overlap= 0.3891 trust= 0.9578 purity= 0.9279 rankcorr= 0.7778 score= 0.6779
+  26. random_gaussian_mean_128                                 overlap= 0.3831 trust= 0.9564 purity= 0.9253 rankcorr= 0.7710 score= 0.6737
+  27. base10_qpu_calibrated_probability_single                 overlap= 0.3811 trust= 0.9475 purity= 0.9083 rankcorr= 0.8046 score= 0.6705
+  28. base10_uncalibrated_probability_single                   overlap= 0.3711 trust= 0.9634 purity= 0.9456 rankcorr= 0.8110 score= 0.6781
+  29. pca_projection                                           overlap= 0.2605 trust= 0.9784 purity= 0.9832 rankcorr= 0.7773 score= 0.6362
+  30. base10_uncalibrated_dominant_family_worst_128            overlap= 0.2289 trust= 0.9019 purity= 0.7786 rankcorr= 0.6401 score= 0.5482
+  31. base10_uncalibrated_probability_family_worst_128         overlap= 0.2281 trust= 0.8742 purity= 0.7356 rankcorr= 0.6276 score= 0.5311
+  32. base10_qpu_calibrated_probability_family_worst_128       overlap= 0.2122 trust= 0.9084 purity= 0.7994 rankcorr= 0.6539 score= 0.5479
+  33. random_orthogonal_worst_128                              overlap= 0.2053 trust= 0.8958 purity= 0.7809 rankcorr= 0.6059 score= 0.5331
+  34. base10_qpu_calibrated_dominant_family_worst_128          overlap= 0.1974 trust= 0.9104 purity= 0.7938 rankcorr= 0.6213 score= 0.5373
+  35. random_sparse_achlioptas_worst_128                       overlap= 0.1712 trust= 0.9234 purity= 0.8470 rankcorr= 0.6764 score= 0.5449
+  36. random_gaussian_worst_128                                overlap= 0.1582 trust= 0.8883 purity= 0.7650 rankcorr= 0.6340 score= 0.5097
+
+================================================================================================
+  D_M PROBE 05 COMPLETE
+================================================================================================
+  Report       : C:\D_M\probes\analyze\dm_probe_05_base10_state_selector_20260606_135723\dm_probe_05_report.md
+  Results CSV  : C:\D_M\probes\analyze\dm_probe_05_base10_state_selector_20260606_135723\dm_probe_05_results.csv
+  Summary CSV  : C:\D_M\probes\analyze\dm_probe_05_base10_state_selector_20260606_135723\dm_probe_05_method_summary.csv
+  Trace CSV    : C:\D_M\probes\analyze\dm_probe_05_base10_state_selector_20260606_135723\dm_probe_05_variant_trace.csv
+  Diagnostics  : C:\D_M\probes\analyze\dm_probe_05_base10_state_selector_20260606_135723\dm_probe_05_base10_diagnostics.csv
+  Config JSON  : C:\D_M\probes\analyze\dm_probe_05_base10_state_selector_20260606_135723\dm_probe_05_config.json
+  Calibration  : C:\D_M\probes\analyze\dm_probe_05_base10_state_selector_20260606_135723\dm_probe_05_calibration_profile.json
+================================================================================================
+
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/06_dm_probe_single_calibrated_projector.py
+
+================================================================================================
+  GHOST ORACLE SUITE — D_M PROBE 06: FREQUENCY BASE-10 SEED PROJECTOR
+================================================================================================
+  QPU base      : C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fm4ihvjngc73aq3ccg.npz
+  Out dir       : C:\D_M\probes\analyze\dm_probe_06_frequency_base10_seed_projector_20260606_155106
+  Job ID        : d8fm4ihvjngc73aq3ccg
+  Backend       : ibm_marrakesh
+  Datasets      : ['blobs', 'rings', 'swiss_roll_like', 's_curve_like', 'sparse_binary']
+  n             : 5000
+  input_dim     : 64
+  output_dim    : 4
+  k             : 10
+  random_trials : 128
+  master_seed   : 108737401079290925213630665238746845068
+  seed_source   : secrets.randbits(128)
+
+[SCOPE]
+  ONE D_M projector only.
+  Frequency/base-10 stepping enabled.
+  Seed folded as active dimensional channel.
+  No D_M channels.
+  No D_M scheduler.
+  No D_M family-best.
+
+[DATASET] blobs
+  random_gaussian_best_128                   overlap= 0.4491 trust= 0.9976 purity= 0.9985 rankcorr= 0.9622 score= 0.7474
+  random_sparse_achlioptas_best_128          overlap= 0.4409 trust= 0.9974 purity= 0.9986 rankcorr= 0.9973 score= 0.7472
+  random_orthogonal_best_128                 overlap= 0.4076 trust= 0.9968 purity= 0.9985 rankcorr= 0.9512 score= 0.7274
+  random_shuffle_crop                        overlap= 0.3665 trust= 0.9961 purity= 0.9985 rankcorr= 0.8653 score= 0.7002
+  dm_frequency_base10_seed_projector         overlap= 0.2769 trust= 0.9902 purity= 0.9977 rankcorr= 0.9233 score= 0.6640
+  random_sign_flip_crop                      overlap= 0.2755 trust= 0.9932 purity= 0.9985 rankcorr= 0.9293 score= 0.6649
+  random_gaussian_mean_128                   overlap= 0.2250 trust= 0.9856 purity= 0.9964 rankcorr= 0.9162 score= 0.6386
+  random_gaussian_single                     overlap= 0.2208 trust= 0.9858 purity= 0.9977 rankcorr= 0.8656 score= 0.6319
+  random_sparse_achlioptas_mean_128          overlap= 0.2202 trust= 0.9853 purity= 0.9964 rankcorr= 0.9119 score= 0.6359
+  random_orthogonal_mean_128                 overlap= 0.2147 trust= 0.9854 purity= 0.9971 rankcorr= 0.9102 score= 0.6334
+  random_orthogonal_worst_128                overlap= 0.1100 trust= 0.9534 purity= 0.9867 rankcorr= 0.7061 score= 0.5558
+  pca_projection                             overlap= 0.0570 trust= 0.9620 purity= 0.9969 rankcorr= 0.6687 score= 0.5324
+  random_sparse_achlioptas_worst_128         overlap= 0.0509 trust= 0.9275 purity= 0.9425 rankcorr= 0.7740 score= 0.5207
+  random_gaussian_worst_128                  overlap= 0.0425 trust= 0.9219 purity= 0.9451 rankcorr= 0.6073 score= 0.4994
+
+[DATASET] rings
+  random_orthogonal_best_128                 overlap= 0.5618 trust= 0.9989 purity= 1.0000 rankcorr= 0.9927 score= 0.8018
+  random_gaussian_best_128                   overlap= 0.5574 trust= 0.9988 purity= 1.0000 rankcorr= 0.9245 score= 0.7930
+  random_sparse_achlioptas_best_128          overlap= 0.5325 trust= 0.9986 purity= 1.0000 rankcorr= 0.9890 score= 0.7882
+  random_sign_flip_crop                      overlap= 0.3886 trust= 0.9961 purity= 1.0000 rankcorr= 0.9690 score= 0.7208
+  random_sparse_achlioptas_mean_128          overlap= 0.3410 trust= 0.9930 purity= 0.9849 rankcorr= 0.9103 score= 0.6897
+  random_gaussian_mean_128                   overlap= 0.3374 trust= 0.9938 purity= 0.9881 rankcorr= 0.9107 score= 0.6890
+  random_orthogonal_mean_128                 overlap= 0.3356 trust= 0.9925 purity= 0.9836 rankcorr= 0.9063 score= 0.6865
+  random_shuffle_crop                        overlap= 0.3324 trust= 0.9954 purity= 1.0000 rankcorr= 0.9654 score= 0.6949
+  random_gaussian_single                     overlap= 0.3046 trust= 0.9942 purity= 0.9976 rankcorr= 0.8835 score= 0.6735
+  dm_frequency_base10_seed_projector         overlap= 0.2607 trust= 0.9926 purity= 0.9797 rankcorr= 0.8605 score= 0.6474
+  random_sparse_achlioptas_worst_128         overlap= 0.1921 trust= 0.9490 purity= 0.7801 rankcorr= 0.7466 score= 0.5544
+  pca_projection                             overlap= 0.1635 trust= 0.9813 purity= 0.9409 rankcorr= 0.6724 score= 0.5743
+  random_orthogonal_worst_128                overlap= 0.1567 trust= 0.9014 purity= 0.6952 rankcorr= 0.6355 score= 0.4985
+  random_gaussian_worst_128                  overlap= 0.1056 trust= 0.9468 purity= 0.7827 rankcorr= 0.6334 score= 0.5041
+
+[DATASET] swiss_roll_like
+  random_sparse_achlioptas_best_128          overlap= 0.8485 trust= 0.9999 purity= 0.9744 rankcorr= 0.9599 score= 0.9227
+  random_gaussian_best_128                   overlap= 0.8186 trust= 0.9998 purity= 0.9701 rankcorr= 0.9518 score= 0.9075
+  random_orthogonal_best_128                 overlap= 0.8086 trust= 0.9998 purity= 0.9736 rankcorr= 0.9389 score= 0.9024
+  random_sign_flip_crop                      overlap= 0.7466 trust= 0.9996 purity= 0.9741 rankcorr= 0.8018 score= 0.8609
+  random_gaussian_single                     overlap= 0.7090 trust= 0.9995 purity= 0.9633 rankcorr= 0.8803 score= 0.8496
+  random_shuffle_crop                        overlap= 0.7030 trust= 0.9994 purity= 0.9737 rankcorr= 0.7956 score= 0.8405
+  random_sparse_achlioptas_mean_128          overlap= 0.6469 trust= 0.9968 purity= 0.9531 rankcorr= 0.8380 score= 0.8147
+  random_orthogonal_mean_128                 overlap= 0.6443 trust= 0.9962 purity= 0.9533 rankcorr= 0.8239 score= 0.8121
+  random_gaussian_mean_128                   overlap= 0.6403 trust= 0.9971 purity= 0.9585 rankcorr= 0.8246 score= 0.8116
+  pca_projection                             overlap= 0.4982 trust= 0.9990 purity= 0.9623 rankcorr= 0.8859 score= 0.7550
+  random_sparse_achlioptas_worst_128         overlap= 0.3993 trust= 0.9087 purity= 0.7370 rankcorr= 0.7529 score= 0.6296
+  dm_frequency_base10_seed_projector         overlap= 0.3812 trust= 0.9935 purity= 0.9297 rankcorr= 0.8058 score= 0.6864
+  random_gaussian_worst_128                  overlap= 0.3487 trust= 0.9349 purity= 0.8020 rankcorr= 0.6618 score= 0.6172
+  random_orthogonal_worst_128                overlap= 0.2784 trust= 0.9839 purity= 0.8184 rankcorr= 0.7789 score= 0.6128
+
+[DATASET] s_curve_like
+  random_sparse_achlioptas_best_128          overlap= 0.8400 trust= 0.9999 purity= 0.9752 rankcorr= 0.9117 score= 0.9142
+  random_gaussian_best_128                   overlap= 0.8302 trust= 0.9998 purity= 0.9713 rankcorr= 0.9434 score= 0.9121
+  random_shuffle_crop                        overlap= 0.8135 trust= 0.9998 purity= 0.9751 rankcorr= 0.9637 score= 0.9074
+  random_orthogonal_best_128                 overlap= 0.7967 trust= 0.9998 purity= 0.9728 rankcorr= 0.9466 score= 0.8977
+  random_sign_flip_crop                      overlap= 0.7894 trust= 0.9998 purity= 0.9768 rankcorr= 0.9406 score= 0.8946
+  random_orthogonal_mean_128                 overlap= 0.6559 trust= 0.9982 purity= 0.9620 rankcorr= 0.8204 score= 0.8191
+  random_sparse_achlioptas_mean_128          overlap= 0.6528 trust= 0.9972 purity= 0.9577 rankcorr= 0.8266 score= 0.8173
+  random_gaussian_mean_128                   overlap= 0.6503 trust= 0.9966 purity= 0.9584 rankcorr= 0.8160 score= 0.8151
+  random_gaussian_single                     overlap= 0.5897 trust= 0.9899 purity= 0.8900 rankcorr= 0.6745 score= 0.7583
+  random_sparse_achlioptas_worst_128         overlap= 0.4118 trust= 0.9782 purity= 0.8570 rankcorr= 0.5877 score= 0.6600
+  random_orthogonal_worst_128                overlap= 0.3781 trust= 0.9951 purity= 0.9707 rankcorr= 0.6854 score= 0.6816
+  dm_frequency_base10_seed_projector         overlap= 0.3519 trust= 0.9874 purity= 0.8895 rankcorr= 0.7679 score= 0.6599
+  random_gaussian_worst_128                  overlap= 0.2649 trust= 0.9035 purity= 0.7818 rankcorr= 0.6781 score= 0.5693
+  pca_projection                             overlap= 0.2210 trust= 0.9950 purity= 0.9385 rankcorr= 0.8372 score= 0.6196
+
+[DATASET] sparse_binary
+  random_gaussian_best_128                   overlap= 0.0823 trust= 0.8943 purity= 0.8965 rankcorr= 0.5373 score= 0.4937
+  random_orthogonal_best_128                 overlap= 0.0778 trust= 0.9058 purity= 0.9280 rankcorr= 0.5239 score= 0.4994
+  random_gaussian_single                     overlap= 0.0760 trust= 0.8531 purity= 0.8191 rankcorr= 0.4409 score= 0.4554
+  random_sparse_achlioptas_best_128          overlap= 0.0716 trust= 0.8934 purity= 0.8898 rankcorr= 0.5464 score= 0.4882
+  random_orthogonal_mean_128                 overlap= 0.0664 trust= 0.8081 purity= 0.7147 rankcorr= 0.4048 score= 0.4153
+  random_gaussian_mean_128                   overlap= 0.0663 trust= 0.8101 purity= 0.7192 rankcorr= 0.4035 score= 0.4166
+  random_sparse_achlioptas_mean_128          overlap= 0.0621 trust= 0.8121 purity= 0.7220 rankcorr= 0.4030 score= 0.4157
+  random_gaussian_worst_128                  overlap= 0.0560 trust= 0.7012 purity= 0.4983 rankcorr= 0.3282 score= 0.3330
+  random_orthogonal_worst_128                overlap= 0.0534 trust= 0.7020 purity= 0.5088 rankcorr= 0.2521 score= 0.3265
+  dm_frequency_base10_seed_projector         overlap= 0.0466 trust= 0.7412 purity= 0.5733 rankcorr= 0.3044 score= 0.3514
+  random_sparse_achlioptas_worst_128         overlap= 0.0443 trust= 0.6662 purity= 0.4378 rankcorr= 0.2130 score= 0.2953
+  pca_projection                             overlap= 0.0401 trust= 0.9321 purity= 0.9998 rankcorr= 0.7284 score= 0.5239
+  random_sign_flip_crop                      overlap= 0.0125 trust= 0.7836 purity= 0.6401 rankcorr= 0.5203 score= 0.3816
+  random_shuffle_crop                        overlap= 0.0114 trust= 0.7510 purity= 0.5574 rankcorr= 0.4477 score= 0.3491
+
+[OVERALL RANKING]
+  01. random_gaussian_best_128                   overlap= 0.5475 trust= 0.9781 purity= 0.9673 rankcorr= 0.8639 score= 0.7707
+  02. random_sparse_achlioptas_best_128          overlap= 0.5467 trust= 0.9778 purity= 0.9676 rankcorr= 0.8809 score= 0.7721
+  03. random_orthogonal_best_128                 overlap= 0.5305 trust= 0.9802 purity= 0.9746 rankcorr= 0.8707 score= 0.7658
+  04. random_shuffle_crop                        overlap= 0.4454 trust= 0.9483 purity= 0.9009 rankcorr= 0.8076 score= 0.6984
+  05. random_sign_flip_crop                      overlap= 0.4425 trust= 0.9545 purity= 0.9179 rankcorr= 0.8322 score= 0.7046
+  06. random_sparse_achlioptas_mean_128          overlap= 0.3846 trust= 0.9569 purity= 0.9228 rankcorr= 0.7780 score= 0.6747
+  07. random_gaussian_mean_128                   overlap= 0.3838 trust= 0.9567 purity= 0.9241 rankcorr= 0.7742 score= 0.6741
+  08. random_orthogonal_mean_128                 overlap= 0.3834 trust= 0.9561 purity= 0.9221 rankcorr= 0.7731 score= 0.6733
+  09. random_gaussian_single                     overlap= 0.3800 trust= 0.9645 purity= 0.9335 rankcorr= 0.7490 score= 0.6737
+  10. dm_frequency_base10_seed_projector         overlap= 0.2634 trust= 0.9410 purity= 0.8740 rankcorr= 0.7324 score= 0.6018
+  11. random_sparse_achlioptas_worst_128         overlap= 0.2197 trust= 0.8859 purity= 0.7509 rankcorr= 0.6148 score= 0.5320
+  12. pca_projection                             overlap= 0.1960 trust= 0.9739 purity= 0.9677 rankcorr= 0.7585 score= 0.6010
+  13. random_orthogonal_worst_128                overlap= 0.1953 trust= 0.9071 purity= 0.7960 rankcorr= 0.6116 score= 0.5350
+  14. random_gaussian_worst_128                  overlap= 0.1636 trust= 0.8817 purity= 0.7620 rankcorr= 0.5818 score= 0.5046
+
+================================================================================================
+  D_M PROBE 06 COMPLETE
+================================================================================================
+  Report      : C:\D_M\probes\analyze\dm_probe_06_frequency_base10_seed_projector_20260606_155106\dm_probe_06_report.md
+  Results CSV : C:\D_M\probes\analyze\dm_probe_06_frequency_base10_seed_projector_20260606_155106\dm_probe_06_results.csv
+  Summary CSV : C:\D_M\probes\analyze\dm_probe_06_frequency_base10_seed_projector_20260606_155106\dm_probe_06_method_summary.csv
+  Trials CSV  : C:\D_M\probes\analyze\dm_probe_06_frequency_base10_seed_projector_20260606_155106\dm_probe_06_random_trials.csv
+  Config JSON : C:\D_M\probes\analyze\dm_probe_06_frequency_base10_seed_projector_20260606_155106\dm_probe_06_config.json
+  Calibration : C:\D_M\probes\analyze\dm_probe_06_frequency_base10_seed_projector_20260606_155106\dm_probe_06_calibration_profile.json
+================================================================================================
+
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/07_dm_probe_bell_listener.py
+================================================================================================
+  GHOST ORACLE SUITE — D_M PROBE 07: BELL LISTENER / CAVITY OFFSET
+================================================================================================
+  Input     : C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fl82bo3njc73f0fgd0.npz
+  Backend   : ibm_marrakesh
+  Job ID    : d8fl82bo3njc73f0fgd0
+  Tiles     : 20  Shots: 4096
+  Repaired  : False  offset_step_dt=128
+  Out dir   : C:\D_M\probes\analyze\dm_probe_07_bell_listener_20260606_165915
+------------------------------------------------------------------------------------------------
+  PER-TILE CORRELATORS
+  tile 00 rung=00 XY base=     0 off=     0 total=     0 corr=+0.01758 conn=+0.00060 z=  +0.33 p=0.7886
+  tile 01 rung=00 YZ base=     0 off=   128 total=   128 corr=+0.01074 conn=+0.01033 z=  +0.68 p=0.5087
+  tile 02 rung=00 ZY base=     0 off=   256 total=   256 corr=-0.00488 conn=-0.00475 z=  -0.27 p=0.8032
+  tile 03 rung=00 YX base=     0 off=   384 total=   384 corr=-0.08594 conn=+0.00085 z=  +0.27 p=0.8870
+  tile 04 rung=01 XY base=   256 off=   512 total=   768 corr=-0.18457 conn=-0.00301 z=  -0.52 p=0.6077
+  tile 05 rung=01 YZ base=   256 off=   640 total=   896 corr=+0.00684 conn=+0.01750 z=  +1.14 p=0.2619
+  tile 06 rung=01 ZY base=   256 off=   768 total=  1024 corr=+0.04053 conn=+0.03984 z=  +2.57 p=0.0106
+  tile 07 rung=01 YX base=   256 off=   896 total=  1152 corr=+0.00195 conn=+0.00364 z=  +0.48 p=0.6655
+  tile 08 rung=02 XY base=  1024 off=  1024 total=  2048 corr=-0.54590 conn=-0.02972 z=  -5.12 p=0.0002
+  tile 09 rung=02 YZ base=  1024 off=  1152 total=  2176 corr=+0.17041 conn=+0.08596 z=  +8.00 p=0.0002
+  tile 10 rung=02 ZY base=  1024 off=  1280 total=  2304 corr=+0.04883 conn=+0.07548 z=  +5.03 p=0.0002
+  tile 11 rung=02 YX base=  1024 off=  1408 total=  2432 corr=-0.00977 conn=-0.00832 z=  -0.53 p=0.6123
+  tile 12 rung=03 XY base=  4096 off=  1536 total=  5632 corr=-0.10840 conn=-0.00358 z=  -0.26 p=0.8108
+  tile 13 rung=03 YZ base=  4096 off=  1664 total=  5760 corr=+0.01025 conn=+0.07505 z=  +5.36 p=0.0002
+  tile 14 rung=03 ZY base=  4096 off=  1792 total=  5888 corr=+0.24658 conn=+0.25495 z= +16.52 p=0.0002
+  tile 15 rung=03 YX base=  4096 off=  1920 total=  6016 corr=-0.18896 conn=-0.02708 z=  -2.26 p=0.0264
+  tile 16 rung=04 XY base= 16384 off=  2048 total= 18432 corr=+0.00537 conn=-0.00335 z=  -0.25 p=0.8202
+  tile 17 rung=04 YZ base= 16384 off=  2176 total= 18560 corr=+0.03027 conn=+0.09631 z=  +6.95 p=0.0002
+  tile 18 rung=04 ZY base= 16384 off=  2304 total= 18688 corr=-0.33398 conn=-0.31300 z= -21.72 p=0.0002
+  tile 19 rung=04 YX base= 16384 off=  2432 total= 18816 corr=+0.02686 conn=+0.01344 z=  +0.91 p=0.3757
+------------------------------------------------------------------------------------------------
+  RUNG BELL-WITNESS BLOCK SCORES
+  rung 00 base=     0 rms=0.04425 conn_rms=0.00571 XY=+0.01758 YZ=+0.01074 ZY=-0.00488 YX=-0.08594 z=-0.64 p=0.5037
+  rung 01 base=   256 rms=0.09455 conn_rms=0.02188 XY=-0.18457 YZ=+0.00684 ZY=+0.04053 YX=+0.00195 z=+0.98 p=0.3313
+  rung 02 base=  1024 rms=0.28702 conn_rms=0.05924 XY=-0.54590 YZ=+0.17041 ZY=+0.04883 YX=-0.00977 z=+8.27 p=0.0002
+  rung 03 base=  4096 rms=0.16459 conn_rms=0.13358 XY=-0.10840 YZ=+0.01025 ZY=+0.24658 YX=-0.18896 z=+9.85 p=0.0002
+  rung 04 base= 16384 rms=0.16824 conn_rms=0.16389 XY=+0.00537 YZ=+0.03027 ZY=-0.33398 YX=+0.02686 z=+18.99 p=0.0002
+------------------------------------------------------------------------------------------------
+  GLOBAL
+  complete_rungs                 : 5
+  global_bell_rms_raw_mean       : 0.151731
+  global_bell_rms_raw_max        : 0.287021
+  global_bell_rms_connected_mean : 0.076861
+  global_bell_rms_connected_max  : 0.163886
+  base_delay raw tracking r,p    : +0.6469, 0.2557
+  base_delay conn tracking r,p   : +0.8569, 0.0316
+  total_delay raw tracking r,p   : +0.5633, 0.3053
+  total_delay conn tracking r,p  : +0.9530, 0.0178
+------------------------------------------------------------------------------------------------
+  CONTROLS
+  rung_label_shuffle                       obs=0.002505064010620117 p=0.09858028394321136
+  offset_tracking_base_delay_raw           obs=0.6468793899169775 p=0.25574885022995403
+  offset_tracking_base_delay_connected     obs=0.8568841490731208 p=0.03159368126374725
+  offset_tracking_total_delay_raw          obs=0.5632749629314968 p=0.3053389322135573
+  offset_tracking_total_delay_connected    obs=0.9530166959185625 p=0.01779644071185763
+------------------------------------------------------------------------------------------------
+  [SAVED] C:\D_M\probes\analyze\dm_probe_07_bell_listener_20260606_165915
+================================================================================================
+
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/08_dm_probe_directional_witness.py
+====================================================================================================
+  GHOST ORACLE SUITE — D_M PROBE 08: DIRECTIONAL YZ / ZY WITNESS LOCK
+====================================================================================================
+  Input     : C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fl82bo3njc73f0fgd0.npz
+  Backend   : ibm_marrakesh
+  Job ID    : d8fl82bo3njc73f0fgd0
+  Tiles     : 20  Shots: 4096
+  Repaired  : False  offset_step_dt=128
+  Out dir   : C:\D_M\probes\analyze\dm_probe_08_directional_witness_20260606_170234
+----------------------------------------------------------------------------------------------------
+  RUNG DIRECTIONAL SCORES
+  rung 00 base=     0 total=   192.0 YZ=+0.01033 ZY=-0.00475 energy=0.00804 inv=+0.00005 gap=+0.01508 spec=+0.00730 inverted=True
+  rung 01 base=   256 total=   960.0 YZ=+0.01750 ZY=+0.03984 energy=0.03077 inv=-0.00070 gap=-0.02234 spec=+0.02743 inverted=False
+  rung 02 base=  1024 total=  2240.0 YZ=+0.08596 ZY=+0.07548 energy=0.08089 inv=-0.00649 gap=+0.01048 spec=+0.05907 inverted=False
+  rung 03 base=  4096 total=  5824.0 YZ=+0.07505 ZY=+0.25495 energy=0.18793 inv=-0.01913 gap=-0.17991 spec=+0.16861 inverted=False
+  rung 04 base= 16384 total= 18624.0 YZ=+0.09631 ZY=-0.31300 energy=0.23156 inv=+0.03014 gap=+0.40930 spec=+0.22177 inverted=True
+----------------------------------------------------------------------------------------------------
+  GLOBAL DIRECTIONAL SUMMARY
+  complete_rungs                       : 5
+  YZ positive fraction                 : 1.0000
+  ZY inverted fraction vs YZ           : 0.4000
+  YZ primary mean                      : +0.057028
+  ZY return mean                       : +0.010506
+  YZ/ZY energy mean/max                : 0.107838 / 0.231563
+  directional specificity mean/max     : +0.096836 / +0.221769
+  total_delay YZ-primary tracking r,p  : +0.8886, 0.0346
+  total_delay ZY-return tracking r,p   : -0.3061, 0.6401
+  total_delay YZ/ZY energy r,p         : +0.9514, 0.0180
+  total_delay specificity r,p          : +0.9387, 0.0152
+  late rung YZ / ZY / inversion        : +0.096307 / -0.312998 / +0.030144
+----------------------------------------------------------------------------------------------------
+  CONTROLS
+  independent_bit_shuffle      yzzy_energy_mean                           obs=0.10783764968413952 z=30.934244030430037 p2=0.0001999600079984003 pup=0.0001999600079984003
+  independent_bit_shuffle      directional_specificity_mean               obs=0.09683586832090399 z=24.0160499205702 p2=0.0001999600079984003 pup=0.0001999600079984003
+  independent_bit_shuffle      total_delay_yzzy_energy_r                  obs=0.9513576059529316 z=1.9969448773969234 p2=0.005598880223955209 pup=0.005598880223955209
+  independent_bit_shuffle      total_delay_directional_specificity_r      obs=0.9386601789093584 z=3.585759389938654 p2=0.0003999200159968006 pup=0.0003999200159968006
+  witness_label_shuffle        yzzy_energy_mean                           obs=0.10783764968413952 z=1.7620663909009415 p2=0.03999200159968006 pup=0.0001999600079984003
+  witness_label_shuffle        directional_specificity_mean               obs=0.09683586832090399 z=2.0728304089583527 p2=0.0015996800639872025 pup=0.0001999600079984003
+  witness_label_shuffle        total_delay_yzzy_energy_r                  obs=0.9513576059529316 z=0.9823019169653113 p2=0.19696060787842432 pup=0.03559288142371526
+  witness_label_shuffle        total_delay_directional_specificity_r      obs=0.9386601789093584 z=1.4531671913030069 p2=0.04979004199160168 pup=0.011597680463907219
+  delay_order_permutation      total_delay_yz_primary_r                   obs=0.8885846792372742 z= p2=0.03459308138372325 pup=
+  delay_order_permutation      total_delay_zy_return_r                    obs=-0.3061239332092768 z= p2=0.6400719856028795 pup=
+  delay_order_permutation      total_delay_yzzy_energy_r                  obs=0.9513576059529316 z= p2=0.017996400719856028 pup=
+  delay_order_permutation      total_delay_directional_specificity_r      obs=0.9386601789093584 z= p2=0.015196960607878424 pup=
+----------------------------------------------------------------------------------------------------
+  [SAVED] C:\D_M\probes\analyze\dm_probe_08_directional_witness_20260606_170234
+====================================================================================================
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/09_dm_probe_pi_phase_witness.py
+========================================================================================================
+  GHOST ORACLE SUITE — D_M PROBE 09: π-PHASE / π-ADIC WITNESS
+========================================================================================================
+  Out dir     : C:\D_M\probes\analyze\dm_probe09_pi_phase_witness_20260606_170415
+  n_perm      : 5000
+  π-adic toy  : levels=1..7 (experimental / made-up)
+--------------------------------------------------------------------------------------------------------
+  CONDITION: offset_on
+    input      : C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fl82bo3njc73f0fgd0.npz
+    backend    : ibm_marrakesh  job=d8fl82bo3njc73f0fgd0
+    tiles/shots: 20 / 4096  repaired=False
+    offset_dt  : 128
+    rung phase rows:
+      rung 00 total=   192.0 YZ=+0.01033 ZY=-0.00475 R=-ZY=+0.00475 E=0.01137 phase=  24.69° spec=+0.00730
+      rung 01 total=   960.0 YZ=+0.01750 ZY=+0.03984 R=-ZY=-0.03984 E=0.04351 phase= 113.71° spec=+0.02743
+      rung 02 total=  2240.0 YZ=+0.08596 ZY=+0.07548 R=-ZY=-0.07548 E=0.11440 phase= 138.71° spec=+0.05907
+      rung 03 total=  5824.0 YZ=+0.07505 ZY=+0.25495 R=-ZY=-0.25495 E=0.26577 phase= 106.40° spec=+0.16861
+      rung 04 total= 18624.0 YZ=+0.09631 ZY=-0.31300 R=-ZY=+0.31300 E=0.32748 phase=  72.90° spec=+0.22177
+    summary:
+      energy tracking r,p       : +0.8779, 0.0078
+      specificity tracking r,p  : +0.9044, 0.0100
+      phase velocity r,p        : -0.1040, 0.8576
+      π-periodic score,p        : 0.9470, 0.2509 (log)
+      π-adic toy best score,p   : 0.8555, 0.4577 level=1 mode=log
+--------------------------------------------------------------------------------------------------------
+  CONDITION: offset_off
+    input      : C:\D_M\data\dm_data_bell_listener_cavity_offset_d8flk2jo3njc73f0g560.npz
+    backend    : ibm_marrakesh  job=d8flk2jo3njc73f0g560
+    tiles/shots: 20 / 4096  repaired=False
+    offset_dt  : 0
+    rung phase rows:
+      rung 00 total=     0.0 YZ=+0.03074 ZY=-0.01083 R=-ZY=+0.01083 E=0.03260 phase=  19.41° spec=+0.02155
+      rung 01 total=   256.0 YZ=+0.02837 ZY=-0.00195 R=-ZY=+0.00195 E=0.02843 phase=   3.94° spec=+0.01644
+      rung 02 total=  1024.0 YZ=+0.04470 ZY=+0.01807 R=-ZY=-0.01807 E=0.04821 phase= 157.99° spec=+0.01293
+      rung 03 total=  4096.0 YZ=+0.11521 ZY=+0.18237 R=-ZY=-0.18237 E=0.21572 phase= 122.28° spec=+0.12571
+      rung 04 total= 16384.0 YZ=+0.17798 ZY=-0.41870 R=-ZY=+0.41870 E=0.45496 phase=  66.97° spec=+0.29940
+    summary:
+      energy tracking r,p       : +0.9792, 0.0164
+      specificity tracking r,p  : +0.9843, 0.0498
+      phase velocity r,p        : -0.9351, 0.0100
+      π-periodic score,p        : 0.9841, 0.0240 (linear)
+      π-adic toy best score,p   : 0.8993, 0.3109 level=5 mode=log
+--------------------------------------------------------------------------------------------------------
+  CONDITION: single
+    input      : C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fl82bo3njc73f0fgd0.npz
+    backend    : ibm_marrakesh  job=d8fl82bo3njc73f0fgd0
+    tiles/shots: 20 / 4096  repaired=False
+    offset_dt  : 128
+    rung phase rows:
+      rung 00 total=   192.0 YZ=+0.01033 ZY=-0.00475 R=-ZY=+0.00475 E=0.01137 phase=  24.69° spec=+0.00730
+      rung 01 total=   960.0 YZ=+0.01750 ZY=+0.03984 R=-ZY=-0.03984 E=0.04351 phase= 113.71° spec=+0.02743
+      rung 02 total=  2240.0 YZ=+0.08596 ZY=+0.07548 R=-ZY=-0.07548 E=0.11440 phase= 138.71° spec=+0.05907
+      rung 03 total=  5824.0 YZ=+0.07505 ZY=+0.25495 R=-ZY=-0.25495 E=0.26577 phase= 106.40° spec=+0.16861
+      rung 04 total= 18624.0 YZ=+0.09631 ZY=-0.31300 R=-ZY=+0.31300 E=0.32748 phase=  72.90° spec=+0.22177
+    summary:
+      energy tracking r,p       : +0.8779, 0.0078
+      specificity tracking r,p  : +0.9044, 0.0100
+      phase velocity r,p        : -0.1040, 0.8576
+      π-periodic score,p        : 0.9470, 0.2509 (log)
+      π-adic toy best score,p   : 0.8555, 0.4577 level=1 mode=log
+--------------------------------------------------------------------------------------------------------
+  COMPARATOR: offset_on - offset_off
+    energy_tracking_gain_delta                : -0.101269
+    specificity_tracking_gain_delta           : -0.079943
+    phase_velocity_tracking_gain_delta        : +0.831114
+    pi_periodic_score_delta                   : -0.037094
+    pi_adic_best_score_delta                  : -0.043854
+    phase_span_pi_units_delta                 : -0.102274
+    energy_tracking_gain_ratio                : +0.896582
+    specificity_tracking_gain_ratio           : +0.918785
+    pi_periodic_score_ratio                   : +0.962308
+    hint: positive tracking deltas support offset-on phase/order locking; similar energy but weaker tracking suggests distance witness persists while phase/order lock changes
+--------------------------------------------------------------------------------------------------------
+  [SAVED] C:\D_M\probes\analyze\dm_probe_09_pi_phase_witness_20260606_170415
+========================================================================================================
+
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/10_dm_probe_qproj_dimensional_entanglement.py
+============================================================================================================
+  GHOST ORACLE SUITE — D_M PROBE 10: QPROJ DIMENSIONAL ENTANGLEMENT PROJECTION
+============================================================================================================
+  Out dir : C:\D_M\probes\analyze\dm_probe10_qproj_dimensional_entanglement_20260606_170701
+  n_perm  : 2000
+------------------------------------------------------------------------------------------------------------
+  CONDITION: null       no_delay_no_offset
+    input      : C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fm4ihvjngc73aq3ccg.npz
+    backend/job: ibm_marrakesh / d8fm4ihvjngc73aq3ccg
+    tiles/shots: 20 / 4096  repaired=False
+    delay max  : base=0 off=0 total=0
+    YZ mean    : -0.011895  pos_frac=0.400
+    energy     : mean=0.022385 max=0.031361
+    specificity: mean=+0.013937 max=+0.021698
+    π score    : 0.0000 p=1.0000 mode=none
+    projection : 0.029766
+------------------------------------------------------------------------------------------------------------
+  CONDITION: base_only  base_delay_only
+    input      : C:\D_M\data\dm_data_bell_listener_cavity_offset_d8flk2jo3njc73f0g560.npz
+    backend/job: ibm_marrakesh / d8flk2jo3njc73f0g560
+    tiles/shots: 20 / 4096  repaired=False
+    delay max  : base=16384 off=0 total=16384
+    YZ mean    : +0.079401  pos_frac=1.000
+    energy     : mean=0.155983 max=0.454959
+    specificity: mean=+0.095205 max=+0.299399
+    π score    : 0.9841 p=0.0065 mode=linear
+    projection : 0.405562
+------------------------------------------------------------------------------------------------------------
+  CONDITION: offset_on  base_delay_plus_offset
+    input      : C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fl82bo3njc73f0fgd0.npz
+    backend/job: ibm_marrakesh / d8fl82bo3njc73f0fgd0
+    tiles/shots: 20 / 4096  repaired=False
+    delay max  : base=16384 off=2240 total=18624
+    YZ mean    : +0.057028  pos_frac=1.000
+    energy     : mean=0.152505 max=0.327479
+    specificity: mean=+0.096836 max=+0.221769
+    π score    : 0.9470 p=0.0145 mode=log
+    projection : 0.384827
+------------------------------------------------------------------------------------------------------------
+  CONDITION SEPARATION
+    null -> base_only: Δprojection=+0.375796 Δenergy=+0.133598 std_dist=6.384
+    null -> offset_on: Δprojection=+0.355061 Δenergy=+0.130121 std_dist=5.000
+    base_only -> offset_on: Δprojection=-0.020735 Δenergy=-0.003478 std_dist=3.904
+------------------------------------------------------------------------------------------------------------
+  RUNG-LEVEL CONDITION CLASSIFICATION
+    manifold_only_no_delay_metadata: bal_acc=0.400 acc=0.400 p=0.3328
+    manifold_plus_delay_order: bal_acc=0.400 acc=0.400 p=0.3673
+------------------------------------------------------------------------------------------------------------
+  [SAVED] C:\D_M\probes\analyze\dm_probe_10_qproj_dimensional_entanglement_20260606_170701
+============================================================================================================
+
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/11_dm_probe_cuda_qproj_harness.py
+============================================================================================================
+  GHOST ORACLE SUITE — D_M PROBE 11 CUDA QPROJ HARNESS
+============================================================================================================
+  Input     : C:\D_M\data\dm_gpu_data_base_delay_4096shots_seed2669559634056472362.npz
+  Kernel    : C:\D_M\kernels\dm_projector_kernel.cu
+  Backend   : cupy_gpu
+  Job ID    : dm_gpu_base_delay_4096shots_seed2669559634056472362
+  Condition : base_delay_only
+  Tiles     : 20  Shots: 4096  Rungs: 5
+  Repaired  : False
+  Out dir   : C:\D_M\probes\analyze\11_dm_probe_cuda_qproj_harness_20260606_194350
+------------------------------------------------------------------------------------------------------------
+  CPU REFERENCE
+    projection_score     : 0.884777
+    yz_mean              : +0.122595
+    yz_pos_frac          : 1.000
+    yzzy_energy_mean     : 0.247033
+    specificity_mean     : +0.217124
+    pi_periodic_score    : 1.000000
+    elapsed              : 2.147 ms
+------------------------------------------------------------------------------------------------------------
+  CUDA PROJECTION
+    projection_score     : 0.295522
+    yz_mean              : +0.122595
+    yz_pos_frac          : 1.000
+    yzzy_energy_mean     : 0.247033
+    specificity_mean     : +0.217124
+    pi_periodic_score    : 1.000000
+    per_rep              : 0.028109 ms
+    records/sec          : 5,828,779,415
+
+  CUDA CONTROL — independent_bit_shuffle
+    projection_score     : 0.089097
+    yzzy_energy_mean     : 0.019672
+    specificity_mean     : +0.002281
+    per_rep              : 0.035027 ms
+
+  CUDA VS CPU
+    tile max abs diff    : 0.00000000
+    rung max abs diff    : 0.00000009
+    summary max abs diff : 0.58925503
+------------------------------------------------------------------------------------------------------------
+  [SAVED] C:\D_M\probes\analyze\dm_probe_11_cuda_qproj_harness_20260606_194529
+============================================================================================================
+
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/12_dm_probe_benchmark.py
+
+================================================================================================================
+  D_M BENCHMARK — FINAL DIMENSIONAL ENTANGLEMENT PROJECTION OPERATOR
+================================================================================================================
+  Data dir     : C:\D_M\data
+  Analysis dir : C:\D_M\probes\analyze\dm_probe_12_benchmark_20260606_195738
+  CUDA kernel  : yes
+  Kernel path  : C:\D_M\kernels\dm_projector_kernel.cu
+  GEO path     : yes
+----------------------------------------------------------------------------------------------------------------
+[QPROJ] null: C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fm4ihvjngc73aq3ccg.npz
+[QPROJ] base_only: C:\D_M\data\dm_data_bell_listener_cavity_offset_d8flk2jo3njc73f0g560.npz
+[QPROJ] offset_on: C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fl82bo3njc73f0fgd0.npz
+[GPROJ] null: C:\D_M\data\dm_gpu_data_null_4096shots_seed9031229662612491082.npz
+[GPROJ] base_only: C:\D_M\data\dm_gpu_data_base_delay_4096shots_seed2669559634056472362.npz
+[GPROJ] offset_on: C:\D_M\data\dm_gpu_data_offset_deformed_4096shots_seed6727069190982977623.npz
+[GEO] null: analytic manifold
+
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/13_dm_probe_benchmark2.py
+
+================================================================================================================
+  D_M FINAL BENCHMARK
+================================================================================================================
+  Data dir     : C:\D_M\data
+  Analysis dir : C:\D_M\probes\analyze\dm_probe_13_benchmark20260606_195624
+  CUDA kernel  : yes
+  Kernel path  : C:\D_M\kernels\dm_projector_kernel.cu
+  Verify       : yes
+  Classical DER: yes
+  Probe        : yes
+
+================================================================================================================
+  D_M VERIFY — QPROJ / GPROJ / GEO CONDITION PROJECTION
+================================================================================================================
+[QPROJ] null: C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fm4ihvjngc73aq3ccg.npz
+[QPROJ] base_only: C:\D_M\data\dm_data_bell_listener_cavity_offset_d8flk2jo3njc73f0g560.npz
+[QPROJ] offset_on: C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fl82bo3njc73f0fgd0.npz
+[GPROJ] null: C:\D_M\data\dm_gpu_data_null_4096shots_seed9031229662612491082.npz
+[GPROJ] base_only: C:\D_M\data\dm_gpu_data_base_delay_4096shots_seed2669559634056472362.npz
+[GPROJ] offset_on: C:\D_M\data\dm_gpu_data_offset_deformed_4096shots_seed6727069190982977623.npz
+[GEO] null: analytic manifold
+[GEO] base_only: analytic manifold
+[GEO] offset_on: analytic manifold
+[GEO SWEEP] candidates=262144 reps=200
+
+================================================================================================================
+  D_M VERIFY SUMMARY
+================================================================================================================
+  substrate | condition  | projection |     energy |       spec |   pi fit |      piW |   YZ+ |         rate/s
+  --------------------------------------------------------------------------------------------------------------
+  note: piW = yzzy_energy_mean * pi_periodic_score
+  --------------------------------------------------------------------------------------------------------------
+  geo      | base_only  |   0.284491 |   0.227245 |  +0.217043 |   1.0000 |  0.22725 |  1.00 |  1,521,601,160
+  geo      | null       |   0.003599 |   0.009830 |  -0.000359 |   0.0000 |  0.00000 |  0.60 |  1,521,601,160
+  geo      | offset_on  |   0.258413 |   0.202397 |  +0.192195 |   0.9949 |  0.20137 |  1.00 |  1,521,601,160
+  gproj    | base_only  |   0.295522 |   0.247033 |  +0.217124 |   1.0000 |  0.24703 |  1.00 |  5,616,991,556
+  gproj    | null       |   0.010326 |   0.023433 |  -0.000063 |   0.0000 |  0.00000 |  0.80 |  5,166,368,305
+  gproj    | offset_on  |   0.298216 |   0.275619 |  +0.251356 |   1.0000 |  0.27562 |  1.00 |  5,910,840,819
+  qproj    | base_only  |   0.220018 |   0.155983 |  +0.134641 |   0.9264 |  0.14451 |  1.00 |  5,864,027,988
+  qproj    | null       |   0.012762 |   0.022385 |  +0.019711 |   0.0000 |  0.00000 |  0.40 |  6,292,129,224
+  qproj    | offset_on  |   0.208717 |   0.152505 |  +0.136947 |   0.7890 |  0.12032 |  1.00 |  5,352,289,300
+
+  GEO SWEEP
+  --------------------------------------------------------------------------------------------------------------
+  candidates=262,144 conditions=3 points/rep=15,728,640 per_rep=10.336901 ms
+  analytic points/sec=1,521,601,160 candidate-conditions/sec=76,080,058
+
+  CONTROL COLLAPSE
+  --------------------------------------------------------------------------------------------------------------
+  qproj    null       projection 0.012762 -> 0.008890 drop=30.34%
+  qproj    base_only  projection 0.220018 -> 0.083027 drop=62.26%
+  qproj    offset_on  projection 0.208717 -> 0.100915 drop=51.65%
+  gproj    null       projection 0.010326 -> 0.008522 drop=17.47%
+  gproj    base_only  projection 0.295522 -> 0.089097 drop=69.85%
+  gproj    offset_on  projection 0.298216 -> 0.055686 drop=81.33%
+
+================================================================================================================
+  D_M CLASSICAL TASK — DIMENSIONAL ENTANGLEMENT RETRIEVAL
+================================================================================================================
+  groups       : 50,000
+  candidates   : 300,000
+  queries      : 4,096
+  query noise  : 0.01
+  CUDA         : yes
+  DER kernel   : yes
+  hard decoys  : yz_ret_swap, reciprocal_break, delay_permute, phase_scramble, comparison_decoy
+
+  DER tasks:
+    Task A local_hard_negative : true candidate vs matched scalar-equivalent decoys
+    Task B global_bank_stress  : retrieve true candidate from the full candidate bank
+
+  DER scoring:
+    energy/pi_fit use profile distance
+    flat_cosine uses normalized full-feature cosine
+    dm uses paired directional manifold distance
+
+  TASK A - LOCAL HARD-NEGATIVE DER
+  backend/control                           R@1      MRR  mean_rank  median_rank          q/s
+  --------------------------------------------------------------------------------------------
+  energy                                51.15%    0.740      1.586        1.000      321,569
+  pi_fit                                77.32%    0.886      1.228        1.000      347,675
+  flat_cosine                           99.83%    0.999      1.002        1.000      439,416
+  dm                                    99.83%    0.999      1.002        1.000      437,063
+
+  TASK B — GLOBAL BANK DER STRESS
+  backend/control               R@1      R@5     R@10      MRR          q/s
+  ------------------------------------------------------------------------------
+  energy                     0.20%   0.32%   0.63%    0.003       17,495
+  pi_fit                     0.24%   0.78%   1.25%    0.004       17,644
+  flat_cosine                4.64%  13.01%  18.02%    0.082       13,664
+  dm                         4.98%  13.55%  19.34%    0.087       16,609
+
+================================================================================================================
+  D_M DER CONTROLS — IS D_M STRUCTURE LOAD-BEARING?
+================================================================================================================
+
+  note: residual_scalar_direction_uniform is a residual scalar/phase control,
+        not a required full-collapse control.
+
+  LOCAL D_M CONTROL / RESIDUAL TESTS
+  backend/control                           R@1      MRR  mean_rank  median_rank          q/s
+  --------------------------------------------------------------------------------------------
+  dm                                    99.83%    0.999      1.002        1.000    3,656,307
+  query_yz_ret_swap                      0.05%    0.286      3.674        3.000    3,076,923
+  key_delay_permute                      0.05%    0.303      3.466        3.000    3,701,241
+  key_phase_scramble                    17.72%    0.416      3.468        3.000    3,623,188
+  residual_scalar_direction_uniform     98.85%    0.994      1.013        1.000    3,639,672
+
+================================================================================================================
+  DONE
+================================================================================================================
+  result              : C:\D_M\probes\analyze\dm_probe_13_benchmark20260606_195624\result.json
+  verify summary      : C:\D_M\probes\analyze\dm_probe_13_benchmark20260606_195624\verify_projection_summary.csv
+  verify controls     : C:\D_M\probes\analyze\dm_probe_13_benchmark20260606_195624\verify_control_collapse.csv
+  DER summary         : C:\D_M\probes\analyze\dm_probe_13_benchmark20260606_195624\der_summary.csv
+  DER controls        : C:\D_M\probes\analyze\dm_probe_13_benchmark20260606_195624\der_controls.csv
+  artifacts           : C:\D_M\probes\analyze\dm_probe_13_benchmark20260606_195624\artifacts.npz
+
+Done. Break it, fix it, document what happened.
+
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/14_dm_probe_holographic_projection.py
+
+================================================================================================================
+  D_M HOLOGRAPHIC PROJECTION PROBE
+================================================================================================================
+  D_M dir       : C:\D_M
+  Output dir    : C:\D_M\probes\analyze\dm_probe_14_holographic_probe_20260606_195957
+  Text sequences: 6
+  GPT-2 path    : gpt2
+  Bucket modes  : ['base']
+  Center modes  : ['row', 'global', 'zscore']
+  Rule          : pre-softmax QK product only; no softmax
+
+[LOAD] D_M qproj/gproj boundaries
+  qproj null      rungs=5 E_mean=+0.022385 S_mean=+0.019711 C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fm4ihvjngc73aq3ccg.npz
+  qproj base_only rungs=5 E_mean=+0.155983 S_mean=+0.134641 C:\D_M\data\dm_data_bell_listener_cavity_offset_d8flk2jo3njc73f0g560.npz
+  qproj offset_on rungs=5 E_mean=+0.152505 S_mean=+0.136947 C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fl82bo3njc73f0fgd0.npz
+  gproj null      rungs=5 E_mean=+0.023433 S_mean=-0.000063 C:\D_M\data\dm_gpu_data_null_4096shots_seed9031229662612491082.npz
+  gproj base_only rungs=5 E_mean=+0.247033 S_mean=+0.217124 C:\D_M\data\dm_gpu_data_base_delay_4096shots_seed2669559634056472362.npz
+  gproj offset_on rungs=5 E_mean=+0.275619 S_mean=+0.251356 C:\D_M\data\dm_gpu_data_offset_deformed_4096shots_seed6727069190982977623.npz
+[LOAD] D_M geo analytic boundaries
+  geo   null      rungs=5 E_mean=+0.006168 S_mean=+0.004270 analytic_geo_null
+  geo   base_only rungs=5 E_mean=+0.214523 S_mean=+0.205095 analytic_geo_base_only
+  geo   offset_on rungs=5 E_mean=+0.275332 S_mean=+0.265904 analytic_geo_offset_on
+
+[BUILD] Free product manifolds
+C:\Users\jonpo\AppData\Roaming\Python\Python312\site-packages\torch\cuda\__init__.py:61: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+  loading tokenizer/model: gpt2
+  device               : cuda
+  gpt2 batch size      : 16
+  GPT-2 batch 1/1: texts 0:6
+  built manifolds: 432 in 6.71s
+
+[SCORE] Project free product through D_M boundaries
+
+================================================================================================================
+  TOP HOLOGRAPHIC PROJECTION SCORES
+================================================================================================================
+  layer head bucket   center   substrate condition   score   align   retain  phaseMAE  projE    projS
+  ------------------------------------------------------------------------------------------------------------
+      2    4 base     zscore   gproj    null       0.930  +0.973  +0.589    0.016 +0.00115 +0.00029
+      2    4 base     global   gproj    null       0.930  +0.973  +0.589    0.016 +8.96732 +2.28973
+      9    9 base     global   gproj    null       0.906  +0.918  +0.578    0.072 +38.50585 +13.90793
+      9    9 base     zscore   gproj    null       0.906  +0.918  +0.578    0.072 +0.00116 +0.00042
+      2    0 base     zscore   geo      base_only  0.891  +0.764  +0.807    0.164 +0.01061 +0.01040
+      2    0 base     global   geo      base_only  0.891  +0.763  +0.809    0.165 +24.81828 +24.33433
+      9    9 base     zscore   geo      base_only  0.888  +0.897  +0.530    0.105 +0.00967 +0.00937
+      9    9 base     global   geo      base_only  0.888  +0.897  +0.530    0.105 +321.88372 +311.94033
+      7   10 base     zscore   geo      base_only  0.882  +0.768  +0.742    0.163 +0.00990 +0.00961
+      7   10 base     global   geo      base_only  0.882  +0.768  +0.742    0.163 +516.83584 +501.30803
+      2    4 base     global   qproj    offset_on  0.879  +0.997  +0.235    0.025 +54.23352 +49.94487
+      2    4 base     zscore   qproj    offset_on  0.879  +0.997  +0.234    0.025 +0.00694 +0.00640
+      9    9 base     zscore   qproj    base_only  0.879  +0.903  +0.435    0.087 +0.00658 +0.00591
+      9    9 base     global   qproj    base_only  0.879  +0.904  +0.435    0.087 +219.17198 +196.87457
+      9    9 base     zscore   qproj    offset_on  0.878  +0.919  +0.451    0.116 +0.00553 +0.00504
+      9    9 base     global   qproj    offset_on  0.878  +0.920  +0.450    0.116 +184.02034 +167.66424
+      8    1 base     row      geo      base_only  0.878  +0.930  +0.392    0.086 +263.62703 +252.94831
+      3    9 base     row      geo      base_only  0.877  +0.863  +0.521    0.121 +104.53492 +99.80293
+      9    9 base     zscore   gproj    base_only  0.877  +0.898  +0.479    0.125 +0.01039 +0.00941
+      9    9 base     global   gproj    base_only  0.877  +0.898  +0.479    0.125 +345.93142 +313.34020
+
+[DONE]
+  boundary manifolds : C:\D_M\probes\analyze\dm_probe_14_holographic_probe_20260606_195957\d_m_boundary_manifolds.csv
+  free manifolds     : C:\D_M\probes\analyze\dm_probe_14_holographic_probe_20260606_195957\gpt2_free_manifolds.csv
+  projection scores  : C:\D_M\probes\analyze\dm_probe_14_holographic_probe_20260606_195957\holographic_projection_scores.csv
+  config             : C:\D_M\probes\analyze\dm_probe_14_holographic_probe_20260606_195957\probe_config.json
+
+
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/15_dm_probe_native_stagger.py
+
+================================================================================================================
+  D_M NATIVE STAGGER PROBE
+================================================================================================================
+  D_M dir      : C:\D_M
+  Output dir   : C:\D_M\probes\analyze\dm_probe_15_native_stagger_probe_20260606_200112
+  qproj null   : C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fm4ihvjngc73aq3ccg.npz
+  permutations : 5000
+
+[OBSERVED]
+  backend/job       : ibm_marrakesh / d8fm4ihvjngc73aq3ccg
+  tiles/shots/rungs : 20 / 4096 / 5
+  explicit delays   : max base=0 max offset=0 max total=0
+  YZ/ZY energy mean : +0.02238491
+  XY/YX comp mean   : +0.00267436
+  specificity mean  : +0.01971055
+  YZ/ZY:comparison  : +8.3702x
+  phase slope       : +0.314773 pi/rung
+  phase r / R^2     : +0.963812 / +0.928934
+
+[CONTROLS]
+  independent_bit_shuffle            phase|r| mean=0.6318 p95=0.9827 p_upper=0.0970 | spec mean=+0.016192 p_upper=0.2258
+  rung_permutation_preserve_witness  phase|r| mean=0.5710 p95=0.9689 p_upper=0.0560 | spec mean=+0.019617 p_upper=0.4633
+  rung_permutation_global            phase|r| mean=0.5933 p95=0.9719 p_upper=0.0676 | spec mean=+0.013656 p_upper=0.0186
+
+[TOP ORDER CORRELATIONS]
+     abs_connected vs mean_q1              n=20 r=+0.4498
+     abs_connected vs mean_q0              n=20 r=+0.3611
+          raw_corr vs rung                 n=20 r=-0.3544
+    spin_agreement vs rung                 n=20 r=-0.3544
+          raw_corr vs witness_index        n=20 r=+0.2914
+    spin_agreement vs witness_index        n=20 r=+0.2914
+          raw_corr vs tile_array_index     n=20 r=-0.2912
+          raw_corr vs tile                 n=20 r=-0.2912
+
+[TOP CALIBRATION CORRELATIONS]
+  none found
+
+[DONE]
+  report      : C:\D_M\probes\analyze\dm_probe_15_native_stagger_probe_20260606_200112\native_stagger_report.txt
+  summary     : C:\D_M\probes\analyze\dm_probe_15_native_stagger_probe_20260606_200112\native_stagger_summary.json
+  rung csv    : C:\D_M\probes\analyze\dm_probe_15_native_stagger_probe_20260606_200112\rung_metrics.csv
+  tile csv    : C:\D_M\probes\analyze\dm_probe_15_native_stagger_probe_20260606_200112\tile_metrics.csv
+  controls csv: C:\D_M\probes\analyze\dm_probe_15_native_stagger_probe_20260606_200112\control_stats.csv
+  comparison  : C:\D_M\probes\analyze\dm_probe_15_native_stagger_probe_20260606_200112\base_comparison.csv
+
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/16_dm_probe_convert_corpus.py
+Wrote 1000 lines to C:\D_M\data\d_m_probe_corpus.txt
+
+
+
+================================================================================================================
+  D_M RAW-BOUNDARY PROJECTION PROBE  (GPU-only, kernel-driven)
+================================================================================================================
+  CUDA device   : NVIDIA GeForce RTX 3090
+  Kernel source : C:\D_M\kernels\dm_projector_kernel.cu
+  D_M dir       : C:\D_M
+  Output dir    : C:\D_M\probes\analyze\dm_probe_17_raw_boundary_probe_20260606_204555
+  Text sequences: 3
+  GPT-2 path    : gpt2
+  Rule          : GPT-2 QK is comparison only; D_M gets raw text bits
+  Projection    : data_pair XOR qproj/gproj base; analytic geo via projector kernel
+
+[LOAD] qproj/gproj record bases
+  qproj null      rungs=5 tiles=20 shots=4096  C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fm4ihvjngc73aq3ccg.npz
+  qproj base_only rungs=5 tiles=20 shots=4096  C:\D_M\data\dm_data_bell_listener_cavity_offset_d8flk2jo3njc73f0g560.npz
+  qproj offset_on rungs=5 tiles=20 shots=4096  C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fl82bo3njc73f0fgd0.npz
+  gproj null      rungs=5 tiles=20 shots=4096  C:\D_M\data\dm_gpu_data_null_4096shots_seed9031229662612491082.npz
+  gproj base_only rungs=5 tiles=20 shots=4096  C:\D_M\data\dm_gpu_data_base_delay_4096shots_seed2669559634056472362.npz
+  gproj offset_on rungs=5 tiles=20 shots=4096  C:\D_M\data\dm_gpu_data_offset_deformed_4096shots_seed6727069190982977623.npz
+
+[BUILD] raw text bit bank (host-side input encoding)
+  bits          : 675,224
+  data stride   : 17
+  delay scale   : 1
+
+[PROJECT] raw text through qproj/gproj bases (kernel)
+  qproj null      E_mean=+0.022176 S_mean=+0.000581 summary=+0.106868
+  qproj base_only E_mean=+0.031304 S_mean=+0.011784 summary=+0.121102
+  qproj offset_on E_mean=+0.022781 S_mean=-0.001140 summary=+0.119823
+  gproj null      E_mean=+0.022785 S_mean=+0.000703 summary=+0.091001
+  gproj base_only E_mean=+0.040252 S_mean=+0.026344 summary=+0.152699
+  gproj offset_on E_mean=+0.024015 S_mean=+0.010098 summary=+0.122092
+  record path   : 0.0030s  (164,008,298 shot-pairs/s over 6 bases)
+[PROJECT] geo analytic apertures (projector kernel)
+  geo   null      E_mean=+0.009830 S_mean=-0.000359 summary=+0.091070
+  geo   base_only E_mean=+0.164576 S_mean=+0.152334 summary=+0.353910
+  geo   offset_on E_mean=+0.149073 S_mean=+0.136831 summary=+0.322904
+  geo path      : 0.0010s
+
+[MARGIN] active-vs-null D_M separation
+  geo   active=base_only score_margin=+0.262840 E_margin=+0.154745 S_margin=+0.152693
+  gproj active=base_only score_margin=+0.061699 E_margin=+0.017467 S_margin=+0.025641
+  qproj active=base_only score_margin=+0.014233 E_margin=+0.009128 S_margin=+0.011203
+
+[GPT-2] free-running reference path
+C:\Users\jonpo\AppData\Roaming\Python\Python312\site-packages\torch\cuda\__init__.py:61: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+  loading tokenizer/model: gpt2
+  device               : cuda
+  gpt2 batch size      : 16
+  GPT-2 batch 1/1: texts 0:3
+  built GPT-2 free manifolds: 144 in 5.79s
+
+================================================================================================================
+  TOP GPT-2 FREE-QK VS INDEPENDENT D_M RAW-BOUNDARY COMPATIBILITY
+================================================================================================================
+  layer head center  substrate condition   compat  wcos   ecos   phaseMAE
+  ------------------------------------------------------------------------------------------------------------
+      0   10 row     geo      base_only   0.919 +0.763 +0.958    0.098
+      0    5 row     geo      base_only   0.913 +0.731 +0.958    0.096
+      0    1 row     geo      base_only   0.910 +0.739 +0.958    0.117
+      0   10 row     geo      offset_on   0.907 +0.734 +0.947    0.116
+      0    1 row     geo      offset_on   0.906 +0.727 +0.947    0.116
+      0    5 row     geo      offset_on   0.901 +0.706 +0.947    0.114
+      3   11 row     geo      base_only   0.897 +0.664 +0.958    0.096
+      9    7 row     geo      base_only   0.896 +0.659 +0.958    0.095
+      3    0 row     geo      base_only   0.896 +0.666 +0.958    0.104
+      7   11 row     geo      base_only   0.896 +0.660 +0.958    0.099
+      3    5 row     geo      base_only   0.896 +0.662 +0.958    0.102
+      3    6 row     geo      base_only   0.895 +0.658 +0.958    0.099
+      7    8 row     geo      base_only   0.895 +0.656 +0.958    0.098
+     11    0 row     geo      base_only   0.895 +0.657 +0.958    0.099
+      4    0 row     geo      base_only   0.895 +0.653 +0.958    0.096
+      7    5 row     geo      base_only   0.895 +0.654 +0.958    0.098
+      5    6 row     geo      base_only   0.895 +0.655 +0.958    0.099
+     11   11 row     geo      base_only   0.895 +0.664 +0.958    0.109
+     11    8 row     geo      base_only   0.895 +0.654 +0.958    0.098
+      9    1 row     geo      base_only   0.894 +0.652 +0.958    0.100
+
+[DONE]
+  D_M projected manifolds : C:\D_M\probes\analyze\dm_probe_17_raw_boundary_probe_20260606_204555\d_m_projected_manifolds.csv
+  D_M active margins      : C:\D_M\probes\analyze\dm_probe_17_raw_boundary_probe_20260606_204555\d_m_active_margin_scores.csv
+  GPT-2 free QK manifolds : C:\D_M\probes\analyze\dm_probe_17_raw_boundary_probe_20260606_204555\gpt2_free_qk_manifolds.csv
+  GPT-2/D_M compatibility : C:\D_M\probes\analyze\dm_probe_17_raw_boundary_probe_20260606_204555\gpt2_vs_dm_compatibility.csv
+  Config                  : C:\D_M\probes\analyze\dm_probe_17_raw_boundary_probe_20260606_204555\probe_config.json
+
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/18_dm_probe_raw_boundary_gpu_benchmark.py
+C:\Users\jonpo\AppData\Roaming\Python\Python312\site-packages\torch\cuda\__init__.py:61: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+
+================================================================================================================
+  D_M RAW-BOUNDARY GPU-ONLY PROJECTION BENCHMARK
+================================================================================================================
+  D_M dir       : C:\D_M
+  Output dir    : C:\D_M\probes\analyze\dm_probe_18_raw_boundary_gpu_benchmark_20260606_200558
+  CUDA device   : NVIDIA GeForce RTX 3090
+  Rule          : GPT-2 QK is comparison only; D_M gets raw text bits
+  CPU fallback  : removed / forbidden
+
+[COMPILE] CUDA D_M kernels
+  compiled      : yes
+
+[LOAD] input texts
+  text sequences: 3
+
+[LOAD] qproj/gproj record bases
+  qproj null      tiles= 20 shots=  4096 rungs=  5 C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fm4ihvjngc73aq3ccg.npz
+  qproj base_only tiles= 20 shots=  4096 rungs=  5 C:\D_M\data\dm_data_bell_listener_cavity_offset_d8flk2jo3njc73f0g560.npz
+  qproj offset_on tiles= 20 shots=  4096 rungs=  5 C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fl82bo3njc73f0fgd0.npz
+  gproj null      tiles= 20 shots=  4096 rungs=  5 C:\D_M\data\dm_gpu_data_null_4096shots_seed9031229662612491082.npz
+  gproj base_only tiles= 20 shots=  4096 rungs=  5 C:\D_M\data\dm_gpu_data_base_delay_4096shots_seed2669559634056472362.npz
+  gproj offset_on tiles= 20 shots=  4096 rungs=  5 C:\D_M\data\dm_gpu_data_offset_deformed_4096shots_seed6727069190982977623.npz
+
+[BUILD] raw text bit bank
+  bits          : 675,224
+  data stride   : 17
+  delay scale   : 1
+
+[PROJECT] qproj/gproj via fused CUDA projection + CUDA D_M kernels
+  qproj null      score=+0.008918 E_mean=+0.022300 S_mean=+0.004450 gpu_ms=7.880
+  qproj base_only score=+0.073834 E_mean=+0.025244 S_mean=+0.010983 gpu_ms=0.167
+  qproj offset_on score=+0.052676 E_mean=+0.023090 S_mean=+0.003843 gpu_ms=0.084
+  gproj null      score=+0.011388 E_mean=+0.022651 S_mean=+0.004917 gpu_ms=0.062
+  gproj base_only score=+0.107270 E_mean=+0.035669 S_mean=+0.021099 gpu_ms=0.073
+  gproj offset_on score=+0.040236 E_mean=+0.023666 S_mean=+0.001392 gpu_ms=0.072
+
+[PROJECT] geo via CUDA raw-data witness + CUDA analytic aperture
+  geo   null      score=+0.006023 E_mean=+0.009824 S_mean=+0.009707 gpu_ms=0.095
+  geo   base_only score=+0.109343 E_mean=+0.021911 S_mean=+0.021795 gpu_ms=0.090
+  geo   offset_on score=+0.093970 E_mean=+0.003763 S_mean=+0.003616 gpu_ms=0.084
+
+[GPT-2] raw QK GPU benchmark path
+  loading tokenizer/model : gpt2
+  GPT-2 batch 1/1: texts 0:3
+c:\D_M\probes\18_dm_probe_raw_boundary_gpu_benchmark.py:1738: RuntimeWarning: invalid value encountered in subtract
+  specificity = energy - comp
+  GPT-2 manifolds: 144 | QK gpu_ms=7.771 | reduce gpu_ms=35.171 | total gpu_ms=42.942
+
+[TOP D_M SUMMARY STATS BY METHOD]
+
+  GEO
+  --------------------------------------------------------------------------------------------------------
+  condition   score       E_mean      E_max       S_mean      S_max       YZ_mean     ZY_mean     pi_score   gpu_ms
+  base_only  +0.109343  +0.021911  +0.095974  +0.021795  +0.095737  +0.018787  -0.003488  +1.000000     0.090
+  offset_on  +0.093970  +0.003763  +0.010558  +0.003616  +0.010461  -0.000223  -0.001918  +0.886980     0.084
+  null       +0.006023  +0.009824  +0.010924  +0.009707  +0.010895  +0.001053  +0.000356  +0.000000     0.095
+
+  QPROJ
+  --------------------------------------------------------------------------------------------------------
+  condition   score       E_mean      E_max       S_mean      S_max       YZ_mean     ZY_mean     pi_score   gpu_ms
+  base_only  +0.073834  +0.025244  +0.032656  +0.010983  +0.025776  +0.007639  +0.005889  +0.639979     0.167
+  offset_on  +0.052676  +0.023090  +0.048284  +0.003843  +0.027095  -0.002984  -0.008432  +0.818818     0.084
+  null       +0.008918  +0.022300  +0.031107  +0.004450  +0.023005  -0.011749  +0.004442  +0.000000     7.880
+
+  GPROJ
+  --------------------------------------------------------------------------------------------------------
+  condition   score       E_mean      E_max       S_mean      S_max       YZ_mean     ZY_mean     pi_score   gpu_ms
+  base_only  +0.107270  +0.035669  +0.117897  +0.021099  +0.107021  +0.019104  -0.008178  +0.625524     0.073
+  offset_on  +0.040236  +0.023666  +0.040384  +0.001392  +0.014553  +0.008222  +0.004077  +1.000000     0.072
+  null       +0.011388  +0.022651  +0.043455  +0.004917  +0.038383  +0.014873  +0.008887  +0.000000     0.062
+
+[TOP D_M RUNG STATS BY METHOD]
+
+  GEO
+  --------------------------------------------------------------------------------------------------------
+  condition   rung  energy      specificity  YZ          ZY          phase/pi    total_delay
+  base_only     0  +0.095974  +0.095737  +0.094795  -0.014998  +0.049948  +0.0
+  null          2  +0.010924  +0.010895  -0.004417  -0.009991  +0.632505  +0.0
+  null          4  +0.010622  +0.010450  +0.006569  +0.008347  +0.712227  +0.0
+
+  QPROJ
+  --------------------------------------------------------------------------------------------------------
+  condition   rung  energy      specificity  YZ          ZY          phase/pi    total_delay
+  offset_on     1  +0.048284  +0.027095  +0.008939  -0.047449  +0.440731  +960.0
+  base_only     3  +0.032656  +0.017807  -0.011701  +0.030487  +0.383353  +4096.0
+  null          0  +0.031107  +0.023005  -0.027812  -0.013934  +0.852159  +0.0
+
+  GPROJ
+  --------------------------------------------------------------------------------------------------------
+  condition   rung  energy      specificity  YZ          ZY          phase/pi    total_delay
+  base_only     0  +0.117897  +0.107021  +0.091305  -0.074585  +0.218026  +0.0
+  null          3  +0.043455  +0.038383  +0.042175  -0.010473  +0.077474  +0.0
+  offset_on     3  +0.040384  +0.014553  +0.036448  +0.017390  +0.858295  +5824.0
+
+[GPU TIMER BENCHMARK]
+  --------------------------------------------------------------------------------------------------------
+  D_M geo  :      0.269 ms GPU | items=245,760 | items/s=913,850,551
+  D_M qproj:      8.132 ms GPU | items=245,760 | items/s=30,220,634
+  D_M gproj:      0.207 ms GPU | items=245,760 | items/s=1,185,551,102
+  D_M total:      8.608 ms GPU | items=737,280 | items/s=85,646,418
+  GPT-2 QK :     42.942 ms GPU | QK products=7,077,888 | products/s=164,824,181
+  GPT/D_M time ratio: 4.988x
+
+[WRITE] CSV / JSON outputs
+c:\D_M\probes\18_dm_probe_raw_boundary_gpu_benchmark.py:1174: RuntimeWarning: invalid value encountered in scalar divide
+  return float(np.dot(x, y) / (nx * ny))
+  wrote: C:\D_M\probes\analyze\dm_probe_18_raw_boundary_gpu_benchmark_20260606_200558\d_m_projected_manifolds.csv
+  wrote: C:\D_M\probes\analyze\dm_probe_18_raw_boundary_gpu_benchmark_20260606_200558\d_m_summary_stats.csv
+  wrote: C:\D_M\probes\analyze\dm_probe_18_raw_boundary_gpu_benchmark_20260606_200558\d_m_active_margin_scores.csv
+  wrote: C:\D_M\probes\analyze\dm_probe_18_raw_boundary_gpu_benchmark_20260606_200558\gpt2_free_qk_manifolds.csv
+  wrote: C:\D_M\probes\analyze\dm_probe_18_raw_boundary_gpu_benchmark_20260606_200558\gpt2_vs_dm_compatibility.csv
+  wrote: C:\D_M\probes\analyze\dm_probe_18_raw_boundary_gpu_benchmark_20260606_200558\benchmark_timers.csv
+  wrote: C:\D_M\probes\analyze\dm_probe_18_raw_boundary_gpu_benchmark_20260606_200558\probe_config.json
+
+[DONE] GPU-only D_M / GPT-2 benchmark complete.
+
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/19_dm_probe_task_utility_retrieval_gpu.py
+C:\Users\jonpo\AppData\Roaming\Python\Python312\site-packages\torch\cuda\__init__.py:61: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+
+================================================================================================================
+  D_M TASK UTILITY RETRIEVAL BENCHMARK — GPU ONLY
+================================================================================================================
+  D_M dir       : C:\D_M
+  Output dir    : C:\D_M\probes\analyze\dm_probe_19_task_utility_retrieval_gpu_20260606_200755
+  CUDA device   : NVIDIA GeForce RTX 3090
+  Rule          : GPT-2 is comparison only; D_M gets raw text bits
+  CPU fallback  : removed / forbidden
+
+[COMPILE] CUDA D_M kernels
+  compiled      : yes
+
+[LOAD] input texts
+  loaded texts  : 3
+
+[BUILD] retrieval task
+  queries       : 3
+  candidates    : 12
+  positive kind : exact
+  decoys/source : shuffle,light_noise,rotate
+
+[LOAD] qproj/gproj record bases
+  qproj null      tiles= 20 shots=  4096 rungs=  5 C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fm4ihvjngc73aq3ccg.npz
+  qproj base_only tiles= 20 shots=  4096 rungs=  5 C:\D_M\data\dm_data_bell_listener_cavity_offset_d8flk2jo3njc73f0g560.npz
+  qproj offset_on tiles= 20 shots=  4096 rungs=  5 C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fl82bo3njc73f0fgd0.npz
+  gproj null      tiles= 20 shots=  4096 rungs=  5 C:\D_M\data\dm_gpu_data_null_4096shots_seed9031229662612491082.npz
+  gproj base_only tiles= 20 shots=  4096 rungs=  5 C:\D_M\data\dm_gpu_data_base_delay_4096shots_seed2669559634056472362.npz
+  gproj offset_on tiles= 20 shots=  4096 rungs=  5 C:\D_M\data\dm_gpu_data_offset_deformed_4096shots_seed6727069190982977623.npz
+
+[D_M] per-text GPU signatures
+  texts encoded : 15
+  min bits/text : 675,200
+  encoding geo_offset_on      ...
+    done dim=62 gpu_ms=9.176
+  encoding qproj_base_only    ...
+    done dim=62 gpu_ms=1.248
+  encoding qproj_offset_on    ...
+    done dim=62 gpu_ms=1.111
+  encoding gproj_base_only    ...
+    done dim=62 gpu_ms=1.036
+  encoding gproj_offset_on    ...
+    done dim=62 gpu_ms=0.931
+  encoding geo_null           ...
+    done dim=62 gpu_ms=1.904
+  encoding qproj_null         ...
+    done dim=62 gpu_ms=1.171
+  encoding gproj_null         ...
+    done dim=62 gpu_ms=1.389
+
+[GPT-2] per-text GPU signatures
+  loading tokenizer/model : gpt2
+  GPT-2 batch 1/1: texts 0:15
+  gpt2_hidden  dim=768 gpu_ms=257.654
+  gpt2_qk      dim=576 gpu_ms=257.654
+
+[SCORE] GPU retrieval
+  geo_offset_on          top1=100.00% top5=100.00% MRR=1.0000 margin=+0.00000 mode=raw_neg_mse score_ms=0.605
+  qproj_base_only        top1=100.00% top5=100.00% MRR=1.0000 margin=+0.00005 mode=raw_neg_mse score_ms=0.498
+  qproj_offset_on        top1=100.00% top5=100.00% MRR=1.0000 margin=+0.00003 mode=raw_neg_mse score_ms=0.544
+  gproj_base_only        top1=100.00% top5=100.00% MRR=1.0000 margin=+0.00004 mode=raw_neg_mse score_ms=0.593
+  gproj_offset_on        top1=100.00% top5=100.00% MRR=1.0000 margin=+0.00004 mode=raw_neg_mse score_ms=0.487
+  geo_null               top1=100.00% top5=100.00% MRR=1.0000 margin=+0.00000 mode=raw_neg_mse score_ms=0.505
+  qproj_null             top1=100.00% top5=100.00% MRR=1.0000 margin=+0.00001 mode=raw_neg_mse score_ms=0.522
+  gproj_null             top1=100.00% top5=100.00% MRR=1.0000 margin=+0.00001 mode=raw_neg_mse score_ms=0.546
+  gpt2_hidden            top1=100.00% top5=100.00% MRR=1.0000 margin=+0.00153 mode=cosine score_ms=3.277
+  gpt2_qk                top1=100.00% top5=100.00% MRR=1.0000 margin=+0.02001 mode=cosine score_ms=5.441
+
+[RETRIEVAL UTILITY LEADERBOARD]
+  ------------------------------------------------------------------------------------------------------------------------
+  method                 family     score_mode     top1     top5      MRR  mean_rank     margin   encode_ms   score_ms    dim
+  gpt2_qk                GPT-2          cosine  100.00%  100.00%   1.0000       1.00   +0.02001     257.654      5.441    576
+  gpt2_hidden            GPT-2          cosine  100.00%  100.00%   1.0000       1.00   +0.00153     257.654      3.277    768
+  qproj_base_only        D_M       raw_neg_mse  100.00%  100.00%   1.0000       1.00   +0.00005       1.248      0.498     62
+  gproj_base_only        D_M       raw_neg_mse  100.00%  100.00%   1.0000       1.00   +0.00004       1.036      0.593     62
+  gproj_offset_on        D_M       raw_neg_mse  100.00%  100.00%   1.0000       1.00   +0.00004       0.931      0.487     62
+  qproj_offset_on        D_M       raw_neg_mse  100.00%  100.00%   1.0000       1.00   +0.00003       1.111      0.544     62
+  qproj_null             D_M       raw_neg_mse  100.00%  100.00%   1.0000       1.00   +0.00001       1.171      0.522     62
+  gproj_null             D_M       raw_neg_mse  100.00%  100.00%   1.0000       1.00   +0.00001       1.389      0.546     62
+  geo_offset_on          D_M       raw_neg_mse  100.00%  100.00%   1.0000       1.00   +0.00000       9.176      0.605     62
+  geo_null               D_M       raw_neg_mse  100.00%  100.00%   1.0000       1.00   +0.00000       1.904      0.505     62
+
+[WRITE] CSV / JSON outputs
+  wrote: C:\D_M\probes\analyze\dm_probe_19_task_utility_retrieval_gpu_20260606_200755\retrieval_summary.csv
+  wrote: C:\D_M\probes\analyze\dm_probe_19_task_utility_retrieval_gpu_20260606_200755\retrieval_per_query.csv
+  wrote: C:\D_M\probes\analyze\dm_probe_19_task_utility_retrieval_gpu_20260606_200755\retrieval_candidates.csv
+  wrote: C:\D_M\probes\analyze\dm_probe_19_task_utility_retrieval_gpu_20260606_200755\dm_signature_stats.csv
+  wrote: C:\D_M\probes\analyze\dm_probe_19_task_utility_retrieval_gpu_20260606_200755\benchmark_timers.csv
+  wrote: C:\D_M\probes\analyze\dm_probe_19_task_utility_retrieval_gpu_20260606_200755\probe_config.json
+
+[DONE] GPU-only D_M / GPT-2 task utility retrieval benchmark complete.
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/20_dm_probe_make_random_null_corpus.py
+wrote 5000 random lines -> random_null_corpus.txt
+line length: min=120 max=120 mean=120.0
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/21_dm_probe_04w_windowed_phase_trajectory.py
+====================================================================================================
+  D_M PROBE 04W — WINDOWED-RESOLUTION QPROJ PHASE TRAJECTORY
+====================================================================================================
+  Out dir : C:\D_M\probes\analyze\dm_probe_21_windowed_phase_20260606_200940
+  window  : 512 shots/snapshot     n_perm : 2000
+----------------------------------------------------------------------------------------------------
+  null       no_delay_no_offset
+    tiles/shots : 20/4096  windows=8  points=40  repaired=False
+    energy mean : 0.053642  specificity=+0.031520
+    pi score    : 0.0000  p=1.0000  mode=none  omega=+0.000
+    phase_vel_r : +0.0000  p=1.0000  span_pi=0.000
+    energy_track: r=+0.0000 p=1.0000
+----------------------------------------------------------------------------------------------------
+  base_only  base_delay_only
+    tiles/shots : 20/4096  windows=8  points=40  repaired=False
+    energy mean : 0.170162  specificity=+0.097822
+    pi score    : 0.8487  p=0.0005  mode=linear  omega=-5.321
+    phase_vel_r : -0.1862  p=0.2599  span_pi=3.675
+    energy_track: r=+0.9587 p=0.0005
+----------------------------------------------------------------------------------------------------
+  offset_on  base_delay_plus_offset
+    tiles/shots : 20/4096  windows=8  points=40  repaired=False
+    energy mean : 0.168899  specificity=+0.091304
+    pi score    : 0.7850  p=0.0005  mode=linear  omega=-0.982
+    phase_vel_r : -0.1934  p=0.2284  span_pi=2.602
+    energy_track: r=+0.8397 p=0.0005
+----------------------------------------------------------------------------------------------------
+  CONTROL CHECK (does observed clear the structural nulls?)
+    null       independent_bit_shuffle  pi_score obs=0.0000 null=0.0000±0.0000 z=+0.00 p=1.0000
+    null       witness_label_shuffle    pi_score obs=0.0000 null=0.0000±0.0000 z=+0.00 p=1.0000
+    base_only  independent_bit_shuffle  pi_score obs=0.8487 null=0.3131±0.0764 z=+7.01 p=0.0040
+    base_only  witness_label_shuffle    pi_score obs=0.8487 null=0.8033±0.1066 z=+0.43 p=0.4104
+    offset_on  independent_bit_shuffle  pi_score obs=0.7850 null=0.3194±0.0744 z=+6.26 p=0.0040
+    offset_on  witness_label_shuffle    pi_score obs=0.7850 null=0.7189±0.1104 z=+0.60 p=0.3386
+----------------------------------------------------------------------------------------------------
+  [SAVED] C:\D_M\probes\analyze\dm_probe_21_windowed_phase_20260606_200940
+====================================================================================================
+
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/22_dm_probe_task_utility_retrieval_rawsignal.py
+C:\Users\jonpo\AppData\Roaming\Python\Python312\site-packages\torch\cuda\__init__.py:61: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+
+================================================================================================================
+  D_M TASK UTILITY RETRIEVAL BENCHMARK — GPU ONLY
+================================================================================================================
+  D_M dir       : C:\D_M
+  Output dir    : C:\D_M\probes\analyze\dm_probe_22_task_utility_retrieval_gpu_20260606_201039
+  CUDA device   : NVIDIA GeForce RTX 3090
+  Rule          : GPT-2 is comparison only; D_M gets raw text bits
+  CPU fallback  : removed / forbidden
+
+[COMPILE] CUDA D_M kernels
+  compiled      : yes
+
+[LOAD] input texts
+  loaded texts  : 3
+
+[BUILD] retrieval task
+  queries       : 3
+  candidates    : 12
+  positive kind : exact
+  decoys/source : shuffle,light_noise,rotate
+
+[LOAD] qproj/gproj record bases
+  qproj null      tiles= 20 shots=  4096 rungs=  5 C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fm4ihvjngc73aq3ccg.npz
+  qproj base_only tiles= 20 shots=  4096 rungs=  5 C:\D_M\data\dm_data_bell_listener_cavity_offset_d8flk2jo3njc73f0g560.npz
+  qproj offset_on tiles= 20 shots=  4096 rungs=  5 C:\D_M\data\dm_data_bell_listener_cavity_offset_d8fl82bo3njc73f0fgd0.npz
+  gproj null      tiles= 20 shots=  4096 rungs=  5 C:\D_M\data\dm_gpu_data_null_4096shots_seed9031229662612491082.npz
+  gproj base_only tiles= 20 shots=  4096 rungs=  5 C:\D_M\data\dm_gpu_data_base_delay_4096shots_seed2669559634056472362.npz
+  gproj offset_on tiles= 20 shots=  4096 rungs=  5 C:\D_M\data\dm_gpu_data_offset_deformed_4096shots_seed6727069190982977623.npz
+
+[D_M] per-text GPU signatures
+  texts encoded : 15
+  min bits/text : 675,200
+  encoding geo_offset_on      ...
+    done dim=62 gpu_ms=9.702
+  encoding qproj_base_only    ...
+    done dim=62 gpu_ms=1.084
+  encoding qproj_offset_on    ...
+    done dim=62 gpu_ms=1.332
+  encoding gproj_base_only    ...
+    done dim=62 gpu_ms=1.162
+  encoding gproj_offset_on    ...
+    done dim=62 gpu_ms=1.029
+  encoding geo_null           ...
+    done dim=62 gpu_ms=1.159
+  encoding qproj_null         ...
+    done dim=62 gpu_ms=0.985
+  encoding gproj_null         ...
+    done dim=62 gpu_ms=1.299
+
+[GPT-2] per-text GPU signatures
+  loading tokenizer/model : gpt2
+  GPT-2 batch 1/1: texts 0:15
+  gpt2_hidden  dim=768 gpu_ms=253.286
+  gpt2_qk      dim=576 gpu_ms=253.286
+
+[SCORE] GPU retrieval
+  geo_offset_on          top1=100.00% top5=100.00% MRR=1.0000 margin=+0.00000 mode=raw_neg_mse score_ms=0.632
+  qproj_base_only        top1=100.00% top5=100.00% MRR=1.0000 margin=+0.00005 mode=raw_neg_mse score_ms=0.553
+  qproj_offset_on        top1=100.00% top5=100.00% MRR=1.0000 margin=+0.00003 mode=raw_neg_mse score_ms=1.099
+  gproj_base_only        top1=100.00% top5=100.00% MRR=1.0000 margin=+0.00004 mode=raw_neg_mse score_ms=0.698
+  gproj_offset_on        top1=100.00% top5=100.00% MRR=1.0000 margin=+0.00004 mode=raw_neg_mse score_ms=0.569
+  geo_null               top1=100.00% top5=100.00% MRR=1.0000 margin=+0.00000 mode=raw_neg_mse score_ms=0.552
+  qproj_null             top1=100.00% top5=100.00% MRR=1.0000 margin=+0.00001 mode=raw_neg_mse score_ms=0.603
+  gproj_null             top1=100.00% top5=100.00% MRR=1.0000 margin=+0.00001 mode=raw_neg_mse score_ms=0.525
+  gpt2_hidden            top1=100.00% top5=100.00% MRR=1.0000 margin=+0.00153 mode=cosine score_ms=3.373
+  gpt2_qk                top1=100.00% top5=100.00% MRR=1.0000 margin=+0.02001 mode=cosine score_ms=3.976
+
+[RETRIEVAL UTILITY LEADERBOARD]
+  ------------------------------------------------------------------------------------------------------------------------
+  method                 family     score_mode     top1     top5      MRR  mean_rank     margin   encode_ms   score_ms    dim
+  gpt2_qk                GPT-2          cosine  100.00%  100.00%   1.0000       1.00   +0.02001     253.286      3.976    576
+  gpt2_hidden            GPT-2          cosine  100.00%  100.00%   1.0000       1.00   +0.00153     253.286      3.373    768
+  qproj_base_only        D_M       raw_neg_mse  100.00%  100.00%   1.0000       1.00   +0.00005       1.084      0.553     62
+  gproj_base_only        D_M       raw_neg_mse  100.00%  100.00%   1.0000       1.00   +0.00004       1.162      0.698     62
+  gproj_offset_on        D_M       raw_neg_mse  100.00%  100.00%   1.0000       1.00   +0.00004       1.029      0.569     62
+  qproj_offset_on        D_M       raw_neg_mse  100.00%  100.00%   1.0000       1.00   +0.00003       1.332      1.099     62
+  qproj_null             D_M       raw_neg_mse  100.00%  100.00%   1.0000       1.00   +0.00001       0.985      0.603     62
+  gproj_null             D_M       raw_neg_mse  100.00%  100.00%   1.0000       1.00   +0.00001       1.299      0.525     62
+  geo_offset_on          D_M       raw_neg_mse  100.00%  100.00%   1.0000       1.00   +0.00000       9.702      0.632     62
+  geo_null               D_M       raw_neg_mse  100.00%  100.00%   1.0000       1.00   +0.00000       1.159      0.552     62
+
+[WRITE] CSV / JSON outputs
+  wrote: C:\D_M\probes\analyze\dm_probe_22_task_utility_retrieval_gpu_20260606_201039\retrieval_summary.csv
+  wrote: C:\D_M\probes\analyze\dm_probe_22_task_utility_retrieval_gpu_20260606_201039\retrieval_per_query.csv
+  wrote: C:\D_M\probes\analyze\dm_probe_22_task_utility_retrieval_gpu_20260606_201039\retrieval_candidates.csv
+  wrote: C:\D_M\probes\analyze\dm_probe_22_task_utility_retrieval_gpu_20260606_201039\dm_signature_stats.csv
+  wrote: C:\D_M\probes\analyze\dm_probe_22_task_utility_retrieval_gpu_20260606_201039\benchmark_timers.csv
+  wrote: C:\D_M\probes\analyze\dm_probe_22_task_utility_retrieval_gpu_20260606_201039\probe_config.json
+
+[DONE] GPU-only D_M / GPT-2 task utility retrieval benchmark complete.
+
+
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/23_dm_probe_dimensional_invariance_controls.py
+====================================================================================================
+  D_M PROBE 05 — DIMENSIONAL INVARIANCE / FORBIDDEN-CORRUPTION CONTROLS
+====================================================================================================
+  Out dir : C:\D_M\probes\analyze\dm_probe_23_dimensional_invariance_20260606_201233
+  window  : 4096 shots/snapshot
+  n_perm  : 2000
+  Rule    : allowed channel rotations should survive; forbidden corruptions should collapse/weaken
+----------------------------------------------------------------------------------------------------
+  qproj_null           null         substrate=qproj path=dm_data_bell_listener_cavity_offset_d8fm4ihvjngc73aq3ccg.npz
+    tiles/shots : 20/4096  windows=1  points/window=5
+    observed                           canon_pi=0.0000 dim_pi=0.0000 dim_energy=0.022385 dim_spec=+0.019711 best=YZ<-ZY canonical;none
+    equiv_pair_swap                    canon_pi=0.0000 dim_pi=0.0000  dim_ret=0.000 dim_energy=0.022385 dim_spec=+0.019711 best=XY<-YX pair;none
+    equiv_reciprocal_swap              canon_pi=0.0000 dim_pi=0.0000  dim_ret=0.000 dim_energy=0.022385 dim_spec=+0.019711 best=YZ<-ZY canonical;none
+    equiv_cyclic_rotation              canon_pi=0.0000 dim_pi=0.0000  dim_ret=0.000 dim_energy=0.018772 dim_spec=+0.008172 best=XY<-YX pair;none
+    reciprocal_break                   canon_null=0.0000±0.0000 p=1.0000  dim_null=0.0000±0.0000 p=1.0000
+    cross_rung_delay_scramble          canon_null=0.0000±0.0000 p=1.0000  dim_null=0.0000±0.0000 p=1.0000
+    same_label_wrong_delay             canon_null=0.0000±0.0000 p=1.0000  dim_null=0.0000±0.0000 p=1.0000
+    non_equivalence_channel_corruption canon_null=0.0000±0.0000 p=1.0000  dim_null=0.0000±0.0000 p=1.0000
+    independent_bit_shuffle            canon_null=0.0000±0.0000 p=1.0000  dim_null=0.0000±0.0000 p=1.0000
+----------------------------------------------------------------------------------------------------
+  qproj_base_only      base_only    substrate=qproj path=dm_data_bell_listener_cavity_offset_d8flk2jo3njc73f0g560.npz
+    tiles/shots : 20/4096  windows=1  points/window=5
+    observed                           canon_pi=0.9264 dim_pi=0.9264 dim_energy=0.155983 dim_spec=+0.134641 best=YZ<-ZY canonical;linear
+    equiv_pair_swap                    canon_pi=0.8608 dim_pi=0.9264  dim_ret=1.000 dim_energy=0.155983 dim_spec=+0.134641 best=XY<-YX pair;linear
+    equiv_reciprocal_swap              canon_pi=0.9264 dim_pi=0.9264  dim_ret=1.000 dim_energy=0.155983 dim_spec=+0.134641 best=ZY<-YZ reciprocal;linear
+    equiv_cyclic_rotation              canon_pi=0.3507 dim_pi=0.5421  dim_ret=0.585 dim_energy=0.080529 dim_spec=-0.049558 best=YX<-XY reciprocal;linear
+    reciprocal_break                   canon_null=0.7448±0.1484 p=0.1014  dim_null=0.8374±0.1052 p=0.2339
+    cross_rung_delay_scramble          canon_null=0.7707±0.1603 p=0.2099  dim_null=0.8429±0.1162 p=0.2824
+    same_label_wrong_delay             canon_null=0.7633±0.1542 p=0.1629  dim_null=0.8515±0.1167 p=0.3258
+    non_equivalence_channel_corruption canon_null=0.7193±0.1999 p=0.2039  dim_null=0.8323±0.1595 p=0.3803
+    independent_bit_shuffle            canon_null=0.7545±0.1858 p=0.2429  dim_null=0.8678±0.1363 p=0.4493
+----------------------------------------------------------------------------------------------------
+  qproj_offset_on      offset_on    substrate=qproj path=dm_data_bell_listener_cavity_offset_d8fl82bo3njc73f0fgd0.npz
+    tiles/shots : 20/4096  windows=1  points/window=5
+    observed                           canon_pi=0.7890 dim_pi=0.7890 dim_energy=0.152505 dim_spec=+0.136947 best=YZ<-ZY canonical;log
+    equiv_pair_swap                    canon_pi=0.6437 dim_pi=0.7890  dim_ret=1.000 dim_energy=0.152505 dim_spec=+0.136947 best=XY<-YX pair;log
+    equiv_reciprocal_swap              canon_pi=0.7890 dim_pi=0.7890  dim_ret=1.000 dim_energy=0.152505 dim_spec=+0.136947 best=YZ<-ZY canonical;log
+    equiv_cyclic_rotation              canon_pi=0.8874 dim_pi=0.8874  dim_ret=1.125 dim_energy=0.138088 dim_spec=+0.079978 best=YZ<-ZY canonical;log
+    reciprocal_break                   canon_null=0.7705±0.1794 p=0.5597  dim_null=0.8379±0.1353 p=0.7061
+    cross_rung_delay_scramble          canon_null=0.7351±0.2063 p=0.4408  dim_null=0.8482±0.1465 p=0.6822
+    same_label_wrong_delay             canon_null=0.7529±0.1929 p=0.5022  dim_null=0.8610±0.1378 p=0.7446
+    non_equivalence_channel_corruption canon_null=0.7194±0.2145 p=0.4443  dim_null=0.8306±0.1663 p=0.6627
+    independent_bit_shuffle            canon_null=0.7360±0.2029 p=0.4608  dim_null=0.8539±0.1520 p=0.7096
+----------------------------------------------------------------------------------------------------
+  gproj_null           null         substrate=gproj path=dm_gpu_data_null_4096shots_seed9031229662612491082.npz
+    tiles/shots : 20/4096  windows=1  points/window=5
+    observed                           canon_pi=0.0000 dim_pi=0.0000 dim_energy=0.023496 dim_spec=+0.000063 best=XY<-YX pair;none
+    equiv_pair_swap                    canon_pi=0.0000 dim_pi=0.0000  dim_ret=0.000 dim_energy=0.023496 dim_spec=+0.000063 best=YZ<-ZY canonical;none
+    equiv_reciprocal_swap              canon_pi=0.0000 dim_pi=0.0000  dim_ret=0.000 dim_energy=0.023496 dim_spec=+0.000063 best=XY<-YX pair;none
+    equiv_cyclic_rotation              canon_pi=0.0000 dim_pi=0.0000  dim_ret=0.000 dim_energy=0.024315 dim_spec=+0.001899 best=YZ<-ZY canonical;none
+    reciprocal_break                   canon_null=0.0000±0.0000 p=1.0000  dim_null=0.0000±0.0000 p=1.0000
+    cross_rung_delay_scramble          canon_null=0.0000±0.0000 p=1.0000  dim_null=0.0000±0.0000 p=1.0000
+    same_label_wrong_delay             canon_null=0.0000±0.0000 p=1.0000  dim_null=0.0000±0.0000 p=1.0000
+    non_equivalence_channel_corruption canon_null=0.0000±0.0000 p=1.0000  dim_null=0.0000±0.0000 p=1.0000
+    independent_bit_shuffle            canon_null=0.0000±0.0000 p=1.0000  dim_null=0.0000±0.0000 p=1.0000
+----------------------------------------------------------------------------------------------------
+  gproj_base_only      base_only    substrate=gproj path=dm_gpu_data_base_delay_4096shots_seed2669559634056472362.npz
+    tiles/shots : 20/4096  windows=1  points/window=5
+    observed                           canon_pi=1.0000 dim_pi=1.0000 dim_energy=0.247033 dim_spec=+0.217124 best=YZ<-ZY canonical;linear
+    equiv_pair_swap                    canon_pi=0.6731 dim_pi=1.0000  dim_ret=1.000 dim_energy=0.247033 dim_spec=+0.217124 best=XY<-YX pair;linear
+    equiv_reciprocal_swap              canon_pi=1.0000 dim_pi=1.0000  dim_ret=1.000 dim_energy=0.247033 dim_spec=+0.217124 best=YZ<-ZY canonical;linear
+    equiv_cyclic_rotation              canon_pi=1.0000 dim_pi=1.0000  dim_ret=1.000 dim_energy=0.206728 dim_spec=+0.081474 best=YZ<-ZY canonical;log
+    reciprocal_break                   canon_null=0.8392±0.1858 p=0.3998  dim_null=0.9006±0.1318 p=0.4513
+    cross_rung_delay_scramble          canon_null=0.7457±0.2299 p=0.3083  dim_null=0.8767±0.1893 p=0.6507
+    same_label_wrong_delay             canon_null=0.7633±0.2245 p=0.2189  dim_null=0.8753±0.1386 p=0.2979
+    non_equivalence_channel_corruption canon_null=0.8005±0.1824 p=0.2004  dim_null=0.9006±0.1246 p=0.3538
+    independent_bit_shuffle            canon_null=0.7659±0.1881 p=0.1544  dim_null=0.8664±0.1394 p=0.2749
+----------------------------------------------------------------------------------------------------
+  gproj_offset_on      offset_on    substrate=gproj path=dm_gpu_data_offset_deformed_4096shots_seed6727069190982977623.npz
+    tiles/shots : 20/4096  windows=1  points/window=5
+    observed                           canon_pi=1.0000 dim_pi=1.0000 dim_energy=0.275619 dim_spec=+0.251356 best=YZ<-ZY canonical;log
+    equiv_pair_swap                    canon_pi=1.0000 dim_pi=1.0000  dim_ret=1.000 dim_energy=0.275619 dim_spec=+0.251356 best=XY<-YX pair;log
+    equiv_reciprocal_swap              canon_pi=1.0000 dim_pi=1.0000  dim_ret=1.000 dim_energy=0.275619 dim_spec=+0.251356 best=YZ<-ZY canonical;log
+    equiv_cyclic_rotation              canon_pi=0.6602 dim_pi=0.6602  dim_ret=0.660 dim_energy=0.250463 dim_spec=+0.144726 best=ZY<-YZ reciprocal;linear
+    reciprocal_break                   canon_null=0.7686±0.2202 p=0.2749  dim_null=0.8941±0.1304 p=0.3458
+    cross_rung_delay_scramble          canon_null=0.7092±0.2803 p=0.2964  dim_null=0.8373±0.1671 p=0.3743
+    same_label_wrong_delay             canon_null=0.6815±0.2878 p=0.2839  dim_null=0.8473±0.1723 p=0.3673
+    non_equivalence_channel_corruption canon_null=0.7004±0.2134 p=0.0870  dim_null=0.8167±0.1661 p=0.1689
+    independent_bit_shuffle            canon_null=0.7372±0.2085 p=0.1419  dim_null=0.8517±0.1509 p=0.2519
+----------------------------------------------------------------------------------------------------
+  [SAVED] C:\D_M\probes\analyze\dm_probe_23_dimensional_invariance_20260606_201233
+    probe05_summary.csv
+    probe05_control_distribution.csv
+    probe05_rung_values.csv
+    probe_config.json
+====================================================================================================
+
+
+====================================================================================================
+PS C:\D_M> & "C:\Program Files\Python312\python.exe" c:/D_M/probes/24_dm_probe_corruption_boundary.py
+====================================================================================================
+  D_M PROBE 05B — DIMENSIONAL ERROR-CORRECTION / CORRUPTION BOUNDARY
+====================================================================================================
+  Out dir            : C:\D_M\probes\analyze\dm_probe_24_corruption_boundary_20260606_201510
+  window             : 4096 shots/snapshot
+  trials/depth       : 500
+  max depth          : 5
+  collapse threshold : 0.5
+  preserve threshold : 0.75
+  Rule               : single faults may repair; compound faults should reveal the collapse border
+----------------------------------------------------------------------------------------------------
+  qproj_null           null        substrate=qproj path=dm_data_bell_listener_cavity_offset_d8fm4ihvjngc73aq3ccg.npz
+    tiles/shots : 20/4096  windows=1  rungs=5
+    observed    : phase=1.0000 mode=log    energy=0.002674 spec=-0.019711 best=XY<-YX pair
+    allowed     : identity=0.914  equiv_pair_swap=0.914  equiv_reciprocal_swap=0.914  equiv_cyclic_rotation=0.483
+    depth curve :
+      k=1  mean=0.555 med=0.568 p10=0.444 p90=0.646 below=0.20 worst=non_equivalence_channel_corruption
+      k=2  mean=0.518 med=0.523 p10=0.449 p90=0.572 below=0.40 worst=non_equivalence_channel_corruption+independent_bit_shuffle
+      k=3  mean=0.482 med=0.477 p10=0.456 p90=0.515 below=0.70 worst=reciprocal_break+same_label_wrong_delay+non_equivalence_channel_corruption
+      k=4  mean=0.492 med=0.494 p10=0.446 p90=0.536 below=0.60 worst=reciprocal_break+cross_rung_delay_scramble+same_label_wrong_delay+non_equivalence_channel_corruption
+      k=5  mean=0.565 med=0.565 p10=0.565 p90=0.565 below=0.00 worst=reciprocal_break+cross_rung_delay_scramble+same_label_wrong_delay+non_equivalence_channel_corruption+independent_bit_shuffle
+    border      : median<thr @ 3; p90<preserve @ 1; median<=null @ not reached
+----------------------------------------------------------------------------------------------------
+  qproj_base_only      base_only   substrate=qproj path=dm_data_bell_listener_cavity_offset_d8flk2jo3njc73f0g560.npz
+    tiles/shots : 20/4096  windows=1  rungs=5
+    observed    : phase=0.9264 mode=linear energy=0.155983 spec=+0.134641 best=YZ<-ZY canonical
+    null floor  : survival=0.4314 best=ZY<-YZ reciprocal
+    allowed     : identity=0.995  equiv_pair_swap=0.995  equiv_reciprocal_swap=0.995  equiv_cyclic_rotation=0.660
+    depth curve :
+      k=1  mean=0.574 med=0.575 p10=0.431 p90=0.712 below=0.20 worst=independent_bit_shuffle
+      k=2  mean=0.445 med=0.466 p10=0.238 p90=0.597 below=0.60 worst=non_equivalence_channel_corruption+independent_bit_shuffle
+      k=3  mean=0.379 med=0.344 p10=0.298 p90=0.462 below=0.90 worst=reciprocal_break+cross_rung_delay_scramble+non_equivalence_channel_corruption
+      k=4  mean=0.420 med=0.341 p10=0.246 p90=0.666 below=0.80 worst=cross_rung_delay_scramble+same_label_wrong_delay+non_equivalence_channel_corruption+independent_bit_shuffle
+      k=5  mean=0.387 med=0.387 p10=0.387 p90=0.387 below=1.00 worst=reciprocal_break+cross_rung_delay_scramble+same_label_wrong_delay+non_equivalence_channel_corruption+independent_bit_shuffle
+    border      : median<thr @ 2; p90<preserve @ 1; median<=null @ 3
+----------------------------------------------------------------------------------------------------
+  qproj_offset_on      offset_on   substrate=qproj path=dm_data_bell_listener_cavity_offset_d8fl82bo3njc73f0fgd0.npz
+    tiles/shots : 20/4096  windows=1  rungs=5
+    observed    : phase=0.7890 mode=log    energy=0.152505 spec=+0.136947 best=YZ<-ZY canonical
+    null floor  : survival=0.3885 best=ZY<-YZ reciprocal
+    allowed     : identity=0.985  equiv_pair_swap=0.985  equiv_reciprocal_swap=0.985  equiv_cyclic_rotation=0.823
+    depth curve :
+      k=1  mean=0.579 med=0.581 p10=0.428 p90=0.706 below=0.20 worst=independent_bit_shuffle
+      k=2  mean=0.432 med=0.375 p10=0.237 p90=0.642 below=0.60 worst=non_equivalence_channel_corruption+independent_bit_shuffle
+      k=3  mean=0.408 med=0.365 p10=0.283 p90=0.545 below=0.80 worst=reciprocal_break+same_label_wrong_delay+independent_bit_shuffle
+      k=4  mean=0.343 med=0.298 p10=0.270 p90=0.461 below=0.80 worst=reciprocal_break+cross_rung_delay_scramble+same_label_wrong_delay+independent_bit_shuffle
+      k=5  mean=0.225 med=0.225 p10=0.225 p90=0.225 below=1.00 worst=reciprocal_break+cross_rung_delay_scramble+same_label_wrong_delay+non_equivalence_channel_corruption+independent_bit_shuffle
+    border      : median<thr @ 2; p90<preserve @ 1; median<=null @ 2
+----------------------------------------------------------------------------------------------------
+  gproj_null           null        substrate=gproj path=dm_gpu_data_null_4096shots_seed9031229662612491082.npz
+    tiles/shots : 20/4096  windows=1  rungs=5
+    observed    : phase=1.0000 mode=linear energy=0.023433 spec=-0.000063 best=ZY<-YZ reciprocal
+    allowed     : identity=0.914  equiv_pair_swap=0.914  equiv_reciprocal_swap=0.914  equiv_cyclic_rotation=0.781
+    depth curve :
+      k=1  mean=0.643 med=0.633 p10=0.598 p90=0.696 below=0.00 worst=independent_bit_shuffle
+      k=2  mean=0.580 med=0.576 p10=0.558 p90=0.611 below=0.00 worst=cross_rung_delay_scramble+independent_bit_shuffle
+      k=3  mean=0.596 med=0.594 p10=0.531 p90=0.667 below=0.00 worst=reciprocal_break+same_label_wrong_delay+non_equivalence_channel_corruption
+      k=4  mean=0.575 med=0.563 p10=0.552 p90=0.611 below=0.00 worst=reciprocal_break+same_label_wrong_delay+non_equivalence_channel_corruption+independent_bit_shuffle
+      k=5  mean=0.532 med=0.532 p10=0.532 p90=0.532 below=0.00 worst=reciprocal_break+cross_rung_delay_scramble+same_label_wrong_delay+non_equivalence_channel_corruption+independent_bit_shuffle
+    border      : median<thr @ not reached; p90<preserve @ 1; median<=null @ not reached
+----------------------------------------------------------------------------------------------------
+  gproj_base_only      base_only   substrate=gproj path=dm_gpu_data_base_delay_4096shots_seed2669559634056472362.npz
+    tiles/shots : 20/4096  windows=1  rungs=5
+    observed    : phase=1.0000 mode=log    energy=0.247033 spec=+0.217124 best=YZ<-ZY canonical
+    null floor  : survival=0.1560 best=YX<-XY reciprocal
+    allowed     : identity=1.000  equiv_pair_swap=1.000  equiv_reciprocal_swap=1.000  equiv_cyclic_rotation=0.683
+    depth curve :
+      k=1  mean=0.664 med=0.736 p10=0.442 p90=0.820 below=0.20 worst=independent_bit_shuffle
+      k=2  mean=0.491 med=0.438 p10=0.250 p90=0.764 below=0.50 worst=same_label_wrong_delay+independent_bit_shuffle
+      k=3  mean=0.376 med=0.351 p10=0.226 p90=0.527 below=0.80 worst=reciprocal_break+non_equivalence_channel_corruption+independent_bit_shuffle
+      k=4  mean=0.341 med=0.349 p10=0.276 p90=0.399 below=1.00 worst=reciprocal_break+cross_rung_delay_scramble+same_label_wrong_delay+independent_bit_shuffle
+      k=5  mean=0.237 med=0.237 p10=0.237 p90=0.237 below=1.00 worst=reciprocal_break+cross_rung_delay_scramble+same_label_wrong_delay+non_equivalence_channel_corruption+independent_bit_shuffle
+    border      : median<thr @ 2; p90<preserve @ 3; median<=null @ not reached
+----------------------------------------------------------------------------------------------------
+  gproj_offset_on      offset_on   substrate=gproj path=dm_gpu_data_offset_deformed_4096shots_seed6727069190982977623.npz
+    tiles/shots : 20/4096  windows=1  rungs=5
+    observed    : phase=1.0000 mode=log    energy=0.275619 spec=+0.251356 best=YZ<-ZY canonical
+    null floor  : survival=0.1386 best=YX<-XY reciprocal
+    allowed     : identity=1.000  equiv_pair_swap=1.000  equiv_reciprocal_swap=1.000  equiv_cyclic_rotation=0.750
+    depth curve :
+      k=1  mean=0.558 med=0.613 p10=0.292 p90=0.805 below=0.40 worst=independent_bit_shuffle
+      k=2  mean=0.444 med=0.385 p10=0.254 p90=0.669 below=0.60 worst=same_label_wrong_delay+independent_bit_shuffle
+      k=3  mean=0.390 med=0.275 p10=0.209 p90=0.649 below=0.60 worst=cross_rung_delay_scramble+non_equivalence_channel_corruption+independent_bit_shuffle
+      k=4  mean=0.290 med=0.273 p10=0.198 p90=0.403 below=1.00 worst=cross_rung_delay_scramble+same_label_wrong_delay+non_equivalence_channel_corruption+independent_bit_shuffle
+      k=5  mean=0.260 med=0.260 p10=0.260 p90=0.260 below=1.00 worst=reciprocal_break+cross_rung_delay_scramble+same_label_wrong_delay+non_equivalence_channel_corruption+independent_bit_shuffle
+    border      : median<thr @ 2; p90<preserve @ 2; median<=null @ not reached
+----------------------------------------------------------------------------------------------------
+====================================================================================================
+  D_M PROBE 05B COMPLETE
+====================================================================================================
+  Output: C:\D_M\probes\analyze\dm_probe_24_corruption_boundary_20260606_201510
+  Files : probe05b_observed_rows.csv
+          probe05b_allowed_rows.csv
+          probe05b_depth_summary.csv
+          probe05b_trial_rows.csv
+          probe_config.json
+====================================================================================================
+
+
+
+

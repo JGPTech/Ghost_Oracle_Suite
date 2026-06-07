@@ -1,0 +1,72 @@
+{
+  "schema": "ghost_oracle.dm.gpu_meta.v1",
+  "job_id": "dm_gpu_null_4096shots_seed9031229662612491082",
+  "created_utc": "2026-06-03T10:53:46.540189+00:00",
+  "operator": "D_M",
+  "substrate": "gproj",
+  "condition": "null",
+  "generator": "d_m_gpu_generate.py",
+  "generation_backend": "cupy_gpu",
+  "device": "NVIDIA GeForce RTX 3090",
+  "shots": 4096,
+  "num_tiles": 20,
+  "rungs": 5,
+  "qubits_per_tile": 2,
+  "base_delays_dt": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "offset_dt": 0,
+  "witness_pairs": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      1,
+      0
+    ]
+  ],
+  "witness_labels": [
+    "XY",
+    "YZ",
+    "ZY",
+    "YX"
+  ],
+  "basis_labels": [
+    "X",
+    "Y",
+    "Z"
+  ],
+  "seed": 9031229662612491082,
+  "model": {
+    "null_scale": 0.012,
+    "base_energy": 0.03,
+    "energy_gain": 0.285,
+    "comparison_scale": 0.01,
+    "margin_scale": 0.03,
+    "noise_scale": 0.01,
+    "phase_jitter": 0.13,
+    "offset_deform": 0.18
+  },
+  "diagnostics": {
+    "yz_mean": 0.014161014556884765,
+    "yz_positive_fraction": 0.8,
+    "energy_mean": 0.023433299094282923,
+    "energy_max": 0.043514963704207224,
+    "specificity_mean": -6.281410045142315e-05,
+    "specificity_max": 0.010419801697245734
+  },
+  "notes": "Controlled D_M dimensional entanglement base generator. This is not a QPU simulator claim. It writes the same analysis-facing D_M base arrays as d_m_qpu_generate.py dump."
+}
